@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
+process.env.DATABASE_URL ??= "postgresql://aether:aether@localhost:5432/aether_pqc";
+
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 export const prisma =

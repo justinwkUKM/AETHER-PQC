@@ -19,6 +19,7 @@ export default defineConfig({
         "src/lib/ids.ts",
         "src/lib/parsing/**/*.ts",
         "src/lib/remediation/**/*.ts",
+        "src/lib/storage/**/*.ts",
         "src/lib/ai/schemas.ts"
       ]
     }

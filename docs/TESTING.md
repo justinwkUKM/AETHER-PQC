@@ -21,3 +21,14 @@ Playwright covers the main browser flow with `TEST_AUTH_ENABLED=true`:
 ## Coverage
 
 The configured target is 80% line coverage for core library and server modules.
+
+Current covered areas:
+
+- crypto scoring
+- graph snapshot validation and merge
+- deterministic JSON/text parsing
+- file validation
+- remediation mapping
+- AI response schema validation
+
+E2E runs against a local Next dev server with Docker Postgres and `TEST_AUTH_ENABLED=true`.
