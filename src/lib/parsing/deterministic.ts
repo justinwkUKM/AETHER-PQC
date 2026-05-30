@@ -45,8 +45,11 @@ export function parseStructuredJson(raw: string, artifactId: string): GraphSnaps
   const nodes = [];
   const edges = [];
 
-  if (isObject(parsed) && Array.isArray(parsed.components)) {
-    for (const [index, component] of parsed.components.entries()) {
+  const components = isObject(parsed) && Array.isArray(parsed.components) ? parsed.components : null;
+  const hasComponentList = Boolean(components);
+
+  if (components) {
+    for (const [index, component] of components.entries()) {
       if (!isObject(component)) continue;
       const name = componentName(component, `component_${index}`);
       const componentId = toStableId(`component_${name}`);
@@ -82,18 +85,20 @@ export function parseStructuredJson(raw: string, artifactId: string): GraphSnaps
     }
   }
 
-  for (const mention of collectCryptoMentions(parsed)) {
-    const cryptoId = toStableId(`crypto_${mention.name}_${mention.context}`);
-    if (!nodes.some((node) => node.id === cryptoId)) {
-      nodes.push({
-        id: cryptoId,
-        label: "CryptoAsset" as const,
-        name: mention.name,
-        vulnerabilityScore: scorePrimitive(mention.name),
-        confidence: 1,
-        sourceArtifactIds: [artifactId],
-        attributes: { context: mention.context }
-      });
+  if (!hasComponentList) {
+    for (const mention of collectCryptoMentions(parsed)) {
+      const cryptoId = toStableId(`crypto_${mention.name}_${mention.context}`);
+      if (!nodes.some((node) => node.id === cryptoId)) {
+        nodes.push({
+          id: cryptoId,
+          label: "CryptoAsset" as const,
+          name: mention.name,
+          vulnerabilityScore: scorePrimitive(mention.name),
+          confidence: 1,
+          sourceArtifactIds: [artifactId],
+          attributes: { context: mention.context }
+        });
+      }
     }
   }
 

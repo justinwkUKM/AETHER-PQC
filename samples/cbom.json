@@ -1,0 +1,24 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "components": [
+    {
+      "type": "library",
+      "name": "payment-ledger-api",
+      "version": "2.4.0",
+      "cryptoProperties": {
+        "algorithm": "RSA-2048",
+        "purpose": "JWT signature validation"
+      }
+    },
+    {
+      "type": "library",
+      "name": "audit-exporter",
+      "version": "1.1.0",
+      "cryptoProperties": {
+        "algorithm": "AES-256",
+        "purpose": "data-at-rest encryption"
+      }
+    }
+  ]
+}
