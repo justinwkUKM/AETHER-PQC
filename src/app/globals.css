@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --bg-deep: #030712;
+  --bg-surface: #0b0f19;
+  --bg-muted: #161f30;
+  --border-base: #1f2d44;
+  --accent-cyan: #00f0ff;
+  --accent-emerald: #10b981;
+  --accent-crimson: #f43f5e;
+  --accent-amber: #f59e0b;
+}
+
+body {
+  background: var(--bg-deep);
+  color: #e5e7eb;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.aether-panel {
+  border: 1px solid var(--border-base);
+  background: rgba(11, 15, 25, 0.92);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.05);
+}
+
+.aether-input {
+  width: 100%;
+  border: 1px solid var(--border-base);
+  background: var(--bg-muted);
+  color: #f8fafc;
+  outline: none;
+}
+
+.aether-input:focus {
+  border-color: var(--accent-cyan);
+}
