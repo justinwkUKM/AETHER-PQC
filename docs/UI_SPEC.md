@@ -25,7 +25,7 @@ AETHER-PQC should feel calm, premium, and focused. The visual language is inspir
 - Login: editorial split layout with a clear sign-in action and short value summary.
 - Dashboard: prominent greeting, quick-action affordance, project list, and status cards.
 - New assessment: centered form flow with supporting guidance and tips.
-- Scan view: upload-first interaction with a live activity console.
+- Scan view: upload-first interaction with a live activity console that uses SSE first and polling fallback.
 - Project overview: prominent summary banner, risk score, and graph surface.
 - Remediations: priority-first queue with readable action cards.
 
@@ -34,6 +34,7 @@ AETHER-PQC should feel calm, premium, and focused. The visual language is inspir
 - Buttons should feel tactile and consistent, with icon + text on primary actions.
 - Inputs should be large enough for quick scanning and comfortable use.
 - Tags, chips, and small badges should communicate state without clutter.
+- Long-running analysis states should show staged progress, live console heartbeats, and clear completion/warning/error states.
 - Empty states should explain the next action and make it obvious where to go next.
 
 ## Acceptance Criteria

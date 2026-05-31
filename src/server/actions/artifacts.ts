@@ -185,9 +185,10 @@ export async function analyzeProjectBatch(projectId: string, artifactIds: string
     return { status: "SKIPPED", artifactCount: artifacts.length, message };
   }
 
-  await logEvent(projectId, null, `Running unified Gemini batch analysis over ${artifacts.length} completed artifacts.`);
+  await logEvent(projectId, null, `Preparing unified artifact context for ${artifacts.length} completed artifacts.`);
 
   try {
+    await logEvent(projectId, null, "Building current graph context.");
     const contexts: BatchArtifactContext[] = artifacts.map((artifact) => ({
       artifactId: artifact.id,
       name: artifact.name,
@@ -197,14 +198,18 @@ export async function analyzeProjectBatch(projectId: string, artifactIds: string
       rawPayload: artifact.rawPayload
     }));
     const currentGraph = parseGraphSnapshot(project.graphSnapshot);
+    await logEvent(projectId, null, "Dispatching Gemini batch analysis.");
     const batchGraph = await analyzeBatchWithGemini({
       projectName: project.name,
       currentGraph,
       artifacts: contexts
     });
+    await logEvent(projectId, null, "Merging batch graph response.");
     const mergedGraph = enrichGraphExposure(mergeGraphSnapshots(currentGraph, batchGraph));
+    await logEvent(projectId, null, "Recomputing exposure-aware risk.");
     const riskScore = calculateRiskScore(mergedGraph);
 
+    await logEvent(projectId, null, "Regenerating remediations.");
     await persistRemediations(projectId, mergedGraph);
     await prisma.project.update({
       where: { id: projectId },

@@ -16,12 +16,26 @@ type OverallStatus = {
   state: "IDLE" | "RUNNING" | "SUCCESS" | "WARNING" | "ERROR";
 };
 
+type ScanStage = "UPLOAD" | "PARSE" | "MERGE" | "EXPOSURE" | "GEMINI" | "REMEDIATION" | "COMPLETE";
+
+const scanStages: Array<{ id: ScanStage; label: string }> = [
+  { id: "UPLOAD", label: "Upload" },
+  { id: "PARSE", label: "Parse" },
+  { id: "MERGE", label: "Merge" },
+  { id: "EXPOSURE", label: "Exposure" },
+  { id: "GEMINI", label: "Gemini" },
+  { id: "REMEDIATION", label: "Remediate" },
+  { id: "COMPLETE", label: "Complete" }
+];
+
 export function ArtifactUpload({ projectId }: { projectId: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [queue, setQueue] = useState<FileQueueItem[]>([]);
   const [isPending, startTransition] = useTransition();
   const [overallStatus, setOverallStatus] = useState<OverallStatus>({ message: "", state: "IDLE" });
+  const [scanStage, setScanStage] = useState<ScanStage>("UPLOAD");
+  const [progressPercent, setProgressPercent] = useState(0);
 
   const formatBytes = (bytes: number) => {
     if (bytes === 0) return "0 Bytes";
@@ -40,6 +54,8 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
       }));
       setQueue(items);
       setOverallStatus({ message: "", state: "IDLE" });
+      setScanStage("UPLOAD");
+      setProgressPercent(0);
     }
   };
 
@@ -70,6 +86,8 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
         setQueue((prev) =>
           prev.map((item, idx) => (idx === i ? { ...item, status: "PROCESSING" } : item))
         );
+        setScanStage(i === 0 ? "UPLOAD" : "PARSE");
+        setProgressPercent(Math.max(8, Math.round((i / files.length) * 45)));
         setOverallStatus({ message: `Processing file ${i + 1} of ${files.length}: ${file.name}`, state: "RUNNING" });
 
         try {
@@ -88,6 +106,8 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
           }
 
           completedArtifactIds.push(result.artifactId);
+          setScanStage("MERGE");
+          setProgressPercent(Math.max(20, Math.round(((i + 1) / files.length) * 55)));
           setQueue((prev) =>
             prev.map((item, idx) => (idx === i ? { ...item, status: "COMPLETED" } : item))
           );
@@ -102,13 +122,19 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
       }
 
       if (completedArtifactIds.length > 1) {
+        setScanStage("GEMINI");
+        setProgressPercent(72);
         setOverallStatus({ message: `Running unified batch analysis across ${completedArtifactIds.length} artifacts...`, state: "RUNNING" });
         const batchResult = await analyzeProjectBatch(projectId, completedArtifactIds);
+        setScanStage(batchResult.status === "COMPLETED" ? "COMPLETE" : "REMEDIATION");
+        setProgressPercent(batchResult.status === "COMPLETED" ? 100 : 92);
         setOverallStatus({
           message: batchResult.message,
           state: batchResult.status === "COMPLETED" ? "SUCCESS" : batchResult.status === "SKIPPED" ? "WARNING" : "ERROR"
         });
       } else {
+        setScanStage("COMPLETE");
+        setProgressPercent(100);
         setOverallStatus({ message: "Artifact scanning completed.", state: "SUCCESS" });
       }
 
@@ -206,7 +232,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
         {/* Global Progress Indicator */}
         {overallStatus.message && (
           <div
-            className={`rounded-md border px-4 py-3 text-xs font-mono flex items-center gap-2 ${
+            className={`rounded-md border px-4 py-3 text-xs font-mono ${
               overallStatus.state === "SUCCESS"
                 ? "border-emerald-400/25 bg-emerald-400/8 text-emerald-300"
                 : overallStatus.state === "WARNING"
@@ -216,11 +242,36 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
                     : "border-[#32e6ff]/20 bg-[#32e6ff]/5 text-[#32e6ff]"
             }`}
           >
-            {overallStatus.state === "RUNNING" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : null}
-            {overallStatus.state === "SUCCESS" ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
-            {overallStatus.state === "WARNING" ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
-            {overallStatus.state === "ERROR" ? <XCircle className="h-3.5 w-3.5" /> : null}
-            <span>{overallStatus.message}</span>
+            <div className="mb-3 flex items-center gap-2">
+              {overallStatus.state === "RUNNING" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : null}
+              {overallStatus.state === "SUCCESS" ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
+              {overallStatus.state === "WARNING" ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
+              {overallStatus.state === "ERROR" ? <XCircle className="h-3.5 w-3.5" /> : null}
+              <span>{overallStatus.message}</span>
+            </div>
+            <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+              <div
+                className="h-full rounded-full bg-[#32e6ff] transition-all duration-700"
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+            <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-7">
+              {scanStages.map((stage) => {
+                const activeIndex = scanStages.findIndex((item) => item.id === scanStage);
+                const stageIndex = scanStages.findIndex((item) => item.id === stage.id);
+                const active = stageIndex <= activeIndex;
+                return (
+                  <span
+                    key={stage.id}
+                    className={`rounded border px-2 py-1 text-center text-[9px] uppercase tracking-[0.14em] ${
+                      active ? "border-[#32e6ff]/25 bg-[#32e6ff]/10 text-[#32e6ff]" : "border-white/10 bg-white/3 text-slate-500"
+                    }`}
+                  >
+                    {stage.label}
+                  </span>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

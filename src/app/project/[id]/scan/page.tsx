@@ -1,6 +1,8 @@
 import { AppShell } from "@/components/shell";
 import { ArtifactUpload } from "@/components/project/artifact-upload";
 import { ArtifactList } from "@/components/project/artifact-list";
+import { LiveScanConsole } from "@/components/project/live-scan-console";
+import { serializeScanEvent } from "@/lib/scan-events";
 import { requireProject, requireUser } from "@/server/auth/guards";
 
 export default async function ScanPage({ params }: { params: Promise<{ id: string }> }) {
@@ -42,30 +44,7 @@ export default async function ScanPage({ params }: { params: Promise<{ id: strin
           <ArtifactList artifacts={project.artifacts} projectId={project.id} />
         </div>
 
-        <aside className="aether-panel h-full overflow-hidden rounded-lg">
-          <div className="border-b border-white/10 px-5 py-4">
-            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">Console core</p>
-            <h2 className="mt-2 text-lg font-semibold text-slate-50">Activity log</h2>
-          </div>
-          <div className="max-h-[760px] space-y-3 overflow-y-auto p-5 font-mono text-xs">
-            {project.scanEvents.length === 0 ? <p className="text-slate-500">System idle. Start by uploading the first artifact.</p> : null}
-            {project.scanEvents.map((event) => (
-              <div
-                key={event.id}
-                className={`rounded-md border px-3 py-3 ${
-                  event.level === "ERROR"
-                    ? "border-rose-500/20 bg-rose-500/8 text-rose-200"
-                    : event.level === "SUCCESS"
-                      ? "border-emerald-500/20 bg-emerald-500/8 text-emerald-200"
-                      : "border-white/10 bg-white/3 text-slate-300"
-                }`}
-              >
-                <span className="mr-2 text-slate-500">[{event.createdAt.toISOString().slice(11, 19)}]</span>
-                {event.message}
-              </div>
-            ))}
-          </div>
-        </aside>
+        <LiveScanConsole projectId={project.id} initialEvents={project.scanEvents.map(serializeScanEvent)} />
       </div>
     </AppShell>
   );
