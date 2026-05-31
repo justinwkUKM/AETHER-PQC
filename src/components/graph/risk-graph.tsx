@@ -177,11 +177,17 @@ export function RiskGraph({ projectId, graph, artifacts = [] }: { projectId: str
         .filter((edge) => edge.source === selectedNode.id || edge.target === selectedNode.id)
         .map((edge) => {
           const otherId = edge.source === selectedNode.id ? edge.target : edge.source;
-          return { edge, node: graph.nodes.find((node) => node.id === otherId) };
+          return {
+            direction: edge.source === selectedNode.id ? "outbound" : "inbound",
+            edge,
+            node: graph.nodes.find((node) => node.id === otherId)
+          };
         })
-        .filter((connection): connection is { edge: GraphEdge; node: GraphNode } => Boolean(connection.node))
+        .filter((connection): connection is { direction: "inbound" | "outbound"; edge: GraphEdge; node: GraphNode } => Boolean(connection.node))
     : [];
   const selectedExplanation = selectedNode ? explainNode(selectedNode) : null;
+  const selectedInterpretation = selectedNode ? interpretArchitecture(selectedNode, graph, selectedConnections) : null;
+  const selectedEvidence = selectedNode ? describeEvidence(selectedNode, artifactMap) : null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_360px]" ref={containerRef}>
@@ -548,6 +554,27 @@ export function RiskGraph({ projectId, graph, artifacts = [] }: { projectId: str
                 </div>
               ) : null}
 
+              {selectedInterpretation ? (
+                <div className="mb-5 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-slate-500">Architecture interpretation</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-200">{selectedInterpretation.summary}</p>
+                  <div className="mt-3 grid gap-2 text-xs leading-5 text-slate-400">
+                    <div>
+                      <span className="text-slate-300">Exposure signal: </span>
+                      {selectedInterpretation.exposure}
+                    </div>
+                    <div>
+                      <span className="text-slate-300">Evidence signal: </span>
+                      {selectedEvidence}
+                    </div>
+                    <div>
+                      <span className="text-slate-300">Architect action: </span>
+                      {selectedInterpretation.action}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+
               {/* Stats Grid */}
               <div className="grid grid-cols-2 gap-3 mb-5">
                 <div className="rounded-md border border-white/5 bg-[#050a14] p-3 text-center">
@@ -579,6 +606,7 @@ export function RiskGraph({ projectId, graph, artifacts = [] }: { projectId: str
                   <p className="mt-2 text-base font-bold text-slate-200">
                     {(selectedNode.confidence * 100).toFixed(0)}%
                   </p>
+                  <p className="mt-1 text-[10px] text-slate-500">{confidenceLabel(selectedNode.confidence)}</p>
                 </div>
               </div>
 
@@ -592,6 +620,9 @@ export function RiskGraph({ projectId, graph, artifacts = [] }: { projectId: str
                     <p className="font-mono text-xs text-slate-200">{selectedNode.exposureLevel}</p>
                     <p className="mt-2 text-xs leading-5 text-slate-400">
                       {formatExposurePath(selectedNode, graph)}
+                    </p>
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      {scoreExplanation(selectedNode)}
                     </p>
                     <div className="mt-3 flex flex-wrap gap-1.5">
                       {(selectedNode.exposureReasons.length ? selectedNode.exposureReasons : ["No explicit exposure evidence detected."]).map((reason) => (
@@ -609,12 +640,18 @@ export function RiskGraph({ projectId, graph, artifacts = [] }: { projectId: str
                   <div className="rounded-md border border-white/5 bg-black/20 p-3">
                     {selectedConnections.length > 0 ? (
                       <div className="space-y-2">
-                        {selectedConnections.slice(0, 6).map(({ edge, node }) => (
+                        {selectedConnections.slice(0, 6).map(({ direction, edge, node }) => (
                           <div key={`${edge.source}-${edge.target}-${edge.type}`} className="flex items-start gap-2 rounded border border-white/5 bg-white/3 px-2 py-2">
                             <GitBranch className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#05ffd1]" />
                             <div className="min-w-0">
-                              <p className="truncate text-xs text-slate-200">{node.name}</p>
-                              <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-slate-500">{edge.type.replaceAll("_", " ")}</p>
+                              <p className="truncate text-xs text-slate-200">
+                                {direction === "outbound" ? "This item connects to " : "Connected from "}
+                                <span className="text-slate-100">{node.name}</span>
+                              </p>
+                              <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-slate-500">
+                                {edge.type.replaceAll("_", " ")} · {direction}
+                              </p>
+                              <p className="mt-1 text-[10px] leading-4 text-slate-500">{explainEdge(edge.type, direction)}</p>
                             </div>
                           </div>
                         ))}
@@ -799,6 +836,112 @@ function explainNode(node: GraphNode) {
     summary: `This item represents a ${categoryConfig[node.label]?.label.toLowerCase() ?? "topology entity"} found in the uploaded evidence.`,
     why: "It helps connect crypto assets to business, application, data, and service context so remediation work has ownership and impact."
   };
+}
+
+function interpretArchitecture(
+  node: GraphNode,
+  graph: GraphSnapshot,
+  connections: Array<{ direction: "inbound" | "outbound"; edge: GraphEdge; node: GraphNode }>
+) {
+  const connectedCrypto = connections.filter((connection) => connection.node.label === "CryptoAsset").length;
+  const connectedExternal = connections.filter((connection) => connection.node.label === "ExternalService").length;
+  const path = node.exposurePath?.map((id) => graph.nodes.find((item) => item.id === id)?.name ?? id) ?? [];
+  const exposure = node.exposureLevel === "INTERNET_EDGE"
+    ? "This item appears close to an internet or inbound boundary, so weaknesses here should be reviewed before internal-only findings."
+    : node.exposureLevel === "PARTNER"
+      ? "This item appears connected to a partner or third-party boundary, so ownership and contractual remediation may matter."
+      : node.exposureScore >= 5
+        ? "This item inherits moderate exposure through connected systems or protocol hints."
+        : "No strong network-edge signal was extracted yet; validate whether this is truly internal before downgrading priority.";
+
+  if (node.label === "CryptoAsset") {
+    return {
+      summary: `${node.name} should be interpreted as a crypto or protocol risk in architectural context, not only as a standalone primitive.`,
+      exposure,
+      action: node.exposureScore >= 7
+        ? "Trace the edge path to confirm the public or partner-facing system that uses this primitive, then prioritize migration with that owner."
+        : "Confirm where this primitive is used and whether any upstream gateway, API, or data flow increases exposure."
+    };
+  }
+
+  if (isSyntheticNetworkContext(node)) {
+    return {
+      summary: "This node is an analysis aid that anchors public or network-edge language found in the uploaded evidence.",
+      exposure,
+      action: "Use its connected items to identify which real systems or crypto findings may be near an external boundary."
+    };
+  }
+
+  return {
+    summary: `${node.name} has ${connections.length} extracted relationship${connections.length === 1 ? "" : "s"}${connectedCrypto ? `, including ${connectedCrypto} crypto finding${connectedCrypto === 1 ? "" : "s"}` : ""}${connectedExternal ? ` and ${connectedExternal} external boundary signal${connectedExternal === 1 ? "" : "s"}` : ""}.`,
+    exposure: path.length > 1 ? `${exposure} Extracted path: ${path.join(" -> ")}.` : exposure,
+    action: "Validate whether the connected items reflect the real architecture, then use confirmed relationships to assign remediation ownership."
+  };
+}
+
+function describeEvidence(node: GraphNode, artifactMap: Map<string, ArtifactReference>) {
+  const artifactNames = node.sourceArtifactIds
+    .map((id) => artifactMap.get(id)?.name)
+    .filter((name): name is string => Boolean(name));
+
+  if (artifactNames.length > 0) {
+    return `Supported by ${artifactNames.slice(0, 3).join(", ")}${artifactNames.length > 3 ? ` and ${artifactNames.length - 3} more artifact${artifactNames.length - 3 === 1 ? "" : "s"}` : ""}.`;
+  }
+
+  if (node.sourceArtifactIds.length > 0) {
+    return `Supported by ${node.sourceArtifactIds.length} artifact reference${node.sourceArtifactIds.length === 1 ? "" : "s"}, but the display name is unavailable.`;
+  }
+
+  return "No source artifact is attached to this node yet, so treat it as context that needs review.";
+}
+
+function scoreExplanation(node: GraphNode) {
+  const effective = node.effectiveRiskScore || node.vulnerabilityScore;
+  if (effective >= 8.5) {
+    return "Effective risk is critical because crypto weakness and exposure combine into an urgent remediation signal.";
+  }
+  if (node.exposureScore >= 7 && node.vulnerabilityScore >= 4) {
+    return "Exposure raises the priority because this weakness appears close to a reachable boundary.";
+  }
+  if (node.vulnerabilityScore >= 8 && node.exposureScore < 4) {
+    return "The primitive is weak, but current evidence suggests lower exposure; validate internal-only assumptions before deferring.";
+  }
+  if (node.vulnerabilityScore <= 1 && node.exposureScore >= 7) {
+    return "This item is exposed, but the detected crypto weakness is low; monitor its connected dependencies.";
+  }
+  return "Risk is calculated from cryptographic weakness, exposure, and extracted confidence.";
+}
+
+function confidenceLabel(confidence: number) {
+  if (confidence >= 0.85) return "High confidence";
+  if (confidence >= 0.6) return "Review useful";
+  return "Needs review";
+}
+
+function explainEdge(type: GraphEdge["type"], direction: "inbound" | "outbound") {
+  const relation = direction === "outbound" ? "this item" : "the other item";
+  switch (type) {
+    case "PROTECTED_BY":
+      return `${relation} is described as protected by the connected crypto or control.`;
+    case "USES":
+      return `${relation} uses the connected item in the extracted evidence.`;
+    case "DEPENDS_ON":
+      return `${relation} depends on the connected item.`;
+    case "CALLS":
+      return `${relation} calls the connected service or component.`;
+    case "PROCESSES":
+      return `${relation} processes the connected data or workflow.`;
+    case "IMPLEMENTS":
+      return `${relation} implements the connected capability or primitive.`;
+    case "HOSTS":
+      return `${relation} hosts the connected item.`;
+    default:
+      return "This relationship was extracted from uploaded evidence.";
+  }
+}
+
+function isSyntheticNetworkContext(node: GraphNode) {
+  return node.id === "external_network_context" || (node.label === "ExternalService" && node.name.toLowerCase().includes("external network context"));
 }
 
 function formatExposurePath(node: GraphNode, graph: GraphSnapshot) {
