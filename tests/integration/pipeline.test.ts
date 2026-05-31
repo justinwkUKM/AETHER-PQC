@@ -20,6 +20,7 @@ describe("deterministic ingestion pipeline", () => {
     const remediations = generateDeterministicRemediations(graph);
 
     expect(graph.nodes.filter((node) => node.label === "CryptoAsset")).toHaveLength(3);
-    expect(remediations.map((item) => item.priority)).toEqual(["CRITICAL", "CRITICAL"]);
+    expect(remediations.map((item) => item.priority)).toEqual(["MEDIUM", "CRITICAL"]);
+    expect(remediations[1].threatPath).toContain("Exposure:");
   });
 });

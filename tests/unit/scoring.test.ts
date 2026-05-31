@@ -18,4 +18,12 @@ describe("crypto scoring", () => {
   it("uses a medium default for unknown algorithms", () => {
     expect(scorePrimitive("custom legacy cipher")).toBe(5);
   });
+
+  it("scores TLS protocol exposure primitives", () => {
+    expect(scorePrimitive("TLS 1.0")).toBe(10);
+    expect(scorePrimitive("TLS 1.1")).toBe(9);
+    expect(scorePrimitive("TLS 1.2")).toBe(5);
+    expect(scorePrimitive("TLS 1.2 RSA key exchange")).toBe(8);
+    expect(scorePrimitive("TLS 1.3")).toBe(1);
+  });
 });

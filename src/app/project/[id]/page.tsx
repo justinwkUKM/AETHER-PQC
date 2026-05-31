@@ -4,13 +4,16 @@ import { AppShell } from "@/components/shell";
 import { RiskGraph } from "@/components/graph/risk-graph";
 import { DeleteProjectButton } from "@/components/project/delete-project-button";
 import { parseGraphSnapshot } from "@/lib/graph";
+import { enrichGraphExposure } from "@/lib/exposure";
 import { requireProject, requireUser } from "@/server/auth/guards";
 
 export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const user = await requireUser();
   const project = await requireProject(user.id, id);
-  const graph = parseGraphSnapshot(project.graphSnapshot);
+  const graph = enrichGraphExposure(parseGraphSnapshot(project.graphSnapshot));
+  const highestExposure = graph.nodes.reduce((max, node) => Math.max(max, node.exposureScore), 0);
+  const networkCritical = graph.nodes.filter((node) => (node.effectiveRiskScore || node.vulnerabilityScore) >= 8.5 && node.exposureLevel === "INTERNET_EDGE").length;
   return (
     <AppShell
       user={user}
@@ -47,12 +50,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
                   <DatabaseZap className="h-4 w-4 text-[#32e6ff]" />
                 </div>
                 <p className="mt-3 font-mono text-4xl text-slate-50">{project.riskScore.toFixed(1)}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-400">Lower scores indicate a more PQC-ready surface.</p>
+                <p className="mt-2 text-sm leading-6 text-slate-400">Exposure-aware risk blends crypto weakness with network reachability.</p>
               </div>
 
               <div className="grid grid-cols-3 gap-3">
-                <Stat label="Artifacts" value={project.artifacts.length.toString()} icon={<FolderKanban className="h-4 w-4" />} />
-                <Stat label="Plans" value={project.remediations.length.toString()} icon={<ShieldCheck className="h-4 w-4" />} />
+                <Stat label="Max exposure" value={highestExposure.toFixed(1)} icon={<FolderKanban className="h-4 w-4" />} />
+                <Stat label="Edge critical" value={networkCritical.toString()} icon={<ShieldCheck className="h-4 w-4" />} />
                 <Stat label="Nodes" value={graph.nodes.length.toString()} icon={<DatabaseZap className="h-4 w-4" />} />
               </div>
             </div>

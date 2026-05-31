@@ -16,6 +16,11 @@ export const geminiGraphResponseSchema = {
           label: { type: "string" },
           name: { type: "string" },
           vulnerabilityScore: { type: "number" },
+          exposureScore: { type: "number" },
+          exposureLevel: { type: "string" },
+          effectiveRiskScore: { type: "number" },
+          exposureReasons: { type: "array", items: { type: "string" } },
+          exposurePath: { type: "array", items: { type: "string" } },
           confidence: { type: "number" },
           sourceArtifactIds: { type: "array", items: { type: "string" } },
           attributes: { type: "object" }

@@ -24,6 +24,11 @@ export const graphNodeSchema = z.object({
   label: nodeLabelSchema,
   name: z.string().min(1),
   vulnerabilityScore: z.number().min(0).max(10),
+  exposureScore: z.number().min(0).max(10).default(0),
+  exposureLevel: z.enum(["INTERNAL", "PARTNER", "INTERNET_EDGE", "UNKNOWN"]).default("UNKNOWN"),
+  effectiveRiskScore: z.number().min(0).max(10).default(0),
+  exposureReasons: z.array(z.string()).default([]),
+  exposurePath: z.array(z.string()).optional(),
   confidence: z.number().min(0).max(1).default(1),
   sourceArtifactIds: z.array(z.string()).default([]),
   attributes: z.record(z.string(), z.unknown()).default({})

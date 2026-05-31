@@ -5,6 +5,7 @@ import { randomUUID } from "node:crypto";
 import { unlink } from "node:fs/promises";
 import type { Prisma } from "@prisma/client";
 import { analyzeBatchWithGemini, extractGraphWithGemini, type BatchArtifactContext } from "@/lib/ai/gemini";
+import { enrichGraphExposure } from "@/lib/exposure";
 import { calculateRiskScore, mergeGraphSnapshots, parseGraphSnapshot } from "@/lib/graph";
 import { env } from "@/lib/env";
 import { prisma } from "@/lib/db";
@@ -117,7 +118,7 @@ export async function uploadArtifact(projectId: string, formData: FormData): Pro
       throw new Error("No cryptographic or architecture entities could be extracted.");
     }
 
-    const mergedGraph = mergeGraphSnapshots(project.graphSnapshot, incomingGraph);
+    const mergedGraph = enrichGraphExposure(mergeGraphSnapshots(project.graphSnapshot, incomingGraph));
     const riskScore = calculateRiskScore(mergedGraph);
     await persistRemediations(projectId, mergedGraph);
 
@@ -201,7 +202,7 @@ export async function analyzeProjectBatch(projectId: string, artifactIds: string
       currentGraph,
       artifacts: contexts
     });
-    const mergedGraph = mergeGraphSnapshots(currentGraph, batchGraph);
+    const mergedGraph = enrichGraphExposure(mergeGraphSnapshots(currentGraph, batchGraph));
     const riskScore = calculateRiskScore(mergedGraph);
 
     await persistRemediations(projectId, mergedGraph);
@@ -277,7 +278,7 @@ export async function deleteArtifacts(projectId: string, artifactIds: string[]) 
     return { ...edge, sourceArtifactIds: nextSources };
   }).filter(edge => edge.sourceArtifactIds.length > 0 && updatedNodeIds.has(edge.source) && updatedNodeIds.has(edge.target));
 
-  const mergedGraph = { nodes: updatedNodes, edges: updatedEdges };
+  const mergedGraph = enrichGraphExposure({ nodes: updatedNodes, edges: updatedEdges });
   const riskScore = calculateRiskScore(mergedGraph);
 
   // Update remediations dynamically based on the updated graph

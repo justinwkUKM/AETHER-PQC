@@ -1,4 +1,5 @@
 import { toStableId } from "@/lib/ids";
+import { enrichGraphExposure } from "@/lib/exposure";
 import { graphSnapshotSchema, type GraphEdge, type GraphNode, type GraphSnapshot } from "@/types/graph";
 
 export const emptyGraph: GraphSnapshot = { nodes: [], edges: [] };
@@ -24,6 +25,11 @@ export function mergeGraphSnapshots(current: unknown, incoming: unknown): GraphS
       ...existing,
       ...node,
       vulnerabilityScore: Math.max(existing.vulnerabilityScore, node.vulnerabilityScore),
+      exposureScore: Math.max(existing.exposureScore, node.exposureScore),
+      effectiveRiskScore: Math.max(existing.effectiveRiskScore, node.effectiveRiskScore),
+      exposureLevel: node.exposureScore >= existing.exposureScore ? node.exposureLevel : existing.exposureLevel,
+      exposureReasons: Array.from(new Set([...existing.exposureReasons, ...node.exposureReasons])),
+      exposurePath: node.exposurePath ?? existing.exposurePath,
       confidence: Math.max(existing.confidence, node.confidence),
       sourceArtifactIds: Array.from(new Set([...existing.sourceArtifactIds, ...node.sourceArtifactIds])),
       attributes: { ...existing.attributes, ...node.attributes }
@@ -45,11 +51,14 @@ export function mergeGraphSnapshots(current: unknown, incoming: unknown): GraphS
     });
   }
 
-  return { nodes: Array.from(nodes.values()), edges: Array.from(edges.values()) };
+  return enrichGraphExposure({ nodes: Array.from(nodes.values()), edges: Array.from(edges.values()) });
 }
 
 export function calculateRiskScore(snapshot: GraphSnapshot) {
   if (snapshot.nodes.length === 0) return 0;
-  const total = snapshot.nodes.reduce((sum, node) => sum + node.vulnerabilityScore, 0);
-  return Math.round((total / snapshot.nodes.length) * 10) / 10;
+  const enriched = enrichGraphExposure(snapshot);
+  const scores = enriched.nodes.map((node) => node.effectiveRiskScore || node.vulnerabilityScore);
+  const average = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+  const max = Math.max(...scores);
+  return Math.round((average * 0.65 + max * 0.35) * 10) / 10;
 }

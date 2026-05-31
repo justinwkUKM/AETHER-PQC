@@ -10,6 +10,10 @@ describe("remediation generation", () => {
           label: "CryptoAsset",
           name: "RSA-2048",
           vulnerabilityScore: 10,
+          exposureScore: 9,
+          exposureLevel: "INTERNET_EDGE",
+          effectiveRiskScore: 9.6,
+          exposureReasons: ["External gateway"],
           confidence: 1,
           sourceArtifactIds: ["artifact_1"],
           attributes: {}
@@ -31,6 +35,10 @@ describe("remediation generation", () => {
           label: "CryptoAsset",
           name: "AES-256",
           vulnerabilityScore: 0,
+          exposureScore: 0,
+          exposureLevel: "UNKNOWN",
+          effectiveRiskScore: 0,
+          exposureReasons: [],
           confidence: 1,
           sourceArtifactIds: ["artifact_1"],
           attributes: {}
@@ -50,6 +58,10 @@ describe("remediation generation", () => {
           label: "CryptoAsset",
           name: "legacy cipher",
           vulnerabilityScore: 5,
+          exposureScore: 7,
+          exposureLevel: "PARTNER",
+          effectiveRiskScore: 4.3,
+          exposureReasons: ["Partner endpoint"],
           confidence: 0.8,
           sourceArtifactIds: ["artifact_1"],
           attributes: {}
@@ -59,6 +71,10 @@ describe("remediation generation", () => {
           label: "CryptoAsset",
           name: "partner pki",
           vulnerabilityScore: 8,
+          exposureScore: 8,
+          exposureLevel: "INTERNET_EDGE",
+          effectiveRiskScore: 7.3,
+          exposureReasons: ["Partner gateway"],
           confidence: 0.8,
           sourceArtifactIds: ["artifact_2"],
           attributes: {}
@@ -68,5 +84,6 @@ describe("remediation generation", () => {
     });
 
     expect(remediations.map((item) => item.priority)).toEqual(["MEDIUM", "HIGH"]);
+    expect(remediations[1].threatPath).toContain("Exposure:");
   });
 });

@@ -12,6 +12,10 @@ describe("Gemini batch analysis prompt", () => {
             label: "CryptoAsset",
             name: "RSA-2048",
             vulnerabilityScore: 10,
+            exposureScore: 0,
+            exposureLevel: "UNKNOWN",
+            effectiveRiskScore: 0,
+            exposureReasons: [],
             confidence: 1,
             sourceArtifactIds: ["artifact_a"],
             attributes: {}

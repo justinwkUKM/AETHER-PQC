@@ -3,6 +3,7 @@ import { scorePrimitive } from "@/lib/parsing/scoring";
 import type { GraphSnapshot } from "@/types/graph";
 
 const CRYPTO_KEYS = ["algorithm", "alg", "primitive", "cipherSuite", "crypto", "signatureAlgorithm"];
+const CRYPTO_PATTERN = /\b(RSA|DSA|DH|ECDSA|ECDH|AES-256|SHA-256|SHA-384|SHA-512|ML-KEM|ML-DSA|SLH-DSA|TLS\s*1[._-]?[0-3]|SSL|RC4|3DES)\b/gi;
 
 type JsonObject = Record<string, unknown>;
 
@@ -58,6 +59,10 @@ export function parseStructuredJson(raw: string, artifactId: string): GraphSnaps
         label: "SoftwareComponent" as const,
         name,
         vulnerabilityScore: 0,
+        exposureScore: 0,
+        exposureLevel: "UNKNOWN" as const,
+        effectiveRiskScore: 0,
+        exposureReasons: [],
         confidence: 1,
         sourceArtifactIds: [artifactId],
         attributes: { version: component.version, type: component.type }
@@ -70,6 +75,10 @@ export function parseStructuredJson(raw: string, artifactId: string): GraphSnaps
           label: "CryptoAsset" as const,
           name: mention.name,
           vulnerabilityScore: scorePrimitive(mention.name),
+          exposureScore: 0,
+          exposureLevel: "UNKNOWN" as const,
+          effectiveRiskScore: 0,
+          exposureReasons: [],
           confidence: 1,
           sourceArtifactIds: [artifactId],
           attributes: { context: mention.context, component: name }
@@ -94,6 +103,10 @@ export function parseStructuredJson(raw: string, artifactId: string): GraphSnaps
           label: "CryptoAsset" as const,
           name: mention.name,
           vulnerabilityScore: scorePrimitive(mention.name),
+          exposureScore: 0,
+          exposureLevel: "UNKNOWN" as const,
+          effectiveRiskScore: 0,
+          exposureReasons: [],
           confidence: 1,
           sourceArtifactIds: [artifactId],
           attributes: { context: mention.context }
@@ -106,20 +119,51 @@ export function parseStructuredJson(raw: string, artifactId: string): GraphSnaps
 }
 
 export function parseTextForCrypto(raw: string, artifactId: string): GraphSnapshot | null {
-  const matches = raw.match(/\b(RSA|DSA|DH|ECDSA|ECDH|AES-256|SHA-256|SHA-384|SHA-512|ML-KEM|ML-DSA|SLH-DSA)\b/gi);
+  const matches = raw.match(CRYPTO_PATTERN);
   if (!matches?.length) return null;
 
   const unique = Array.from(new Set(matches.map((match) => match.toUpperCase())));
+  const hasNetworkEdge = /\b(public|internet|external|edge|gateway|ingress|load balancer|dmz|api gateway|listener|endpoint|inbound|tls|https|443)\b/i.test(raw);
+  const contextId = hasNetworkEdge ? toStableId("external_network_context") : null;
+  const contextNode = contextId
+    ? [{
+        id: contextId,
+        label: "ExternalService" as const,
+        name: "External network context",
+        vulnerabilityScore: 0,
+        exposureScore: 9,
+        exposureLevel: "INTERNET_EDGE" as const,
+        effectiveRiskScore: 0,
+        exposureReasons: ["Detected public/network-edge text context"],
+        confidence: 0.85,
+        sourceArtifactIds: [artifactId],
+        attributes: { extractedFrom: "text" }
+      }]
+    : [];
+  const cryptoNodes = unique.map((name) => ({
+    id: toStableId(`crypto_${name}`),
+    label: "CryptoAsset" as const,
+    name,
+    vulnerabilityScore: scorePrimitive(name),
+    exposureScore: 0,
+    exposureLevel: "UNKNOWN" as const,
+    effectiveRiskScore: 0,
+    exposureReasons: [],
+    confidence: 0.95,
+    sourceArtifactIds: [artifactId],
+    attributes: { extractedFrom: "text" }
+  }));
+
   return {
-    nodes: unique.map((name) => ({
-      id: toStableId(`crypto_${name}`),
-      label: "CryptoAsset",
-      name,
-      vulnerabilityScore: scorePrimitive(name),
-      confidence: 0.95,
-      sourceArtifactIds: [artifactId],
-      attributes: { extractedFrom: "text" }
-    })),
-    edges: []
+    nodes: [...contextNode, ...cryptoNodes],
+    edges: contextId
+      ? cryptoNodes.map((node) => ({
+          source: contextId,
+          target: node.id,
+          type: "USES" as const,
+          confidence: 0.75,
+          sourceArtifactIds: [artifactId]
+        }))
+      : []
   };
 }

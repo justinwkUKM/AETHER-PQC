@@ -1,6 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { env } from "@/lib/env";
 import { graphResponseSchema, geminiGraphResponseSchema, remediationResponseSchema } from "@/lib/ai/schemas";
+import { effectiveRiskScore } from "@/lib/exposure";
 import type { EdgeType, GraphEdge, GraphNode, GraphSnapshot, NodeLabel } from "@/types/graph";
 import type { RemediationPlan } from "@/types/remediation";
 
@@ -68,6 +69,8 @@ ${JSON.stringify(artifacts)}
 Rules:
 - Return only JSON with nodes and edges in the provided schema.
 - Infer cross-file relationships, duplicate system references, dependency paths, and shared cryptographic controls.
+- Identify network zones, public endpoints, ingress/egress paths, protocols, TLS versions, trust boundaries, and exposure rationale.
+- Set exposureScore from 0 to 10, exposureLevel as INTERNAL, PARTNER, INTERNET_EDGE, or UNKNOWN, and exposureReasons as short evidence strings.
 - Prefer exact ids from the current graph for matching entities; create stable snake_case ids for new entities.
 - Preserve sourceArtifactIds and use the artifactId values shown above.
 - Do not remove deterministic high-risk findings; add context, edges, or duplicate evidence around them.
@@ -124,12 +127,22 @@ function cleanAndValidateGraph(rawText: string): GraphSnapshot {
     // Normalize confidence (0 to 1)
     let confidence = typeof n.confidence === "number" ? n.confidence : 1;
     confidence = Math.max(0, Math.min(1, confidence));
+    const exposureScore = Math.max(0, Math.min(10, Number(n.exposureScore) || 0));
+    const exposureLevels = ["INTERNAL", "PARTNER", "INTERNET_EDGE", "UNKNOWN"] as const;
+    const exposureLevel = exposureLevels.includes(String(n.exposureLevel) as GraphNode["exposureLevel"])
+      ? String(n.exposureLevel) as GraphNode["exposureLevel"]
+      : "UNKNOWN";
 
     return {
       id: String(n.id || `node_${idx}`).trim() || `node_${idx}`,
       label,
       name: String(n.name || n.id || "Unnamed Node").trim(),
       vulnerabilityScore: score,
+      exposureScore,
+      exposureLevel,
+      effectiveRiskScore: effectiveRiskScore(score, exposureScore),
+      exposureReasons: Array.isArray(n.exposureReasons) ? n.exposureReasons.map(String).slice(0, 8) : [],
+      exposurePath: Array.isArray(n.exposurePath) ? n.exposurePath.map(String).slice(0, 12) : undefined,
       confidence,
       sourceArtifactIds: Array.isArray(n.sourceArtifactIds) ? n.sourceArtifactIds.map(String) : [],
       attributes: isRecord(n.attributes) ? n.attributes : {}
@@ -217,6 +230,8 @@ Rules:
 - Return only nodes and edges in the provided schema.
 - Use stable snake_case ids.
 - Prefer exact ids from Current graph for matching entities.
+- Identify network zones, public endpoints, ingress/egress paths, protocols, TLS versions, trust boundaries, and exposure rationale.
+- Set exposureScore from 0 to 10 and exposureLevel as INTERNAL, PARTNER, INTERNET_EDGE, or UNKNOWN.
 - Score RSA, DSA, DH, ECDSA, ECDH as 10.
 - Score AES-256, SHA-256, SHA-384, SHA-512, ML-KEM, ML-DSA, SLH-DSA as 0.
 - Mark visual/OCR inferences with confidence below 0.85 unless explicit.

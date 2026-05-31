@@ -16,6 +16,7 @@ export default defineConfig({
       },
       include: [
         "src/lib/graph.ts",
+        "src/lib/exposure.ts",
         "src/lib/ids.ts",
         "src/lib/parsing/**/*.ts",
         "src/lib/remediation/**/*.ts",

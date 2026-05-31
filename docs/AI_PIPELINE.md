@@ -7,7 +7,13 @@ The pipeline follows a deterministic-first rule. Clean structured documents are 
 The local parser extracts crypto primitives from JSON, CycloneDX-like component lists, CBOM-like fields, CSV/text, and Markdown. Known scoring rules override model output:
 
 - RSA, DSA, DH, ECDSA, ECDH: score `10`
+- TLS 1.0/SSL: score `10`
+- TLS 1.1: score `9`
+- TLS 1.2: score `5`, or `8` when weak key exchange/cipher context is present
+- TLS 1.3: score `1`, unless explicitly weak, downgraded, or misconfigured
 - AES-256, SHA-256, SHA-384, SHA-512, ML-KEM, ML-DSA, SLH-DSA: score `0`
+
+After extraction, AETHER computes exposure deterministically from graph topology and network hints. External services, public gateways, ingress, load balancers, DMZ references, TLS endpoints, listeners, ports, and inbound traffic receive higher exposure. Exposure then propagates through connected edges with decay and produces an `effectiveRiskScore`.
 
 ## Gemini Stage
 
@@ -42,6 +48,7 @@ If `GEMINI_API_KEY` is not configured, the batch pass is skipped with a warning 
 - Require stable snake_case IDs.
 - Require confidence values for visual/OCR inferences.
 - Require source artifact IDs on extracted nodes and edges.
+- Ask for network zones, public endpoints, ingress/egress paths, TLS versions, trust boundaries, and exposure rationale.
 - Never send secrets intentionally; uploaded artifact content is user-provided assessment input.
 
 ## Parser Modes

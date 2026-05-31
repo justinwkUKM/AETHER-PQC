@@ -73,9 +73,21 @@ Edges:
 
 ## Risk Scoring
 
-Deterministic known-crypto scoring wins over AI scoring:
+Risk uses three node-level scores:
+
+- `vulnerabilityScore`: cryptographic or protocol weakness.
+- `exposureScore`: network reachability and blast-radius approximation.
+- `effectiveRiskScore`: combined risk used for graph emphasis, project risk, and remediation priority.
+
+Deterministic known-crypto and protocol scoring wins over AI scoring:
 
 - RSA, DSA, DH, ECDSA, ECDH: `10`
+- TLS 1.0 and SSL: `10`
+- TLS 1.1: `9`
+- TLS 1.2: `5`, or `8` with RSA key exchange, SHA-1, static DH, RC4, 3DES, export, null, or CBC context
+- TLS 1.3: `1`, unless explicitly weak or downgraded
 - AES-256, SHA-256, SHA-384, SHA-512, ML-KEM, ML-DSA, SLH-DSA: `0`
 
 Unknown or ambiguous primitives default to medium risk until reviewed.
+
+Exposure inference treats public APIs, internet-facing gateways, load balancers, ingress, DMZ, partner paths, TLS endpoints, listeners, ports, and inbound traffic as higher exposure. Exposure propagates through graph edges with decay so near-edge crypto findings rank above equivalent internal-only findings.

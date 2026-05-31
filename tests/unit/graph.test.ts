@@ -15,6 +15,10 @@ describe("graph utilities", () => {
             label: "CryptoAsset",
             name: "RSA",
             vulnerabilityScore: 7,
+            exposureScore: 0,
+            exposureLevel: "UNKNOWN",
+            effectiveRiskScore: 0,
+            exposureReasons: [],
             confidence: 0.6,
             sourceArtifactIds: ["a1"],
             attributes: { first: true }
@@ -29,6 +33,10 @@ describe("graph utilities", () => {
             label: "CryptoAsset",
             name: "RSA-2048",
             vulnerabilityScore: 10,
+            exposureScore: 8,
+            exposureLevel: "INTERNET_EDGE",
+            effectiveRiskScore: 9.1,
+            exposureReasons: ["Network edge"],
             confidence: 0.9,
             sourceArtifactIds: ["a2"],
             attributes: { second: true }
@@ -48,19 +56,20 @@ describe("graph utilities", () => {
 
     expect(merged.nodes).toHaveLength(1);
     expect(merged.nodes[0].vulnerabilityScore).toBe(10);
+    expect(merged.nodes[0].exposureScore).toBe(8);
     expect(merged.nodes[0].sourceArtifactIds).toEqual(["a1", "a2"]);
     expect(merged.edges).toHaveLength(1);
   });
 
-  it("calculates average risk", () => {
+  it("calculates exposure-aware blended risk", () => {
     expect(
       calculateRiskScore({
         nodes: [
-          { id: "a", label: "CryptoAsset", name: "RSA", vulnerabilityScore: 10, confidence: 1, sourceArtifactIds: [], attributes: {} },
-          { id: "b", label: "CryptoAsset", name: "AES", vulnerabilityScore: 2, confidence: 1, sourceArtifactIds: [], attributes: {} }
+          { id: "a", label: "CryptoAsset", name: "RSA", vulnerabilityScore: 10, exposureScore: 10, exposureLevel: "INTERNET_EDGE", effectiveRiskScore: 10, exposureReasons: [], confidence: 1, sourceArtifactIds: [], attributes: {} },
+          { id: "b", label: "CryptoAsset", name: "AES", vulnerabilityScore: 2, exposureScore: 0, exposureLevel: "UNKNOWN", effectiveRiskScore: 1.1, exposureReasons: [], confidence: 1, sourceArtifactIds: [], attributes: {} }
         ],
         edges: []
       })
-    ).toBe(6);
+    ).toBe(7.1);
   });
 });

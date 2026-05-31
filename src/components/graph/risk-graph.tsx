@@ -24,6 +24,7 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
   const [selectedNode, setSelectedNode] = useState<PositionedNode | null>(null);
   const [draggedNodeId, setDraggedNodeId] = useState<string | null>(null);
   const [showLabels, setShowLabels] = useState(true);
+  const [graphMode, setGraphMode] = useState<"effective" | "exposure" | "vulnerability">("effective");
 
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -59,7 +60,7 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
     setNodes(initialNodes);
 
     if (initialNodes.length > 0) {
-      const highestRisk = [...initialNodes].sort((a, b) => b.vulnerabilityScore - a.vulnerabilityScore)[0];
+      const highestRisk = [...initialNodes].sort((a, b) => (b.effectiveRiskScore || b.vulnerabilityScore) - (a.effectiveRiskScore || a.vulnerabilityScore))[0];
       setSelectedNode(highestRisk);
     }
   }, [graph]);
@@ -142,6 +143,17 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
   };
 
   const nodeMap = new Map(nodes.map((n) => [n.id, n]));
+  const displayScore = (node: GraphNode) => {
+    if (graphMode === "exposure") return node.exposureScore;
+    if (graphMode === "vulnerability") return node.vulnerabilityScore;
+    return node.effectiveRiskScore || node.vulnerabilityScore;
+  };
+  const colorForScore = (score: number, fallback: string) => {
+    if (score >= 8) return "#f43f5e";
+    if (score >= 5) return "#fb923c";
+    if (score > 0) return "#facc15";
+    return fallback;
+  };
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_360px]" ref={containerRef}>
@@ -179,6 +191,21 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
             <RotateCcw className="h-3.5 w-3.5" />
             <span>Reset Layout</span>
           </button>
+          <div className="flex overflow-hidden rounded border border-white/10 bg-[#08111f]/90 text-xs text-slate-300">
+            {[
+              ["effective", "Effective Risk"],
+              ["exposure", "Exposure"],
+              ["vulnerability", "Vulnerability"]
+            ].map(([mode, label]) => (
+              <button
+                key={mode}
+                onClick={() => setGraphMode(mode as typeof graphMode)}
+                className={`px-2.5 py-1.5 transition-colors ${graphMode === mode ? "bg-[#32e6ff]/15 text-[#32e6ff]" : "hover:bg-white/5 hover:text-slate-100"}`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Interaction Help Badge */}
@@ -287,12 +314,9 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
               const isBeingDragged = draggedNodeId === node.id;
               const config = categoryConfig[node.label] || categoryConfig.SoftwareComponent;
 
-              // Direct score styling (Red glow for Critical >= 8)
-              const scoreColor = node.vulnerabilityScore >= 8
-                ? "#f43f5e"
-                : node.vulnerabilityScore >= 5
-                ? "#fb923c"
-                : config.color;
+              const score = displayScore(node);
+              const scoreColor = colorForScore(score, config.color);
+              const exposureRadius = 18 + Math.max(0, node.exposureScore) * 1.25;
 
               return (
                 <g
@@ -311,10 +335,10 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
                   {/* Outer glow during drag / selection */}
                   {(hoveredNode === node.id || isSelected || isBeingDragged) && (
                     <circle
-                      r="20"
+                      r={exposureRadius}
                       fill="none"
                       stroke={scoreColor}
-                      strokeWidth="1.5"
+                      strokeWidth={1 + Math.max(0, node.exposureScore) / 5}
                       strokeDasharray="4,4"
                       className="animate-spin"
                       style={{ animationDuration: "12s" }}
@@ -345,7 +369,7 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
                   {node.vulnerabilityScore > 0 && (
                     <circle
                       r="3.5"
-                      fill={node.vulnerabilityScore >= 7 ? "#f43f5e" : "#fb923c"}
+                      fill={scoreColor}
                     />
                   )}
 
@@ -399,23 +423,28 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
               {/* Stats Grid */}
               <div className="grid grid-cols-2 gap-3 mb-5">
                 <div className="rounded-md border border-white/5 bg-[#050a14] p-3 text-center">
-                  <p className="text-[9px] uppercase tracking-wider text-slate-500 font-mono">Risk Level</p>
+                  <p className="text-[9px] uppercase tracking-wider text-slate-500 font-mono">Effective Risk</p>
                   <div className="mt-2 flex items-center justify-center gap-1.5">
                     <span
                       className={`h-2.5 w-2.5 rounded-full`}
-                      style={{
-                        backgroundColor:
-                          selectedNode.vulnerabilityScore >= 8
-                            ? "#f43f5e"
-                            : selectedNode.vulnerabilityScore >= 5
-                            ? "#fb923c"
-                            : "#10b981"
-                      }}
+                      style={{ backgroundColor: colorForScore(selectedNode.effectiveRiskScore || selectedNode.vulnerabilityScore, "#10b981") }}
                     ></span>
                     <span className="font-mono text-base font-bold text-slate-200">
-                      {selectedNode.vulnerabilityScore.toFixed(1)}
+                      {(selectedNode.effectiveRiskScore || selectedNode.vulnerabilityScore).toFixed(1)}
                     </span>
                   </div>
+                </div>
+                <div className="rounded-md border border-white/5 bg-[#050a14] p-3 text-center">
+                  <p className="text-[9px] uppercase tracking-wider text-slate-500 font-mono">Exposure</p>
+                  <p className="mt-2 text-base font-bold text-slate-200">
+                    {selectedNode.exposureScore.toFixed(1)}
+                  </p>
+                </div>
+                <div className="rounded-md border border-white/5 bg-[#050a14] p-3 text-center">
+                  <p className="text-[9px] uppercase tracking-wider text-slate-500 font-mono">Vulnerability</p>
+                  <p className="mt-2 text-base font-bold text-slate-200">
+                    {selectedNode.vulnerabilityScore.toFixed(1)}
+                  </p>
                 </div>
                 <div className="rounded-md border border-white/5 bg-[#050a14] p-3 text-center">
                   <p className="text-[9px] uppercase tracking-wider text-slate-500 font-mono">Confidence</p>
@@ -427,6 +456,24 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
 
               {/* Attributes / Details */}
               <div className="space-y-4">
+                <div>
+                  <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-slate-500">
+                    Exposure Context
+                  </p>
+                  <div className="rounded-md border border-white/5 bg-black/20 p-3 text-sm text-slate-300">
+                    <p className="font-mono text-xs text-slate-200">{selectedNode.exposureLevel}</p>
+                    {selectedNode.exposurePath?.length ? (
+                      <p className="mt-2 text-xs leading-5 text-slate-400">{selectedNode.exposurePath.join(" -> ")}</p>
+                    ) : null}
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {(selectedNode.exposureReasons.length ? selectedNode.exposureReasons : ["No explicit exposure evidence detected."]).map((reason) => (
+                        <span key={reason} className="rounded border border-white/10 bg-white/3 px-2 py-0.5 font-mono text-[9px] text-slate-400">
+                          {reason}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
                 <div>
                   <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-slate-500">
                     Cryptographic Primitives
