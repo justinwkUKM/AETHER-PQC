@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, FileCheck2, KeyRound, LayoutDashboard, Plus, ScanSearch, ShieldCheck } from "lucide-react";
+import { ArrowRight, FileCheck2, Globe2, KeyRound, LayoutDashboard, Plus, ScanSearch, ShieldCheck } from "lucide-react";
 
 type WorkspaceRailProps = {
   userName?: string | null;
@@ -34,6 +34,7 @@ export function WorkspaceRail({
         { href: `/project/${projectId}`, label: "Overview", icon: LayoutDashboard },
         { href: `/project/${projectId}/scan`, label: "Scan", icon: ScanSearch },
         { href: `/project/${projectId}/inventory`, label: "Inventory", icon: KeyRound },
+        { href: `/project/${projectId}/exposure`, label: "Exposure", icon: Globe2 },
         { href: `/project/${projectId}/remediations`, label: "Remediations", icon: ArrowRight },
         { href: `/project/${projectId}/evidence`, label: "Evidence", icon: FileCheck2 }
       ]
