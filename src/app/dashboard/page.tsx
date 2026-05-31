@@ -20,7 +20,7 @@ export default async function DashboardPage() {
         <section className="aether-panel aether-fade-up overflow-hidden rounded-lg">
           <div className="grid gap-6 p-6 lg:grid-cols-[1.25fr_minmax(280px,0.75fr)] lg:p-8">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">Workspace overview</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Workspace overview</p>
               <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50 lg:text-5xl">
                 Hi {user.name?.split(" ")[0] ?? "there"}, what are we scanning today?
               </h1>
@@ -32,7 +32,7 @@ export default async function DashboardPage() {
                   New assessment <ArrowRight className="h-4 w-4" />
                 </Link>
                 <span className="aether-chip rounded-full px-4 py-3 text-sm text-slate-300">
-                  <Sparkles className="mr-2 inline h-4 w-4 text-[#32e6ff]" />
+                  <Sparkles className="mr-2 inline h-4 w-4 text-[#05ffd1]" />
                   Deterministic-first analysis
                 </span>
               </div>
@@ -72,7 +72,7 @@ export default async function DashboardPage() {
             {projects.length === 0 ? (
               <div className="flex items-center gap-4 rounded-lg border border-dashed border-white/12 bg-white/3 p-8 text-slate-400">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-[#08111f]">
-                  <AlertTriangle className="h-5 w-5 text-[#32e6ff]" />
+                  <AlertTriangle className="h-5 w-5 text-[#05ffd1]" />
                 </div>
                 <div>
                   <p className="text-base text-slate-100">No projects have been initialized.</p>
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
                 <Link
                   key={project.id}
                   href={`/project/${project.id}`}
-                  className="group grid gap-4 rounded-lg border border-white/10 bg-[#08111f] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#32e6ff]/35 hover:shadow-[0_16px_40px_rgba(0,0,0,0.28)] md:grid-cols-[1.4fr_0.5fr_0.4fr_auto]"
+                  className="group grid gap-4 rounded-lg border border-white/10 bg-[#08111f] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#05ffd1]/35 hover:shadow-[0_16px_40px_rgba(0,0,0,0.28)] md:grid-cols-[1.4fr_0.5fr_0.4fr_auto]"
                 >
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-slate-500">Project</p>
@@ -97,7 +97,7 @@ export default async function DashboardPage() {
                   <div className="flex items-end">
                     <StatPill label="Risk" value={project.riskScore.toFixed(1)} accent />
                   </div>
-                  <div className="flex items-center justify-end text-slate-400 transition-colors group-hover:text-[#32e6ff]">
+                  <div className="flex items-center justify-end text-slate-400 transition-colors group-hover:text-[#05ffd1]">
                     <ArrowRight className="h-5 w-5" />
                   </div>
                 </Link>
@@ -125,7 +125,7 @@ function MiniInfo({ label, value, icon }: { label: string; value: number; icon: 
 function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
   return (
     <div className="aether-card rounded-lg p-5">
-      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-[#08111f] text-[#32e6ff]">{icon}</div>
+      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-[#08111f] text-[#05ffd1]">{icon}</div>
       <p className="text-[10px] uppercase tracking-[0.24em] text-slate-500">{label}</p>
       <p className="mt-2 font-mono text-3xl text-slate-50">{value}</p>
     </div>
@@ -134,9 +134,9 @@ function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; 
 
 function StatPill({ label, value, accent = false }: { label: string; value: number | string; accent?: boolean }) {
   return (
-    <div className={`rounded-lg border px-3 py-3 ${accent ? "border-[#32e6ff]/25 bg-[#08111f]" : "border-white/10 bg-white/3"}`}>
+    <div className={`rounded-lg border px-3 py-3 ${accent ? "border-[#05ffd1]/25 bg-[#08111f]" : "border-white/10 bg-white/3"}`}>
       <p className="text-[10px] uppercase tracking-[0.24em] text-slate-500">{label}</p>
-      <p className={`mt-2 font-mono text-xl ${accent ? "text-[#32e6ff]" : "text-slate-50"}`}>{value}</p>
+      <p className={`mt-2 font-mono text-xl ${accent ? "text-[#05ffd1]" : "text-slate-50"}`}>{value}</p>
     </div>
   );
 }

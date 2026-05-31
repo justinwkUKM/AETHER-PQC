@@ -145,7 +145,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
   return (
     <form ref={formRef} onSubmit={handleUploadSubmit} className="aether-panel overflow-hidden rounded-lg">
       <div className="border-b border-white/10 px-5 py-4 bg-[#0a101f]">
-        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">Artifact Intake Queue</p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Artifact Intake Queue</p>
         <h2 className="mt-2 text-lg font-semibold text-slate-50">Bulk Ingestion Portal</h2>
         <p className="mt-1 text-sm leading-6 text-slate-400">
           Select multiple files (SBOMs, system diagrams, specs). Files are parsed sequentially, then completed artifacts are analyzed together in one cross-file pass.
@@ -154,9 +154,9 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
 
       <div className="space-y-5 p-5">
         {/* Large Drag-and-Drop Area */}
-        <label className="flex cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-white/12 bg-[#08111f] px-6 py-10 text-center transition-colors hover:border-[#32e6ff]/40 hover:bg-[#0b1324]">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#32e6ff]/20 bg-white/3">
-            <UploadCloud className="h-6 w-6 text-[#32e6ff]" />
+        <label className="flex cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-white/12 bg-[#08111f] px-6 py-10 text-center transition-colors hover:border-[#05ffd1]/40 hover:bg-[#0b1324]">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#05ffd1]/20 bg-white/3">
+            <UploadCloud className="h-6 w-6 text-[#05ffd1]" />
           </div>
           <span className="mt-4 text-sm text-slate-200">
             Click to choose SBOM, CBOM, PDF, image, CSV, text, or Markdown
@@ -197,7 +197,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
                     <span className="text-slate-500 uppercase">Queued</span>
                   )}
                   {item.status === "PROCESSING" && (
-                    <span className="flex items-center gap-1 text-[#32e6ff] uppercase">
+                    <span className="flex items-center gap-1 text-[#05ffd1] uppercase">
                       <Loader2 className="h-3 w-3 animate-spin" /> Processing
                     </span>
                   )}
@@ -239,7 +239,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
                   ? "border-amber-400/25 bg-amber-400/8 text-amber-300"
                   : overallStatus.state === "ERROR"
                     ? "border-rose-400/25 bg-rose-400/8 text-rose-300"
-                    : "border-[#32e6ff]/20 bg-[#32e6ff]/5 text-[#32e6ff]"
+                    : "border-[#05ffd1]/20 bg-[#05ffd1]/5 text-[#05ffd1]"
             }`}
           >
             <div className="mb-3 flex items-center gap-2">
@@ -251,7 +251,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
             </div>
             <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-white/10">
               <div
-                className="h-full rounded-full bg-[#32e6ff] transition-all duration-700"
+                className="h-full rounded-full bg-[#05ffd1] transition-all duration-700"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -264,7 +264,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
                   <span
                     key={stage.id}
                     className={`rounded border px-2 py-1 text-center text-[9px] uppercase tracking-[0.14em] ${
-                      active ? "border-[#32e6ff]/25 bg-[#32e6ff]/10 text-[#32e6ff]" : "border-white/10 bg-white/3 text-slate-500"
+                      active ? "border-[#05ffd1]/25 bg-[#05ffd1]/10 text-[#05ffd1]" : "border-white/10 bg-white/3 text-slate-500"
                     }`}
                   >
                     {stage.label}

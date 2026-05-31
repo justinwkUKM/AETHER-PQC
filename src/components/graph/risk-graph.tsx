@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import type { GraphSnapshot, GraphNode, GraphEdge } from "@/types/graph";
-import { Shield, Zap, Info, RotateCcw, Activity, MousePointerClick, Network, FileText, GitBranch } from "lucide-react";
+import { Shield, Zap, Info, RotateCcw, Activity, MousePointerClick, Network, FileText, GitBranch, X } from "lucide-react";
 
 type PositionedNode = GraphNode & {
   x: number;
@@ -13,10 +13,11 @@ type ArtifactReference = {
   id: string;
   name: string;
   type: string;
+  rawPayload?: string | null;
 };
 
 const categoryConfig = {
-  BusinessProcess: { color: "#10b981", label: "Business Process", glow: "rgba(16,185,129,0.25)" },
+  BusinessProcess: { color: "#05ffd1", label: "Business Process", glow: "rgba(5,255,209,0.25)" },
   Application: { color: "#3b82f6", label: "Application", glow: "rgba(59,130,246,0.25)" },
   SoftwareComponent: { color: "#8b5cf6", label: "Software Component", glow: "rgba(139,92,246,0.25)" },
   DataAsset: { color: "#fb923c", label: "Data Asset", glow: "rgba(251,146,60,0.25)" },
@@ -24,13 +25,18 @@ const categoryConfig = {
   ExternalService: { color: "#14b8a6", label: "External Service", glow: "rgba(20,184,166,0.25)" }
 } satisfies Record<GraphNode["label"], { color: string; label: string; glow: string }>;
 
-export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; artifacts?: ArtifactReference[] }) {
+export function RiskGraph({ projectId, graph, artifacts = [] }: { projectId: string; graph: GraphSnapshot; artifacts?: ArtifactReference[] }) {
   const [nodes, setNodes] = useState<PositionedNode[]>([]);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [selectedNode, setSelectedNode] = useState<PositionedNode | null>(null);
   const [draggedNodeId, setDraggedNodeId] = useState<string | null>(null);
   const [showLabels, setShowLabels] = useState(true);
   const [graphMode, setGraphMode] = useState<"effective" | "exposure" | "vulnerability">("effective");
+
+  const [simulatedUpgradedNodeIds, setSimulatedUpgradedNodeIds] = useState<Set<string>>(new Set());
+  const [isSandboxMode, setIsSandboxMode] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState(false);
+  const [inspectingArtifact, setInspectingArtifact] = useState<ArtifactReference | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -151,6 +157,7 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
   const nodeMap = new Map(nodes.map((n) => [n.id, n]));
   const artifactMap = new Map(artifacts.map((artifact) => [artifact.id, artifact]));
   const displayScore = (node: GraphNode) => {
+    if (simulatedUpgradedNodeIds.has(node.id)) return 1.0;
     if (graphMode === "exposure") return node.exposureScore;
     if (graphMode === "vulnerability") return node.vulnerabilityScore;
     return node.effectiveRiskScore || node.vulnerabilityScore;
@@ -161,6 +168,10 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
     if (score > 0) return "#facc15";
     return fallback;
   };
+  const simulatedRiskScore = nodes.length > 0 
+    ? nodes.map(n => simulatedUpgradedNodeIds.has(n.id) ? 1.0 : (n.effectiveRiskScore || n.vulnerabilityScore))
+        .reduce((sum, s) => sum + s, 0) / nodes.length
+    : 0;
   const selectedConnections = selectedNode
     ? graph.edges
         .filter((edge) => edge.source === selectedNode.id || edge.target === selectedNode.id)
@@ -217,16 +228,56 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
               <button
                 key={mode}
                 onClick={() => setGraphMode(mode as typeof graphMode)}
-                className={`px-2.5 py-1.5 transition-colors ${graphMode === mode ? "bg-[#32e6ff]/15 text-[#32e6ff]" : "hover:bg-white/5 hover:text-slate-100"}`}
+                className={`px-2.5 py-1.5 transition-colors ${graphMode === mode ? "bg-[#05ffd1]/15 text-[#05ffd1]" : "hover:bg-white/5 hover:text-slate-100"}`}
               >
                 {label}
               </button>
             ))}
           </div>
+          <button
+            onClick={() => {
+              setIsSandboxMode(!isSandboxMode);
+              if (isSandboxMode) {
+                setSimulatedUpgradedNodeIds(new Set());
+              }
+            }}
+            className={`flex items-center gap-1.5 rounded border px-2.5 py-1.5 text-xs transition-all ${
+              isSandboxMode 
+                ? "border-[#05ffd1] bg-[#05ffd1]/15 text-[#05ffd1] shadow-[0_0_8px_rgba(5,255,209,0.3)] font-bold animate-pulse" 
+                : "border-white/10 bg-[#08111f]/90 text-slate-300 hover:text-slate-100 hover:bg-white/5"
+            }`}
+            title="Toggle What-If Simulation Sandbox"
+          >
+            <Zap className="h-3.5 w-3.5" />
+            <span>{isSandboxMode ? "Sandbox ACTIVE" : "Sandbox Mode"}</span>
+          </button>
         </div>
 
+        {/* Sandbox Risk Calculator HUD */}
+        {isSandboxMode && (
+          <div className="absolute top-16 left-4 z-10 rounded border border-[#05ffd1]/20 bg-[#030c14]/90 p-3 shadow-xl backdrop-blur-sm flex flex-col gap-1 text-xs font-mono text-[#05ffd1] max-w-[240px]">
+            <div className="flex items-center gap-2">
+              <Zap className="h-3.5 w-3.5 animate-pulse text-[#05ffd1]" />
+              <span className="font-bold">WHAT-IF SIMULATION</span>
+            </div>
+            <p className="text-[10px] text-slate-400 mt-1">
+              Upgrades: <span className="text-[#05ffd1] font-bold">{simulatedUpgradedNodeIds.size} nodes</span>
+            </p>
+            <p className="text-[10px] text-slate-400">
+              Risk:{" "}
+              <span className="text-slate-300 line-through">
+                {(nodes.reduce((sum, n) => sum + (n.effectiveRiskScore || n.vulnerabilityScore), 0) / (nodes.length || 1)).toFixed(1)}
+              </span>
+              {" "}➔{" "}
+              <span className="text-[#05ffd1] font-bold">
+                {simulatedRiskScore.toFixed(1)}
+              </span>
+            </p>
+          </div>
+        )}
+
         {/* Interaction Help Badge */}
-        <div className="absolute top-4 right-4 z-10 hidden items-center gap-1.5 rounded-full bg-slate-950/70 border border-[#32e6ff]/20 px-2.5 py-1 font-mono text-[9px] text-[#32e6ff] tracking-wide sm:flex">
+        <div className="absolute top-4 right-4 z-10 hidden items-center gap-1.5 rounded-full bg-slate-950/70 border border-[#05ffd1]/20 px-2.5 py-1 font-mono text-[9px] text-[#05ffd1] tracking-wide sm:flex">
           <MousePointerClick className="h-3 w-3 animate-pulse" />
           <span>Interactive Canvas: Drag nodes to position</span>
         </div>
@@ -290,7 +341,7 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
               markerHeight="7"
               orient="auto-start-reverse"
             >
-              <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#32e6ff" />
+              <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#05ffd1" />
             </marker>
           </defs>
 
@@ -308,7 +359,7 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
               if (!src || !tgt) return null;
 
               const active = isEdgeHighlighted(edge);
-              const strokeColor = active ? "#32e6ff" : "rgba(255, 255, 255, 0.06)";
+              const strokeColor = active ? "#05ffd1" : "rgba(255, 255, 255, 0.06)";
               const strokeWidth = active ? 2 : 1.2;
 
               return (
@@ -353,6 +404,19 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
                 >
                   {/* Transparent Target circle for generous touch/mouse target area with absolute mouse capturing */}
                   <circle r="25" fill="rgba(0,0,0,0)" pointerEvents="all" className="cursor-grab active:cursor-grabbing" />
+
+                  {/* Simulated Upgrade outer spinning ring */}
+                  {simulatedUpgradedNodeIds.has(node.id) && (
+                    <circle
+                      r="16"
+                      fill="none"
+                      stroke="#05ffd1"
+                      strokeWidth="2.5"
+                      strokeDasharray="3,3"
+                      className="animate-spin"
+                      style={{ animationDuration: "6s" }}
+                    />
+                  )}
 
                   {/* Outer glow during drag / selection */}
                   {(hoveredNode === node.id || isSelected || isBeingDragged) && (
@@ -434,7 +498,7 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
             <div>
               <div className="mb-4 flex items-center justify-between border-b border-white/5 pb-4">
                 <div>
-                  <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-[#32e6ff]">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-[#05ffd1]">
                     {categoryConfig[selectedNode.label]?.label || selectedNode.label}
                   </p>
                   <h3 className="mt-2 text-lg font-bold text-slate-100">{selectedNode.name}</h3>
@@ -442,9 +506,40 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
                 <span className="font-mono text-xs text-slate-500">ID: {selectedNode.id}</span>
               </div>
 
+              {/* Sandbox Upgrade Switch */}
+              {isSandboxMode && (
+                <div className="mb-4 rounded border border-[#05ffd1]/30 bg-[#05ffd1]/5 p-3 flex flex-col gap-2">
+                  <div className="flex items-center gap-1.5 text-[#05ffd1]">
+                    <Zap className="h-3.5 w-3.5 animate-pulse" />
+                    <span className="font-mono text-[9px] uppercase tracking-wider">What-If Upgrade Mock</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setSimulatedUpgradedNodeIds((prev) => {
+                        const next = new Set(prev);
+                        if (next.has(selectedNode.id)) {
+                          next.delete(selectedNode.id);
+                        } else {
+                          next.add(selectedNode.id);
+                        }
+                        return next;
+                      });
+                    }}
+                    className={`aether-button w-full py-2 text-[10px] font-semibold ${
+                      simulatedUpgradedNodeIds.has(selectedNode.id)
+                        ? "bg-[#05ffd1]/20 text-[#05ffd1] border-[#05ffd1]/40 animate-pulse"
+                        : "bg-[#05ffd1]/10 text-slate-100 border-[#05ffd1]/20 hover:border-[#05ffd1]/60"
+                    }`}
+                  >
+                    <Shield className="h-3.5 w-3.5 shrink-0" />
+                    {simulatedUpgradedNodeIds.has(selectedNode.id) ? "Revoke PQC Simulation" : "Simulate PQC Upgrade"}
+                  </button>
+                </div>
+              )}
+
               {selectedExplanation ? (
-                <div className="mb-5 rounded-lg border border-[#32e6ff]/15 bg-[#32e6ff]/5 p-4">
-                  <div className="mb-2 flex items-center gap-2 text-[#32e6ff]">
+                <div className="mb-5 rounded-lg border border-[#05ffd1]/15 bg-[#05ffd1]/5 p-4">
+                  <div className="mb-2 flex items-center gap-2 text-[#05ffd1]">
                     <Info className="h-4 w-4" />
                     <p className="font-mono text-[10px] uppercase tracking-[0.22em]">What this means</p>
                   </div>
@@ -516,7 +611,7 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
                       <div className="space-y-2">
                         {selectedConnections.slice(0, 6).map(({ edge, node }) => (
                           <div key={`${edge.source}-${edge.target}-${edge.type}`} className="flex items-start gap-2 rounded border border-white/5 bg-white/3 px-2 py-2">
-                            <GitBranch className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#32e6ff]" />
+                            <GitBranch className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#05ffd1]" />
                             <div className="min-w-0">
                               <p className="truncate text-xs text-slate-200">{node.name}</p>
                               <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-slate-500">{edge.type.replaceAll("_", " ")}</p>
@@ -560,18 +655,76 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
                 {/* Evidence Source mapping */}
                 {selectedNode.sourceArtifactIds && selectedNode.sourceArtifactIds.length > 0 && (
                   <div>
-                    <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-slate-500">Source Evidence</p>
-                    <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto">
-                      {selectedNode.sourceArtifactIds.map((id) => (
-                        <span
-                          key={id}
-                          className="inline-flex items-center gap-1.5 rounded border border-white/10 bg-white/3 px-2 py-1 font-mono text-[9px] text-slate-400"
-                          title={artifactMap.get(id)?.name ?? id}
-                        >
-                          <FileText className="h-3 w-3" />
-                          {artifactMap.get(id)?.name ?? `${id.slice(0, 8)}...`}
-                        </span>
-                      ))}
+                    <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-slate-500">Source Evidence (Audit Tracer)</p>
+                    <div className="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto">
+                      {selectedNode.sourceArtifactIds.map((id) => {
+                        const art = artifactMap.get(id);
+                        return (
+                          <button
+                            key={id}
+                            type="button"
+                            onClick={() => {
+                              if (art) {
+                                setInspectingArtifact(art);
+                              }
+                            }}
+                            className="inline-flex items-center gap-1.5 rounded border border-white/10 bg-white/3 hover:bg-white/10 hover:border-[#05ffd1]/30 transition px-2 py-1 font-mono text-[9px] text-slate-400 text-left"
+                            title={art?.name ?? id}
+                          >
+                            <FileText className="h-3 w-3 text-[#05ffd1]" />
+                            <span className="truncate max-w-[120px]">{art?.name ?? `${id.slice(0, 8)}...`}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Exporter Bridge Panel */}
+                {selectedNode && (selectedNode.vulnerabilityScore >= 4.0 || selectedNode.label === "CryptoAsset") && (
+                  <div className="mt-4 border-t border-white/5 pt-4 space-y-2">
+                    <p className="font-mono text-[9px] uppercase tracking-wider text-slate-500 font-bold">DevSecOps & Compliance Exporter</p>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => {
+                          const ticketMarkdown = `
+# 🚨 PQC MIGRATION TASK: Upgrade Cryptographic Primitives in ${selectedNode.name}
+
+## 📊 Vulnerability Snapshot
+* **Affected Component**: \`${selectedNode.name}\`
+* **Vulnerable Classical Primitive**: \`${selectedNode.attributes?.encryptionStandard || selectedNode.attributes?.algorithm || "Classical Key Exchange/Signature"}\`
+* **Post-Quantum Safe Primitive**: \`${selectedNode.attributes?.targetMigration || "ML-KEM-768 / ML-DSA"}\`
+* **Priority Level**: **${selectedNode.vulnerabilityScore >= 8 ? "CRITICAL" : "HIGH"}**
+
+## 🛡️ Threat Vector Description
+Network assets are vulnerable to Harvest Now, Decrypt Later (HNDL) attacks. Traffic paths through \`${formatExposurePath(selectedNode, graph)}\` can be compromised.
+
+## 🛠️ Step-by-Step Action Plan
+- [ ] 1. Identify active dependencies referencing legacy algorithms.
+- [ ] 2. Update config keys to enable dual hybrid key agreements.
+- [ ] 3. Deploy PQC compliance patches and revalidate project risk score.
+
+---
+*Generated by Aether PQC Compliance Suite*`;
+                          navigator.clipboard.writeText(ticketMarkdown);
+                          setCopiedIndex(true);
+                          setTimeout(() => setCopiedIndex(false), 2000);
+                        }}
+                        className="aether-button aether-button-secondary flex-1 py-2 text-[10px] bg-white/3 hover:bg-white/10 animate-fade-in"
+                      >
+                        <FileText className="h-3.5 w-3.5 shrink-0 text-[#05ffd1]" />
+                        <span>{copiedIndex ? "Copied Task!" : "Copy Jira Ticket"}</span>
+                      </button>
+
+                      <a
+                        href={`/api/projects/${projectId}/cbom`}
+                        download
+                        className="aether-button aether-button-secondary flex-1 py-2 text-[10px] bg-white/3 hover:bg-white/10"
+                        title="Download CycloneDX CBOM for this Project"
+                      >
+                        <Network className="h-3.5 w-3.5 shrink-0 text-[#05ffd1]" />
+                        <span>Export CBOM</span>
+                      </a>
                     </div>
                   </div>
                 )}
@@ -580,7 +733,7 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
 
             {/* Hint */}
             <div className="mt-6 border-t border-white/5 pt-4 text-xs text-slate-500 flex items-center gap-2">
-              <Zap className="h-4 w-4 text-[#32e6ff] shrink-0" />
+              <Zap className="h-4 w-4 text-[#05ffd1] shrink-0" />
               <span>Click and drag nodes to arrange. Click anywhere on canvas to pan.</span>
             </div>
           </div>
@@ -591,6 +744,30 @@ export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; art
           </div>
         )}
       </aside>
+
+      {/* Dynamic Evidence Viewer Modal */}
+      {inspectingArtifact && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-md">
+          <div className="aether-panel w-full max-w-3xl rounded-lg border border-[#05ffd1]/30 bg-[#08111f]/95 p-6 shadow-2xl flex flex-col max-h-[80vh]">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+              <div>
+                <p className="font-mono text-[9px] uppercase tracking-[0.24em] text-[#05ffd1]">Audit Evidence Payload</p>
+                <h3 className="text-base font-bold text-slate-100 mt-1">{inspectingArtifact.name}</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setInspectingArtifact(null)}
+                className="rounded border border-white/10 p-1.5 text-slate-400 hover:text-slate-100 hover:bg-white/5 transition"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-auto rounded bg-black/40 border border-white/5 p-4 font-mono text-xs text-slate-300 whitespace-pre-wrap leading-5 max-h-[55vh]">
+              {inspectingArtifact.rawPayload || "No raw evidence payload was serialised/extracted for this asset."}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

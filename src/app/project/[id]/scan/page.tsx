@@ -25,7 +25,7 @@ export default async function ScanPage({ params }: { params: Promise<{ id: strin
           <section className="aether-panel aether-fade-up rounded-lg overflow-hidden">
             <div className="grid gap-6 p-6 lg:grid-cols-[1.15fr_minmax(280px,0.85fr)] lg:p-8">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">Scan workspace</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Scan workspace</p>
                 <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50">{project.name}</h1>
                 <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
                   Upload evidence, let deterministic parsing handle the clean cases, and hand the rest to Gemini multimodal analysis.

@@ -25,7 +25,7 @@ export default async function RemediationsPage({ params }: { params: Promise<{ i
       <section className="aether-panel aether-fade-up rounded-lg overflow-hidden">
         <div className="grid gap-6 p-6 lg:grid-cols-[1.1fr_minmax(260px,0.9fr)] lg:p-8">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">Migration work queue</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Migration work queue</p>
             <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50">{project.name}</h1>
             <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
               Convert high-risk cryptography findings into concrete migration tasks with owner questions, validation steps, and residual

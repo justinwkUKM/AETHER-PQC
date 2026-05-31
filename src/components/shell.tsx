@@ -34,11 +34,11 @@ export function AppShell({
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#050916]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-4 px-4 py-4 lg:px-6">
           <Link href="/dashboard" className="group flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-[#32e6ff]/35 bg-[#08111f] shadow-[0_0_0_1px_rgba(50,230,255,0.04)]">
-              <span className="font-mono text-xs tracking-[0.28em] text-[#32e6ff]">AX</span>
+            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-[#05ffd1]/35 bg-[#08111f] shadow-[0_0_0_1px_rgba(50,230,255,0.04)]">
+              <span className="font-mono text-xs tracking-[0.28em] text-[#05ffd1]">AX</span>
             </div>
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#32e6ff]">AETHER-PQC</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#05ffd1]">AETHER-PQC</p>
               <p className="text-sm text-slate-300 transition-colors group-hover:text-slate-100">Post-quantum risk workspace</p>
             </div>
           </Link>

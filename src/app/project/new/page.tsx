@@ -10,7 +10,7 @@ export default async function NewProjectPage() {
     <AppShell user={user}>
       <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <section className="aether-panel aether-fade-up rounded-lg p-6 lg:p-8">
-          <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">New assessment</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">New assessment</p>
           <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50">Start a focused scan workspace.</h1>
           <p className="mt-4 max-w-xl text-base leading-8 text-slate-300">
             Create a clean assessment space for one system, one migration track, and one source of truth for all future artifact scans.
@@ -28,11 +28,11 @@ export default async function NewProjectPage() {
           <div className="border-b border-white/10 px-6 py-5">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-md border border-[#32e6ff]/25 bg-[#08111f]">
-                  <Terminal className="h-5 w-5 text-[#32e6ff]" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-md border border-[#05ffd1]/25 bg-[#08111f]">
+                  <Terminal className="h-5 w-5 text-[#05ffd1]" />
                 </div>
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#32e6ff]">Protocol</p>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#05ffd1]">Protocol</p>
                   <h2 className="mt-1 text-lg font-semibold text-slate-50">System provision</h2>
                 </div>
               </div>

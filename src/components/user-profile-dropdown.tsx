@@ -48,7 +48,7 @@ export function UserProfileDropdown({ user }: UserProfileDropdownProps) {
       {/* Avatar Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 rounded-full focus:outline-none focus:ring-2 focus:ring-[#32e6ff]/50 transition-all duration-200"
+        className="flex items-center gap-2 rounded-full focus:outline-none focus:ring-2 focus:ring-[#05ffd1]/50 transition-all duration-200"
         aria-label="User menu"
       >
         <div className="relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#08111f] shadow-md transition-transform duration-200 hover:scale-105 active:scale-95 overflow-hidden">
@@ -60,7 +60,7 @@ export function UserProfileDropdown({ user }: UserProfileDropdownProps) {
               style={avatarBackground}
             />
           ) : (
-            <span className="font-mono text-xs font-semibold tracking-wider text-[#32e6ff]">
+            <span className="font-mono text-xs font-semibold tracking-wider text-[#05ffd1]">
               {initials || "AO"}
             </span>
           )}
@@ -81,7 +81,7 @@ export function UserProfileDropdown({ user }: UserProfileDropdownProps) {
           >
             {/* Header / User Info */}
             <div className="flex items-center gap-3.5 px-3 py-3 border-b border-white/5">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#32e6ff]/20 bg-[#0b172a] overflow-hidden">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#05ffd1]/20 bg-[#0b172a] overflow-hidden">
                 {avatarUrl ? (
                   <div
                     className="h-full w-full bg-cover bg-center"
@@ -90,7 +90,7 @@ export function UserProfileDropdown({ user }: UserProfileDropdownProps) {
                     style={avatarBackground}
                   />
                 ) : (
-                  <span className="font-mono text-sm font-semibold text-[#32e6ff]">{initials}</span>
+                  <span className="font-mono text-sm font-semibold text-[#05ffd1]">{initials}</span>
                 )}
               </div>
               <div className="min-w-0 flex-1">

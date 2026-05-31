@@ -90,7 +90,7 @@ export function LiveScanConsole({ projectId, initialEvents }: { projectId: strin
     <aside className="aether-panel h-full overflow-hidden rounded-lg">
       <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">Console core</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Console core</p>
           <h2 className="mt-2 text-lg font-semibold text-slate-50">Activity log</h2>
         </div>
         <ConnectionBadge state={connectionState} />
@@ -101,8 +101,8 @@ export function LiveScanConsole({ projectId, initialEvents }: { projectId: strin
           <ScanEventRow key={event.id} event={event} />
         ))}
         {heartbeat ? (
-          <div className="rounded-md border border-[#32e6ff]/20 bg-[#32e6ff]/5 px-3 py-3 text-[#32e6ff]">
-            <span className="mr-2 inline-flex h-2 w-2 animate-pulse rounded-full bg-[#32e6ff]" />
+          <div className="rounded-md border border-[#05ffd1]/20 bg-[#05ffd1]/5 px-3 py-3 text-[#05ffd1]">
+            <span className="mr-2 inline-flex h-2 w-2 animate-pulse rounded-full bg-[#05ffd1]" />
             <span className="mr-2 text-slate-500">[{formatElapsed(heartbeat.elapsedMs)}]</span>
             {heartbeat.message}
           </div>

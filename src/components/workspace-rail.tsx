@@ -43,7 +43,7 @@ export function WorkspaceRail({
         <div className="border-b border-white/10 px-5 py-5">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">AETHER-PQC</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">AETHER-PQC</p>
               <h2 className="aether-title mt-2 text-lg font-semibold text-slate-50">Quantum risk workspace</h2>
             </div>
             <ShieldCheck className="mt-1 h-5 w-5 text-emerald-400" />
@@ -76,7 +76,7 @@ export function WorkspaceRail({
           {projectId ? (
             <section className="aether-card overflow-hidden rounded-lg">
               <div className="border-b border-white/10 px-4 py-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#32e6ff]">My stuff</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#05ffd1]">My stuff</p>
                 <h3 className="mt-2 text-base font-semibold text-slate-50">{projectName ?? "Untitled assessment"}</h3>
                 <p className="mt-2 text-sm text-slate-400">Live status and navigation for the selected project.</p>
               </div>

@@ -28,7 +28,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
         <section className="aether-panel aether-fade-up rounded-lg overflow-hidden">
           <div className="grid gap-6 p-6 lg:grid-cols-[1.15fr_minmax(300px,0.85fr)] lg:p-8">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">Project core</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Project core</p>
               <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50 lg:text-5xl">{project.name}</h1>
               <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">{project.description ?? "No description provided."}</p>
 
@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
               <div className="rounded-lg border border-white/10 bg-[#08111f] p-4">
                 <div className="flex items-center justify-between text-slate-500">
                   <span className="text-[10px] uppercase tracking-[0.24em]">Risk score</span>
-                  <DatabaseZap className="h-4 w-4 text-[#32e6ff]" />
+                  <DatabaseZap className="h-4 w-4 text-[#05ffd1]" />
                 </div>
                 <p className="mt-3 font-mono text-4xl text-slate-50">{project.riskScore.toFixed(1)}</p>
                 <p className="mt-2 text-sm leading-6 text-slate-400">Exposure-aware risk blends crypto weakness with network reachability.</p>
@@ -69,7 +69,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
               <p className="mt-2 text-sm leading-6 text-slate-400">The graph shows the current relationship map and crypto exposure.</p>
             </div>
           </div>
-          <RiskGraph graph={graph} artifacts={project.artifacts.map((artifact) => ({ id: artifact.id, name: artifact.name, type: artifact.type }))} />
+          <RiskGraph projectId={project.id} graph={graph} artifacts={project.artifacts.map((artifact) => ({ id: artifact.id, name: artifact.name, type: artifact.type, rawPayload: artifact.rawPayload }))} />
         </section>
       </div>
     </AppShell>
