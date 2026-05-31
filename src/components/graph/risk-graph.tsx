@@ -2,11 +2,17 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import type { GraphSnapshot, GraphNode, GraphEdge } from "@/types/graph";
-import { Shield, Zap, Info, RotateCcw, Activity, MousePointerClick } from "lucide-react";
+import { Shield, Zap, Info, RotateCcw, Activity, MousePointerClick, Network, FileText, GitBranch } from "lucide-react";
 
 type PositionedNode = GraphNode & {
   x: number;
   y: number;
+};
+
+type ArtifactReference = {
+  id: string;
+  name: string;
+  type: string;
 };
 
 const categoryConfig = {
@@ -16,9 +22,9 @@ const categoryConfig = {
   DataAsset: { color: "#fb923c", label: "Data Asset", glow: "rgba(251,146,60,0.25)" },
   CryptoAsset: { color: "#ec4899", label: "Crypto Asset", glow: "rgba(236,72,153,0.25)" },
   ExternalService: { color: "#14b8a6", label: "External Service", glow: "rgba(20,184,166,0.25)" }
-};
+} satisfies Record<GraphNode["label"], { color: string; label: string; glow: string }>;
 
-export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
+export function RiskGraph({ graph, artifacts = [] }: { graph: GraphSnapshot; artifacts?: ArtifactReference[] }) {
   const [nodes, setNodes] = useState<PositionedNode[]>([]);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [selectedNode, setSelectedNode] = useState<PositionedNode | null>(null);
@@ -143,6 +149,7 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
   };
 
   const nodeMap = new Map(nodes.map((n) => [n.id, n]));
+  const artifactMap = new Map(artifacts.map((artifact) => [artifact.id, artifact]));
   const displayScore = (node: GraphNode) => {
     if (graphMode === "exposure") return node.exposureScore;
     if (graphMode === "vulnerability") return node.vulnerabilityScore;
@@ -154,6 +161,16 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
     if (score > 0) return "#facc15";
     return fallback;
   };
+  const selectedConnections = selectedNode
+    ? graph.edges
+        .filter((edge) => edge.source === selectedNode.id || edge.target === selectedNode.id)
+        .map((edge) => {
+          const otherId = edge.source === selectedNode.id ? edge.target : edge.source;
+          return { edge, node: graph.nodes.find((node) => node.id === otherId) };
+        })
+        .filter((connection): connection is { edge: GraphEdge; node: GraphNode } => Boolean(connection.node))
+    : [];
+  const selectedExplanation = selectedNode ? explainNode(selectedNode) : null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_360px]" ref={containerRef}>
@@ -215,13 +232,18 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
         </div>
 
         {/* Legend */}
-        <div className="absolute bottom-4 left-4 z-10 hidden flex-wrap gap-2.5 bg-[#050b16]/75 px-3 py-2 rounded-md border border-white/5 backdrop-blur-md md:flex">
+        <div className="absolute bottom-4 left-4 right-4 z-10 hidden flex-wrap gap-2.5 bg-[#050b16]/75 px-3 py-2 rounded-md border border-white/5 backdrop-blur-md md:flex">
           {Object.entries(categoryConfig).map(([key, config]) => (
             <div key={key} className="flex items-center gap-1.5 text-[10px]">
               <span className="h-2 w-2 rounded-full" style={{ backgroundColor: config.color }}></span>
               <span className="text-slate-400 font-mono">{config.label}</span>
             </div>
           ))}
+          <div className="ml-auto flex items-center gap-2 text-[10px] text-slate-500">
+            <span>Core color = selected score</span>
+            <span>Ring size = exposure</span>
+            <span>Lines = extracted relationships</span>
+          </div>
         </div>
 
         {/* Canvas SVG */}
@@ -420,6 +442,17 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
                 <span className="font-mono text-xs text-slate-500">ID: {selectedNode.id}</span>
               </div>
 
+              {selectedExplanation ? (
+                <div className="mb-5 rounded-lg border border-[#32e6ff]/15 bg-[#32e6ff]/5 p-4">
+                  <div className="mb-2 flex items-center gap-2 text-[#32e6ff]">
+                    <Info className="h-4 w-4" />
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em]">What this means</p>
+                  </div>
+                  <p className="text-sm leading-6 text-slate-200">{selectedExplanation.summary}</p>
+                  <p className="mt-2 text-xs leading-5 text-slate-400">{selectedExplanation.why}</p>
+                </div>
+              ) : null}
+
               {/* Stats Grid */}
               <div className="grid grid-cols-2 gap-3 mb-5">
                 <div className="rounded-md border border-white/5 bg-[#050a14] p-3 text-center">
@@ -462,9 +495,9 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
                   </p>
                   <div className="rounded-md border border-white/5 bg-black/20 p-3 text-sm text-slate-300">
                     <p className="font-mono text-xs text-slate-200">{selectedNode.exposureLevel}</p>
-                    {selectedNode.exposurePath?.length ? (
-                      <p className="mt-2 text-xs leading-5 text-slate-400">{selectedNode.exposurePath.join(" -> ")}</p>
-                    ) : null}
+                    <p className="mt-2 text-xs leading-5 text-slate-400">
+                      {formatExposurePath(selectedNode, graph)}
+                    </p>
                     <div className="mt-3 flex flex-wrap gap-1.5">
                       {(selectedNode.exposureReasons.length ? selectedNode.exposureReasons : ["No explicit exposure evidence detected."]).map((reason) => (
                         <span key={reason} className="rounded border border-white/10 bg-white/3 px-2 py-0.5 font-mono text-[9px] text-slate-400">
@@ -476,16 +509,41 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
                 </div>
                 <div>
                   <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-slate-500">
-                    Cryptographic Primitives
+                    Connected Items
+                  </p>
+                  <div className="rounded-md border border-white/5 bg-black/20 p-3">
+                    {selectedConnections.length > 0 ? (
+                      <div className="space-y-2">
+                        {selectedConnections.slice(0, 6).map(({ edge, node }) => (
+                          <div key={`${edge.source}-${edge.target}-${edge.type}`} className="flex items-start gap-2 rounded border border-white/5 bg-white/3 px-2 py-2">
+                            <GitBranch className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#32e6ff]" />
+                            <div className="min-w-0">
+                              <p className="truncate text-xs text-slate-200">{node.name}</p>
+                              <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-slate-500">{edge.type.replaceAll("_", " ")}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <Network className="h-4 w-4" />
+                        <span>No relationships were extracted for this item yet.</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <p className="mb-2 font-mono text-[9px] uppercase tracking-wider text-slate-500">
+                    Extracted Details
                   </p>
                   <div className="rounded-md border border-white/5 bg-black/20 p-3 leading-6 text-sm text-slate-300">
                     {selectedNode.attributes && Object.keys(selectedNode.attributes).length > 0 ? (
                       <div className="space-y-2 max-h-48 overflow-y-auto font-mono text-xs">
                         {Object.entries(selectedNode.attributes).map(([key, value]) => (
                           <div key={key} className="flex justify-between border-b border-white/5 pb-1 last:border-0 last:pb-0">
-                            <span className="text-slate-500">{key}</span>
+                            <span className="text-slate-500">{formatAttributeKey(key)}</span>
                             <span className="text-slate-200 text-right truncate max-w-[160px]">
-                              {typeof value === "object" ? JSON.stringify(value) : String(value)}
+                              {formatAttributeValue(value)}
                             </span>
                           </div>
                         ))}
@@ -507,9 +565,11 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
                       {selectedNode.sourceArtifactIds.map((id) => (
                         <span
                           key={id}
-                          className="rounded border border-white/10 bg-white/3 px-2 py-0.5 font-mono text-[9px] text-slate-400"
+                          className="inline-flex items-center gap-1.5 rounded border border-white/10 bg-white/3 px-2 py-1 font-mono text-[9px] text-slate-400"
+                          title={artifactMap.get(id)?.name ?? id}
                         >
-                          {id.slice(0, 8)}...
+                          <FileText className="h-3 w-3" />
+                          {artifactMap.get(id)?.name ?? `${id.slice(0, 8)}...`}
                         </span>
                       ))}
                     </div>
@@ -533,4 +593,52 @@ export function RiskGraph({ graph }: { graph: GraphSnapshot }) {
       </aside>
     </div>
   );
+}
+
+function explainNode(node: GraphNode) {
+  const syntheticNetworkContext = node.id === "external_network_context" || (node.label === "ExternalService" && node.name.toLowerCase().includes("external network context"));
+  if (syntheticNetworkContext) {
+    return {
+      summary: "This is a generated exposure anchor, not a real application component.",
+      why: "AETHER adds it when uploaded evidence mentions public, internet, gateway, TLS, port, or inbound network context. It lets the graph show which crypto findings are near the network edge."
+    };
+  }
+
+  if (node.label === "CryptoAsset") {
+    return {
+      summary: `${node.name} is a cryptographic finding extracted from the uploaded evidence.`,
+      why: `Its priority is based on cryptographic weakness (${node.vulnerabilityScore.toFixed(1)}), exposure (${node.exposureScore.toFixed(1)}), and confidence (${(node.confidence * 100).toFixed(0)}%).`
+    };
+  }
+
+  if (node.label === "ExternalService") {
+    return {
+      summary: "This item represents a boundary, third-party, public endpoint, or external dependency.",
+      why: "External services raise exposure for connected systems because they can indicate inbound or cross-boundary reachability."
+    };
+  }
+
+  return {
+    summary: `This item represents a ${categoryConfig[node.label]?.label.toLowerCase() ?? "topology entity"} found in the uploaded evidence.`,
+    why: "It helps connect crypto assets to business, application, data, and service context so remediation work has ownership and impact."
+  };
+}
+
+function formatExposurePath(node: GraphNode, graph: GraphSnapshot) {
+  if (!node.exposurePath?.length) return "No explicit exposure path was extracted yet.";
+  const names = node.exposurePath.map((id) => graph.nodes.find((item) => item.id === id)?.name ?? id);
+  return names.join(" -> ");
+}
+
+function formatAttributeKey(key: string) {
+  return key
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replaceAll("_", " ")
+    .replace(/\b\w/g, (match) => match.toUpperCase());
+}
+
+function formatAttributeValue(value: unknown) {
+  if (typeof value === "object" && value !== null) return JSON.stringify(value);
+  if (value === "text") return "Detected in extracted text";
+  return String(value);
 }

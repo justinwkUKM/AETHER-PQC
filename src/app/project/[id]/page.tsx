@@ -69,7 +69,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
               <p className="mt-2 text-sm leading-6 text-slate-400">The graph shows the current relationship map and crypto exposure.</p>
             </div>
           </div>
-          <RiskGraph graph={graph} />
+          <RiskGraph graph={graph} artifacts={project.artifacts.map((artifact) => ({ id: artifact.id, name: artifact.name, type: artifact.type }))} />
         </section>
       </div>
     </AppShell>
