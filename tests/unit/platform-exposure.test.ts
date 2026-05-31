@@ -60,4 +60,9 @@ describe("platform exposure summary", () => {
     expect(summary.findings[0].protocolHints).toContain("TLS 1.0");
     expect(summary.findings[0].action).toContain("Retire the legacy protocol");
   });
+
+  it("detects protocol findings consistently across repeated calls", () => {
+    expect(buildPlatformExposureSummary(graph).tlsOrProtocolFindings).toBe(1);
+    expect(buildPlatformExposureSummary(graph).tlsOrProtocolFindings).toBe(1);
+  });
 });

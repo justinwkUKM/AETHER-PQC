@@ -26,7 +26,8 @@ export type PlatformExposureSummary = {
   findings: PlatformExposureFinding[];
 };
 
-const protocolPattern = /\b(TLS\s*1[._-]?[0-3]|SSL|HTTPS|MTLS|RSA KEY EXCHANGE|STATIC DH|RC4|3DES|SHA-?1|CBC|EXPORT|NULL)\b/gi;
+const protocolPattern = /\b(TLS\s*1[._-]?[0-3]|SSL|HTTPS|MTLS|RSA KEY EXCHANGE|STATIC DH|RC4|3DES|SHA-?1|CBC|EXPORT|NULL)\b/i;
+const protocolExtractPattern = /\b(TLS\s*1[._-]?[0-3]|SSL|HTTPS|MTLS|RSA KEY EXCHANGE|STATIC DH|RC4|3DES|SHA-?1|CBC|EXPORT|NULL)\b/gi;
 const networkPattern = /\b(public|internet|external|edge|gateway|ingress|load balancer|load-balancer|api gateway|reverse proxy|dmz|listener|endpoint|port|443|8443)\b/i;
 
 export function buildPlatformExposureSummary(graph: GraphSnapshot): PlatformExposureSummary {
@@ -119,7 +120,7 @@ function ownerQuestionFor(category: PlatformExposureFinding["category"]) {
 }
 
 function extractProtocolHints(text: string) {
-  const matches = text.match(protocolPattern) ?? [];
+  const matches = text.match(protocolExtractPattern) ?? [];
   return [...new Set(matches.map((match) => match.toUpperCase().replaceAll("_", " ")))];
 }
 
