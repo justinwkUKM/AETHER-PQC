@@ -5,6 +5,12 @@ import type { GraphSnapshot } from "@/types/graph";
 
 export const dynamic = "force-dynamic";
 
+type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
+
+function stringifyAttribute(value: unknown, fallback: string) {
+  return typeof value === "string" && value.trim().length > 0 ? value : fallback;
+}
+
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const user = await getApiUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -31,13 +37,16 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       ? "cryptographic-asset" 
       : "application";
 
-    const cryptoDetails: Record<string, any> = {};
+    const cryptoDetails: Record<string, JsonValue> = {};
 
     if (isCrypto && node.attributes) {
       cryptoDetails.assetType = node.label === "CryptoAsset" ? "algorithm" : "protocol";
       cryptoDetails.algorithmProperties = {
-        name: node.attributes.encryptionStandard || node.attributes.algorithm || "Classical Key Agreement",
-        parameterSet: node.attributes.targetMigration || "N/A",
+        name: stringifyAttribute(
+          node.attributes.encryptionStandard || node.attributes.algorithm,
+          "Classical Key Agreement"
+        ),
+        parameterSet: stringifyAttribute(node.attributes.targetMigration, "N/A"),
         classicalSecurityStrength: node.vulnerabilityScore >= 8 ? 80 : 128,
         quantumSecurityStrength: node.vulnerabilityScore < 5 ? 128 : 0
       };
