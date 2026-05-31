@@ -1,6 +1,7 @@
 import { Terminal } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { auth } from "@/server/auth";
 
 import GoogleSignInButton from "./GoogleSignInButton";
@@ -12,6 +13,9 @@ export default async function LoginPage() {
 
   return (
     <main className="aether-shell min-h-screen px-4 py-6 lg:px-6">
+      <div className="fixed right-4 top-4 z-40">
+        <ThemeToggle />
+      </div>
       <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-[1500px] items-center gap-8 lg:grid-cols-[1.1fr_minmax(380px,0.9fr)]">
         <section className="aether-fade-up space-y-8 py-8 lg:pr-8">
           <div className="flex items-center gap-3">

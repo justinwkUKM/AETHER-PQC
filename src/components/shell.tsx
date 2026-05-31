@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { UserProfileDropdown } from "@/components/user-profile-dropdown";
 import { WorkspaceRail } from "@/components/workspace-rail";
 
@@ -43,6 +44,7 @@ export function AppShell({
           </Link>
 
           <div className="flex items-center gap-3.5">
+            <ThemeToggle />
             <Link href="/project/new" className="aether-button aether-button-primary px-4 py-2.5 text-sm font-medium">
               <Plus className="h-4 w-4" /> New assessment
             </Link>
