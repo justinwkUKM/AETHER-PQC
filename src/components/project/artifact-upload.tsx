@@ -11,12 +11,17 @@ type FileQueueItem = {
   error?: string;
 };
 
+type OverallStatus = {
+  message: string;
+  state: "IDLE" | "RUNNING" | "SUCCESS" | "WARNING" | "ERROR";
+};
+
 export function ArtifactUpload({ projectId }: { projectId: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [queue, setQueue] = useState<FileQueueItem[]>([]);
   const [isPending, startTransition] = useTransition();
-  const [overallProgress, setOverallProgress] = useState("");
+  const [overallStatus, setOverallStatus] = useState<OverallStatus>({ message: "", state: "IDLE" });
 
   const formatBytes = (bytes: number) => {
     if (bytes === 0) return "0 Bytes";
@@ -34,7 +39,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
         status: "QUEUED" as const
       }));
       setQueue(items);
-      setOverallProgress("");
+      setOverallStatus({ message: "", state: "IDLE" });
     }
   };
 
@@ -65,7 +70,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
         setQueue((prev) =>
           prev.map((item, idx) => (idx === i ? { ...item, status: "PROCESSING" } : item))
         );
-        setOverallProgress(`Processing file ${i + 1} of ${files.length}: ${file.name}`);
+        setOverallStatus({ message: `Processing file ${i + 1} of ${files.length}: ${file.name}`, state: "RUNNING" });
 
         try {
           const singleFormData = new FormData();
@@ -97,11 +102,14 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
       }
 
       if (completedArtifactIds.length > 1) {
-        setOverallProgress(`Running unified batch analysis across ${completedArtifactIds.length} artifacts...`);
+        setOverallStatus({ message: `Running unified batch analysis across ${completedArtifactIds.length} artifacts...`, state: "RUNNING" });
         const batchResult = await analyzeProjectBatch(projectId, completedArtifactIds);
-        setOverallProgress(batchResult.message);
+        setOverallStatus({
+          message: batchResult.message,
+          state: batchResult.status === "COMPLETED" ? "SUCCESS" : batchResult.status === "SKIPPED" ? "WARNING" : "ERROR"
+        });
       } else {
-        setOverallProgress("Artifact scanning completed.");
+        setOverallStatus({ message: "Artifact scanning completed.", state: "SUCCESS" });
       }
 
       if (formRef.current) formRef.current.reset();
@@ -196,10 +204,23 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
         </button>
 
         {/* Global Progress Indicator */}
-        {overallProgress && (
-          <div className="rounded-md border border-[#32e6ff]/20 bg-[#32e6ff]/5 px-4 py-3 text-xs font-mono text-[#32e6ff] flex items-center gap-2">
-            <Loader2 className="h-3.5 w-3.5 animate-spin" />
-            <span>{overallProgress}</span>
+        {overallStatus.message && (
+          <div
+            className={`rounded-md border px-4 py-3 text-xs font-mono flex items-center gap-2 ${
+              overallStatus.state === "SUCCESS"
+                ? "border-emerald-400/25 bg-emerald-400/8 text-emerald-300"
+                : overallStatus.state === "WARNING"
+                  ? "border-amber-400/25 bg-amber-400/8 text-amber-300"
+                  : overallStatus.state === "ERROR"
+                    ? "border-rose-400/25 bg-rose-400/8 text-rose-300"
+                    : "border-[#32e6ff]/20 bg-[#32e6ff]/5 text-[#32e6ff]"
+            }`}
+          >
+            {overallStatus.state === "RUNNING" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : null}
+            {overallStatus.state === "SUCCESS" ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
+            {overallStatus.state === "WARNING" ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
+            {overallStatus.state === "ERROR" ? <XCircle className="h-3.5 w-3.5" /> : null}
+            <span>{overallStatus.message}</span>
           </div>
         )}
       </div>
