@@ -2,8 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { randomUUID } from "node:crypto";
+import { unlink } from "node:fs/promises";
 import type { Prisma } from "@prisma/client";
-import { extractGraphWithGemini } from "@/lib/ai/gemini";
+import { analyzeBatchWithGemini, extractGraphWithGemini, type BatchArtifactContext } from "@/lib/ai/gemini";
 import { calculateRiskScore, mergeGraphSnapshots, parseGraphSnapshot } from "@/lib/graph";
 import { env } from "@/lib/env";
 import { prisma } from "@/lib/db";
@@ -13,6 +14,19 @@ import { generateDeterministicRemediations } from "@/lib/remediation/determinist
 import { storeArtifactObject } from "@/lib/storage";
 import { requireProject, requireUser } from "@/server/auth/guards";
 import type { GraphSnapshot } from "@/types/graph";
+
+type UploadArtifactResult = {
+  artifactId: string;
+  status: "COMPLETED" | "FAILED";
+  parserMode?: "DETERMINISTIC" | "AI_MULTIMODAL" | "HYBRID";
+  error?: string;
+};
+
+type BatchAnalysisResult = {
+  status: "COMPLETED" | "SKIPPED" | "FAILED";
+  artifactCount: number;
+  message: string;
+};
 
 async function logEvent(projectId: string, artifactId: string | null, message: string, level: "INFO" | "WARN" | "ERROR" | "SUCCESS" = "INFO") {
   await prisma.scanEvent.create({ data: { projectId, artifactId, message, level } });
@@ -39,7 +53,7 @@ async function persistRemediations(projectId: string, graph: GraphSnapshot) {
   });
 }
 
-export async function uploadArtifact(projectId: string, formData: FormData) {
+export async function uploadArtifact(projectId: string, formData: FormData): Promise<UploadArtifactResult> {
   const user = await requireUser();
   const project = await requireProject(user.id, projectId);
   const file = formData.get("artifact");
@@ -119,7 +133,7 @@ export async function uploadArtifact(projectId: string, formData: FormData) {
     await prisma.artifact.update({
       where: { id: artifactId },
       data: {
-        rawPayload: text.slice(0, 100_000),
+        rawPayload: text ? text.slice(0, 100_000) : JSON.stringify(incomingGraph, null, 2),
         parseStatus: "COMPLETED",
         parserMode,
         aiModel: parserMode === "DETERMINISTIC" ? null : env.GEMINI_MODEL,
@@ -127,6 +141,10 @@ export async function uploadArtifact(projectId: string, formData: FormData) {
       }
     });
     await logEvent(projectId, artifactId, `Scan completed using ${parserMode}.`, "SUCCESS");
+
+    revalidatePath(`/project/${projectId}`);
+    revalidatePath(`/project/${projectId}/scan`);
+    return { artifactId, status: "COMPLETED", parserMode };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown artifact processing failure.";
     await prisma.artifact.update({
@@ -134,7 +152,154 @@ export async function uploadArtifact(projectId: string, formData: FormData) {
       data: { parseStatus: "FAILED", parseError: message }
     });
     await logEvent(projectId, artifactId, message, "ERROR");
+    revalidatePath(`/project/${projectId}`);
+    revalidatePath(`/project/${projectId}/scan`);
+    return { artifactId, status: "FAILED", error: message };
   }
+}
+
+export async function analyzeProjectBatch(projectId: string, artifactIds: string[] = []): Promise<BatchAnalysisResult> {
+  const user = await requireUser();
+  const project = await requireProject(user.id, projectId);
+  const selectedArtifactIds = Array.from(new Set(artifactIds));
+
+  const artifacts = await prisma.artifact.findMany({
+    where: {
+      projectId,
+      parseStatus: "COMPLETED",
+      ...(selectedArtifactIds.length > 0 ? { id: { in: selectedArtifactIds } } : {})
+    },
+    orderBy: { createdAt: "asc" }
+  });
+
+  if (artifacts.length < 2) {
+    const message = "Batch analysis skipped because fewer than two completed artifacts were available.";
+    await logEvent(projectId, null, message, "WARN");
+    return { status: "SKIPPED", artifactCount: artifacts.length, message };
+  }
+
+  if (!env.GEMINI_API_KEY || env.GEMINI_API_KEY === "test") {
+    const message = "Batch analysis skipped because GEMINI_API_KEY is not configured for local AI execution.";
+    await logEvent(projectId, null, message, "WARN");
+    return { status: "SKIPPED", artifactCount: artifacts.length, message };
+  }
+
+  await logEvent(projectId, null, `Running unified Gemini batch analysis over ${artifacts.length} completed artifacts.`);
+
+  try {
+    const contexts: BatchArtifactContext[] = artifacts.map((artifact) => ({
+      artifactId: artifact.id,
+      name: artifact.name,
+      type: artifact.type,
+      mimeType: artifact.mimeType,
+      parserMode: artifact.parserMode,
+      rawPayload: artifact.rawPayload
+    }));
+    const currentGraph = parseGraphSnapshot(project.graphSnapshot);
+    const batchGraph = await analyzeBatchWithGemini({
+      projectName: project.name,
+      currentGraph,
+      artifacts: contexts
+    });
+    const mergedGraph = mergeGraphSnapshots(currentGraph, batchGraph);
+    const riskScore = calculateRiskScore(mergedGraph);
+
+    await persistRemediations(projectId, mergedGraph);
+    await prisma.project.update({
+      where: { id: projectId },
+      data: {
+        graphSnapshot: mergedGraph as Prisma.InputJsonValue,
+        riskScore,
+        lastScanAt: new Date()
+      }
+    });
+
+    const message = `Unified batch analysis completed across ${artifacts.length} artifacts.`;
+    await logEvent(projectId, null, message, "SUCCESS");
+    revalidatePath(`/project/${projectId}`);
+    revalidatePath(`/project/${projectId}/scan`);
+    return { status: "COMPLETED", artifactCount: artifacts.length, message };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown batch analysis failure.";
+    await logEvent(projectId, null, `Batch analysis failed: ${message}`, "ERROR");
+    revalidatePath(`/project/${projectId}`);
+    revalidatePath(`/project/${projectId}/scan`);
+    return { status: "FAILED", artifactCount: artifacts.length, message };
+  }
+
+}
+
+export async function deleteArtifact(projectId: string, artifactId: string) {
+  return deleteArtifacts(projectId, [artifactId]);
+}
+
+export async function deleteArtifacts(projectId: string, artifactIds: string[]) {
+  const user = await requireUser();
+  const project = await requireProject(user.id, projectId);
+
+  const artifacts = await prisma.artifact.findMany({
+    where: { id: { in: artifactIds }, projectId }
+  });
+
+  if (artifacts.length === 0) return;
+
+  try {
+    const storageDriver = process.env.STORAGE_DRIVER ?? env.STORAGE_DRIVER;
+    if (storageDriver !== "gcs") {
+      for (const artifact of artifacts) {
+        if (artifact.storagePath) {
+          await unlink(artifact.storagePath).catch(() => {});
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Error deleting physical files:", err);
+  }
+
+  // Bulk delete database records
+  await prisma.artifact.deleteMany({
+    where: { id: { in: artifactIds }, projectId }
+  });
+
+  // Filter and reconstruct graph, removing entities associated ONLY with these deleted artifacts
+  const currentGraph = parseGraphSnapshot(project.graphSnapshot);
+  const deletedSet = new Set(artifactIds);
+
+  const updatedNodes = currentGraph.nodes.map(node => {
+    const nextSources = node.sourceArtifactIds.filter(id => !deletedSet.has(id));
+    return { ...node, sourceArtifactIds: nextSources };
+  }).filter(node => node.sourceArtifactIds.length > 0);
+
+  const updatedNodeIds = new Set(updatedNodes.map(n => n.id));
+
+  const updatedEdges = currentGraph.edges.map(edge => {
+    const nextSources = edge.sourceArtifactIds.filter(id => !deletedSet.has(id));
+    return { ...edge, sourceArtifactIds: nextSources };
+  }).filter(edge => edge.sourceArtifactIds.length > 0 && updatedNodeIds.has(edge.source) && updatedNodeIds.has(edge.target));
+
+  const mergedGraph = { nodes: updatedNodes, edges: updatedEdges };
+  const riskScore = calculateRiskScore(mergedGraph);
+
+  // Update remediations dynamically based on the updated graph
+  await persistRemediations(projectId, mergedGraph);
+
+  // Update project snapshot & stats
+  await prisma.project.update({
+    where: { id: projectId },
+    data: {
+      graphSnapshot: mergedGraph as Prisma.InputJsonValue,
+      riskScore,
+      lastScanAt: new Date()
+    }
+  });
+
+  await prisma.scanEvent.create({
+    data: {
+      projectId,
+      message: `Bulk deleted ${artifacts.length} artifacts and removed associated threat entities.`,
+      level: "SUCCESS"
+    }
+  });
 
   revalidatePath(`/project/${projectId}`);
   revalidatePath(`/project/${projectId}/scan`);

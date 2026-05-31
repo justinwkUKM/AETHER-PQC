@@ -50,6 +50,7 @@ For local UI testing without Google OAuth, set `TEST_AUTH_ENABLED=true`. The app
 - Artifact upload for JSON, CSV, TXT, MD, PDF, PNG, JPEG, and WEBP.
 - Deterministic-first crypto extraction for structured and text artifacts.
 - Gemini Developer API multimodal fallback for images, scanned PDFs, diagrams, screenshots, and ambiguous content.
+- Multi-file uploads with a unified batch analysis pass for cross-file dependencies and threat paths.
 - Risk graph snapshot with typed nodes and edges.
 - PQC remediation queue with priority mapping.
 - Real scan events for terminal-style progress logs.

@@ -11,10 +11,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
   const user = await requireUser();
   const project = await requireProject(user.id, id);
   const graph = parseGraphSnapshot(project.graphSnapshot);
-
   return (
     <AppShell
-      userName={user.name}
+      user={user}
       projectId={project.id}
       projectName={project.name}
       projectRisk={project.riskScore}

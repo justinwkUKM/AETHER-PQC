@@ -15,7 +15,7 @@ export default async function DashboardPage() {
   const avgRisk = projects.length ? Math.round((projects.reduce((sum, project) => sum + project.riskScore, 0) / projects.length) * 10) / 10 : 0;
 
   return (
-    <AppShell userName={user.name}>
+    <AppShell user={user}>
       <div className="space-y-6">
         <section className="aether-panel aether-fade-up overflow-hidden rounded-lg">
           <div className="grid gap-6 p-6 lg:grid-cols-[1.25fr_minmax(280px,0.75fr)] lg:p-8">

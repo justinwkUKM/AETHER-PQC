@@ -1,11 +1,15 @@
 import Link from "next/link";
-import { LogOut, Plus, ShieldCheck } from "lucide-react";
-import { signOut } from "@/server/auth";
+import { Plus } from "lucide-react";
+import { UserProfileDropdown } from "@/components/user-profile-dropdown";
 import { WorkspaceRail } from "@/components/workspace-rail";
 
 type AppShellProps = {
   children: React.ReactNode;
-  userName?: string | null;
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  } | null;
   projectId?: string;
   projectName?: string;
   projectRisk?: number;
@@ -16,7 +20,7 @@ type AppShellProps = {
 
 export function AppShell({
   children,
-  userName,
+  user,
   projectId,
   projectName,
   projectRisk,
@@ -38,31 +42,24 @@ export function AppShell({
             </div>
           </Link>
 
-          <div className="flex items-center gap-3">
-            <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/3 px-3 py-2 text-xs text-slate-400 lg:flex">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
-              <span>{userName ?? "Secure Session"}</span>
-            </div>
+          <div className="flex items-center gap-3.5">
             <Link href="/project/new" className="aether-button aether-button-primary px-4 py-2.5 text-sm font-medium">
               <Plus className="h-4 w-4" /> New assessment
             </Link>
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/login" });
-              }}
-            >
-              <button type="submit" className="aether-button aether-button-secondary h-11 w-11" aria-label="Sign out">
-                <LogOut className="h-4 w-4" />
-              </button>
-            </form>
+            {user ? (
+              <UserProfileDropdown user={user} />
+            ) : (
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#08111f]">
+                <span className="font-mono text-xs text-slate-500">OP</span>
+              </div>
+            )}
           </div>
         </div>
       </header>
 
       <main className="mx-auto grid max-w-[1500px] gap-6 px-4 py-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:px-6">
         <WorkspaceRail
-          userName={userName}
+          userName={user?.name}
           projectId={projectId}
           projectName={projectName}
           projectRisk={projectRisk}

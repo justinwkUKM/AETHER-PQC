@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { auth } from "@/server/auth";
 
+import GoogleSignInButton from "./GoogleSignInButton";
+
 export default async function LoginPage() {
   const session = await auth();
   if (session?.user) redirect("/dashboard");
@@ -56,9 +58,7 @@ export default async function LoginPage() {
           </div>
           <div className="space-y-5 px-6 py-6">
             {googleAuthEnabled ? (
-              <Link href="/api/auth/signin/google?callbackUrl=/dashboard" className="aether-button aether-button-primary w-full px-4 py-4 text-base font-medium">
-                Sign in with Google
-              </Link>
+              <GoogleSignInButton />
             ) : (
               <div className="rounded-lg border border-white/10 bg-[#08111f] px-4 py-4">
                 <p className="text-sm font-medium text-slate-100">Google OAuth is not configured in this environment.</p>

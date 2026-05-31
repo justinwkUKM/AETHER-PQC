@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "id": "lite-llm-gateway",
+      "name": "LiteLLM Gateway",
+      "label": "Application",
+      "vulnerabilityScore": 8.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDHE-RSA-AES256-GCM-SHA384",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "X25519 + ML-KEM-768",
+        "interface": "Public Internet Ingress"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "vllm-inference-instance",
+      "name": "vLLM Inference Cluster",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 6.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Internal Plaintext TCP Sockets",
+        "quantumCompliance": "VULNERABLE",
+        "targetMigration": "mTLS with ML-DSA-65",
+        "hosting": "AWS EC2 g7e.2xlarge"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "amazon-rds-postgres",
+      "name": "Amazon RDS PostgreSQL",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 transparent encryption (TDE)",
+        "quantumCompliance": "VULNERABLE",
+        "targetMigration": "PQC KMS Key Integration",
+        "storageType": "General Purpose SSD gp3"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "amazon-s3-backup",
+      "name": "Amazon S3 Backup",
+      "label": "DataAsset",
+      "vulnerabilityScore": 9.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Classical HTTPS with RSA-4096",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-85 TLS verification",
+        "exposureRisk": "Harvest Now Decrypt Later (HNDL)"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "aws-bedrock",
+      "name": "AWS Bedrock",
+      "label": "ExternalService",
+      "vulnerabilityScore": 5.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P256 secure envelopes",
+        "quantumCompliance": "PARTIALLY-COMPLIANT",
+        "targetMigration": "Hybrid Kyber TLS Envelopes",
+        "modelsServed": "Claude 3.5 Sonnet, Claude 3.5 Haiku"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "lite-llm-gateway",
+      "target": "vllm-inference-instance",
+      "type": "OpenAI Compatible HTTP"
+    },
+    {
+      "source": "lite-llm-gateway",
+      "target": "amazon-rds-postgres",
+      "type": "Database Connect"
+    },
+    {
+      "source": "vllm-inference-instance",
+      "target": "amazon-s3-backup",
+      "type": "Model Storage Read"
+    },
+    {
+      "source": "lite-llm-gateway",
+      "target": "aws-bedrock",
+      "type": "External API Call"
+    }
+  ]
+}

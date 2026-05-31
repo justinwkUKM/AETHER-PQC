@@ -12,10 +12,9 @@ export default async function RemediationsPage({ params }: { params: Promise<{ i
   const { id } = await params;
   const user = await requireUser();
   const project = await requireProject(user.id, id);
-
   return (
     <AppShell
-      userName={user.name}
+      user={user}
       projectId={project.id}
       projectName={project.name}
       projectRisk={project.riskScore}

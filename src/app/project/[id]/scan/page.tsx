@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/shell";
 import { ArtifactUpload } from "@/components/project/artifact-upload";
+import { ArtifactList } from "@/components/project/artifact-list";
 import { requireProject, requireUser } from "@/server/auth/guards";
 
 export default async function ScanPage({ params }: { params: Promise<{ id: string }> }) {
@@ -9,7 +10,7 @@ export default async function ScanPage({ params }: { params: Promise<{ id: strin
 
   return (
     <AppShell
-      userName={user.name}
+      user={user}
       projectId={project.id}
       projectName={project.name}
       projectRisk={project.riskScore}
@@ -38,27 +39,7 @@ export default async function ScanPage({ params }: { params: Promise<{ id: strin
 
           <ArtifactUpload projectId={project.id} />
 
-          <section className="aether-panel rounded-lg p-5 lg:p-6">
-            <div className="mb-4 flex items-center justify-between gap-4">
-              <div>
-                <h2 className="aether-title text-xl font-semibold text-slate-50">Artifacts</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-400">Latest uploaded evidence and its processing state.</p>
-              </div>
-            </div>
-            <div className="space-y-3">
-              {project.artifacts.map((artifact) => (
-                <div
-                  key={artifact.id}
-                  className="grid gap-3 rounded-lg border border-white/10 bg-[#08111f] p-4 text-sm md:grid-cols-[1.7fr_0.7fr_0.6fr_0.7fr]"
-                >
-                  <span className="text-slate-100">{artifact.name}</span>
-                  <span className="text-slate-400">{artifact.type}</span>
-                  <span className="text-[#32e6ff]">{artifact.parseStatus}</span>
-                  <span className="text-slate-500">{artifact.parserMode ?? "PENDING"}</span>
-                </div>
-              ))}
-            </div>
-          </section>
+          <ArtifactList artifacts={project.artifacts} projectId={project.id} />
         </div>
 
         <aside className="aether-panel h-full overflow-hidden rounded-lg">

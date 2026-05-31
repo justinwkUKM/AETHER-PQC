@@ -3,6 +3,24 @@ import { auth } from "@/server/auth";
 import { prisma } from "@/lib/db";
 
 export async function requireUser() {
+  const session = await auth();
+  const email = session?.user?.email;
+
+  if (email) {
+    return prisma.user.upsert({
+      where: { email },
+      update: {
+        name: session.user.name,
+        image: session.user.image
+      },
+      create: {
+        email,
+        name: session.user.name,
+        image: session.user.image
+      }
+    });
+  }
+
   if (process.env.TEST_AUTH_ENABLED === "true") {
     return prisma.user.upsert({
       where: { email: "test@aether.local" },
@@ -10,26 +28,7 @@ export async function requireUser() {
       create: { email: "test@aether.local", name: "AETHER Test Operator" }
     });
   }
-
-  const session = await auth();
-  const email = session?.user?.email;
-
-  if (!email) {
-    redirect("/login");
-  }
-
-  return prisma.user.upsert({
-    where: { email },
-    update: {
-      name: session.user.name,
-      image: session.user.image
-    },
-    create: {
-      email,
-      name: session.user.name,
-      image: session.user.image
-    }
-  });
+  redirect("/login");
 }
 
 export async function requireProject(userId: string, projectId: string) {

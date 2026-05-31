@@ -1,0 +1,77 @@
+{
+  "nodes": [
+    {
+      "id": "legacy-proxy",
+      "name": "Legacy Proxy Server",
+      "label": "Application",
+      "vulnerabilityScore": 9.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "SSL v3 with RC4-128 and MD5",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with ML-KEM-768",
+        "exposureRisk": "Critical Public Ingress"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "old-gateway",
+      "name": "Old Corporate Gateway",
+      "label": "Application",
+      "vulnerabilityScore": 9.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "SSH v1 with RSA-1024",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-65 authenticated SSH",
+        "exposureRisk": "Direct Intranet Bridge"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "standard-rds",
+      "name": "Standard RDS (Unencrypted)",
+      "label": "DataAsset",
+      "vulnerabilityScore": 8.9,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Triple DES storage-at-rest (3DES)",
+        "quantumCompliance": "VULNERABLE",
+        "targetMigration": "PQC KMS Key Integration",
+        "databaseType": "Legacy Oracle RDS Instance"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "unsecured-s3-bucket",
+      "name": "Unsecured S3 Storage Bucket",
+      "label": "DataAsset",
+      "vulnerabilityScore": 9.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Public HTTP Endpoint (No Encryption)",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-85 TLS verification",
+        "exposureRisk": "Store Now Decrypt Later (SNDL)"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "legacy-proxy",
+      "target": "old-gateway",
+      "type": "SSL v3 Encrypted Tunnel"
+    },
+    {
+      "source": "old-gateway",
+      "target": "standard-rds",
+      "type": "Unencrypted Intranet Connection"
+    },
+    {
+      "source": "legacy-proxy",
+      "target": "unsecured-s3-bucket",
+      "type": "Unencrypted HTTP Feed"
+    }
+  ]
+}

@@ -7,7 +7,7 @@ export default async function NewProjectPage() {
   const user = await requireUser();
 
   return (
-    <AppShell userName={user.name}>
+    <AppShell user={user}>
       <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <section className="aether-panel aether-fade-up rounded-lg p-6 lg:p-8">
           <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#32e6ff]">New assessment</p>
