@@ -20,7 +20,7 @@ export default async function DashboardPage() {
         <section className="aether-panel aether-fade-up overflow-hidden rounded-lg">
           <div className="grid gap-6 p-6 lg:grid-cols-[1.25fr_minmax(280px,0.75fr)] lg:p-8">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Executive posture</p>
+              <p className="text-xs font-medium text-[var(--accent-cyan)]">Executive posture</p>
               <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50 lg:text-5xl">
                 PQC readiness and exposed crypto risk
               </h1>
@@ -32,7 +32,7 @@ export default async function DashboardPage() {
                   New assessment <ArrowRight className="h-4 w-4" />
                 </Link>
                 <span className="aether-chip rounded-full px-4 py-3 text-sm text-slate-300">
-                  <Sparkles className="mr-2 inline h-4 w-4 text-[#05ffd1]" />
+                  <Sparkles className="mr-2 inline h-4 w-4 text-[var(--accent-cyan)]" />
                   Deterministic-first analysis
                 </span>
               </div>
@@ -65,20 +65,20 @@ export default async function DashboardPage() {
                 <h2 className="aether-title text-xl font-semibold text-slate-50">Highest-risk projects</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-400">Executive triage ordered by exposure-aware project risk.</p>
               </div>
-              <ShieldAlert className="h-5 w-5 text-[#05ffd1]" />
+              <ShieldAlert className="h-5 w-5 text-[var(--accent-cyan)]" />
             </div>
             <div className="grid gap-3">
               {insights.highestRiskProjects.length === 0 ? (
                 <EmptyRow title="No project risk yet" detail="Create an assessment to begin building portfolio posture." />
               ) : (
                 insights.highestRiskProjects.map((project) => (
-                  <Link key={project.id} href={`/project/${project.id}`} className="group rounded-lg border border-white/10 bg-[#08111f] p-4 transition hover:border-[#05ffd1]/35">
+                  <Link key={project.id} href={`/project/${project.id}`} className="group rounded-lg border border-white/10 bg-[#08111f] p-4 transition hover:border-[var(--border-strong)]">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
-                        <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-slate-500">{project.actionLabel}</p>
+                        <p className="text-xs font-medium text-slate-500">{project.actionLabel}</p>
                         <h3 className="mt-2 text-base font-semibold text-slate-50">{project.name}</h3>
                       </div>
-                      <span className="rounded-md border border-[#05ffd1]/25 bg-[#05ffd1]/8 px-3 py-2 font-mono text-lg text-[#05ffd1]">{project.riskScore.toFixed(1)}</span>
+                      <span className="rounded-md border border-[var(--border-strong)] bg-white/5 px-3 py-2 font-mono text-lg text-[var(--accent-cyan)]">{project.riskScore.toFixed(1)}</span>
                     </div>
                     <div className="mt-4 grid gap-2 text-xs text-slate-400 sm:grid-cols-3">
                       <StatLine label="Edge critical" value={project.criticalExposedFindings.toString()} />
@@ -97,14 +97,14 @@ export default async function DashboardPage() {
                 <h2 className="aether-title text-xl font-semibold text-slate-50">Recent scan movement</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-400">Latest projects and scan recency for leadership review.</p>
               </div>
-              <Clock3 className="h-5 w-5 text-[#05ffd1]" />
+              <Clock3 className="h-5 w-5 text-[var(--accent-cyan)]" />
             </div>
             <div className="grid gap-3">
               {insights.recentProjects.length === 0 ? (
                 <EmptyRow title="No recent scans" detail="Uploaded artifacts and completed scans will appear here." />
               ) : (
                 insights.recentProjects.map((project) => (
-                  <Link key={project.id} href={`/project/${project.id}/scan`} className="rounded-lg border border-white/10 bg-[#08111f] p-4 transition hover:border-[#05ffd1]/35">
+                  <Link key={project.id} href={`/project/${project.id}/scan`} className="rounded-lg border border-white/10 bg-[#08111f] p-4 transition hover:border-[var(--border-strong)]">
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <h3 className="text-sm font-semibold text-slate-100">{project.name}</h3>
@@ -122,7 +122,7 @@ export default async function DashboardPage() {
         <section className="aether-panel rounded-lg p-5 lg:p-6">
           <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h2 className="aether-title text-xl font-semibold text-slate-50">Active threat matrix</h2>
+              <h2 className="aether-title text-xl font-semibold text-slate-50">Assessment portfolio</h2>
               <p className="mt-2 text-sm leading-6 text-slate-400">Projects are grouped by the most recent scan state and risk signal.</p>
             </div>
             <Link href="/project/new" className="aether-button aether-button-secondary px-4 py-3 text-sm">
@@ -134,7 +134,7 @@ export default async function DashboardPage() {
             {projects.length === 0 ? (
               <div className="flex items-center gap-4 rounded-lg border border-dashed border-white/12 bg-white/3 p-8 text-slate-400">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-[#08111f]">
-                  <AlertTriangle className="h-5 w-5 text-[#05ffd1]" />
+                  <AlertTriangle className="h-5 w-5 text-[var(--accent-cyan)]" />
                 </div>
                 <div>
                   <p className="text-base text-slate-100">No projects have been initialized.</p>
@@ -146,10 +146,10 @@ export default async function DashboardPage() {
                 <Link
                   key={project.id}
                   href={`/project/${project.id}`}
-                  className="group grid gap-4 rounded-lg border border-white/10 bg-[#08111f] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#05ffd1]/35 hover:shadow-[0_16px_40px_rgba(0,0,0,0.28)] md:grid-cols-[1.4fr_0.5fr_0.4fr_auto]"
+                  className="group grid gap-4 rounded-lg border border-white/10 bg-[#08111f] p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--border-strong)] md:grid-cols-[1.4fr_0.5fr_0.4fr_auto]"
                 >
                   <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-slate-500">Project</p>
+                    <p className="text-xs font-medium text-slate-500">Project</p>
                     <h3 className="mt-2 text-base font-semibold text-slate-50">{project.name}</h3>
                     <p className="mt-2 max-h-12 overflow-hidden text-sm leading-6 text-slate-400">{project.description ?? "No description"}</p>
                   </div>
@@ -159,7 +159,7 @@ export default async function DashboardPage() {
                   <div className="flex items-end">
                     <StatPill label="Risk" value={project.riskScore.toFixed(1)} accent />
                   </div>
-                  <div className="flex items-center justify-end text-slate-400 transition-colors group-hover:text-[#05ffd1]">
+                  <div className="flex items-center justify-end text-slate-400 transition-colors group-hover:text-[var(--accent-cyan)]">
                     <ArrowRight className="h-5 w-5" />
                   </div>
                 </Link>
@@ -187,7 +187,7 @@ function MiniInfo({ label, value, icon }: { label: string; value: number; icon: 
 function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
   return (
     <div className="aether-card rounded-lg p-5">
-      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-[#08111f] text-[#05ffd1]">{icon}</div>
+      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-[#08111f] text-[var(--accent-cyan)]">{icon}</div>
       <p className="text-[10px] uppercase tracking-[0.24em] text-slate-500">{label}</p>
       <p className="mt-2 font-mono text-3xl text-slate-50">{value}</p>
     </div>
@@ -196,9 +196,9 @@ function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; 
 
 function StatPill({ label, value, accent = false }: { label: string; value: number | string; accent?: boolean }) {
   return (
-    <div className={`rounded-lg border px-3 py-3 ${accent ? "border-[#05ffd1]/25 bg-[#08111f]" : "border-white/10 bg-white/3"}`}>
+    <div className={`rounded-lg border px-3 py-3 ${accent ? "border-[var(--border-strong)] bg-[#08111f]" : "border-white/10 bg-white/3"}`}>
       <p className="text-[10px] uppercase tracking-[0.24em] text-slate-500">{label}</p>
-      <p className={`mt-2 font-mono text-xl ${accent ? "text-[#05ffd1]" : "text-slate-50"}`}>{value}</p>
+      <p className={`mt-2 font-mono text-xl ${accent ? "text-[var(--accent-cyan)]" : "text-slate-50"}`}>{value}</p>
     </div>
   );
 }

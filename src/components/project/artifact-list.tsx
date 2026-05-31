@@ -123,7 +123,7 @@ export function ArtifactList({ artifacts, projectId }: ArtifactListProps) {
                 className="flex items-center justify-center text-slate-400 hover:text-slate-200 focus:outline-none"
                 title={allSelected ? "Deselect All" : "Select All"}
               >
-                {allSelected ? <CheckSquare className="h-5 w-5 text-[#05ffd1]" /> : <Square className="h-5 w-5" />}
+                {allSelected ? <CheckSquare className="h-5 w-5 text-[#91a7ff]" /> : <Square className="h-5 w-5" />}
               </button>
             )}
             <div>
@@ -166,7 +166,7 @@ export function ArtifactList({ artifacts, projectId }: ArtifactListProps) {
                   key={artifact.id}
                   className={`grid gap-4 items-center rounded-lg border p-4 text-sm md:grid-cols-[auto_1.5fr_0.8fr_0.8fr_0.8fr_1fr] transition-all duration-200 ${
                     isSelected
-                      ? "border-[#05ffd1]/45 bg-[#0b172a]"
+                      ? "border-[#91a7ff]/45 bg-[#0b172a]"
                       : "border-white/10 bg-[#08111f] hover:border-white/20 hover:bg-[#0b1424]"
                   }`}
                 >
@@ -176,7 +176,7 @@ export function ArtifactList({ artifacts, projectId }: ArtifactListProps) {
                       onClick={() => toggleSelect(artifact.id)}
                       className="text-slate-400 hover:text-slate-200 focus:outline-none"
                     >
-                      {isChecked ? <CheckSquare className="h-4.5 w-4.5 text-[#05ffd1]" /> : <Square className="h-4.5 w-4.5" />}
+                      {isChecked ? <CheckSquare className="h-4.5 w-4.5 text-[#91a7ff]" /> : <Square className="h-4.5 w-4.5" />}
                     </button>
                   </div>
 
@@ -204,7 +204,7 @@ export function ArtifactList({ artifacts, projectId }: ArtifactListProps) {
                         <AlertCircle className="h-3 w-3" /> Failed
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#05ffd1]/20 bg-[#05ffd1]/5 px-2.5 py-1 text-xs text-[#05ffd1]">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#91a7ff]/20 bg-[#91a7ff]/5 px-2.5 py-1 text-xs text-[#91a7ff]">
                         <RefreshCw className="h-3 w-3 animate-spin" /> Processing
                       </span>
                     )}
@@ -250,11 +250,11 @@ export function ArtifactList({ artifacts, projectId }: ArtifactListProps) {
 
       {/* Drawer / Inspection Panel */}
       {selectedArtifact && (
-        <section className="aether-panel rounded-lg border border-[#05ffd1]/20 bg-[#060b15] overflow-hidden aether-fade-up">
+        <section className="aether-panel rounded-lg border border-[#91a7ff]/20 bg-[#060b15] overflow-hidden aether-fade-up">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/10 px-5 py-4 bg-[#0a101f]">
             <div className="flex items-center gap-2">
-              <Code className="h-5 w-5 text-[#05ffd1]" />
+              <Code className="h-5 w-5 text-[#91a7ff]" />
               <div>
                 <h3 className="font-semibold text-slate-100">Artifact Inspector</h3>
                 <p className="text-xs text-slate-400 font-mono mt-0.5">{selectedArtifact.name}</p>
@@ -276,7 +276,7 @@ export function ArtifactList({ artifacts, projectId }: ArtifactListProps) {
             </div>
             <div>
               <p className="text-slate-500 uppercase tracking-wider text-[10px]">Confidence Level</p>
-              <p className="mt-1 text-[#05ffd1]">
+              <p className="mt-1 text-[#91a7ff]">
                 {selectedArtifact.confidence !== null ? `${(selectedArtifact.confidence * 100).toFixed(1)}%` : "100.0%"}
               </p>
             </div>

@@ -34,8 +34,8 @@ export function PlatformExposureWorkbench({ summary }: { summary: PlatformExposu
   if (summary.findings.length === 0) {
     return (
       <div className="aether-card rounded-lg p-8 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#05ffd1]/20 bg-[#05ffd1]/8">
-          <Globe2 className="h-6 w-6 text-[#05ffd1]" />
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#91a7ff]/20 bg-[#91a7ff]/8">
+          <Globe2 className="h-6 w-6 text-[#91a7ff]" />
         </div>
         <h2 className="mt-4 text-base font-semibold text-slate-100">No platform exposure detected yet</h2>
         <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-400">
@@ -81,7 +81,7 @@ function ExposureCard({ finding }: { finding: PlatformExposureFinding }) {
             <span className={`rounded-full border px-3 py-1 font-mono text-[10px] ${severityStyles[finding.severity]}`}>{finding.severity}</span>
             <span className="rounded-full border border-white/10 bg-white/3 px-3 py-1 font-mono text-[10px] text-slate-400">{finding.exposureLevel.replaceAll("_", " ")}</span>
             {finding.protocolHints.map((hint) => (
-              <span key={hint} className="rounded-full border border-[#05ffd1]/20 bg-[#05ffd1]/8 px-3 py-1 font-mono text-[10px] text-[#05ffd1]">{hint}</span>
+              <span key={hint} className="rounded-full border border-[#91a7ff]/20 bg-[#91a7ff]/8 px-3 py-1 font-mono text-[10px] text-[#91a7ff]">{hint}</span>
             ))}
           </div>
         </div>
@@ -128,7 +128,7 @@ function FilterGroup<T extends string>({ label, options, value, onChange }: { la
             onClick={() => onChange(option)}
             className={`rounded-full border px-3 py-1.5 font-mono text-[10px] transition ${
               option === value
-                ? "border-[#05ffd1]/40 bg-[#05ffd1]/12 text-[#05ffd1]"
+                ? "border-[#91a7ff]/40 bg-[#91a7ff]/12 text-[#91a7ff]"
                 : "border-white/10 bg-white/3 text-slate-400 hover:border-white/20 hover:text-slate-200"
             }`}
           >
@@ -153,7 +153,7 @@ function Panel({ icon, title, children }: { icon: React.ReactNode; title: string
   return (
     <section className="rounded-md border border-white/10 bg-[#050a14] p-4">
       <p className="mb-2 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-        <span className="text-[#05ffd1]">{icon}</span>
+        <span className="text-[#91a7ff]">{icon}</span>
         {title}
       </p>
       <p className="text-sm leading-6 text-slate-400">{children}</p>

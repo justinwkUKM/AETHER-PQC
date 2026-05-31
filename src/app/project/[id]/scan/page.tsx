@@ -25,7 +25,7 @@ export default async function ScanPage({ params }: { params: Promise<{ id: strin
           <section className="aether-panel aether-fade-up rounded-lg overflow-hidden">
             <div className="grid gap-6 p-6 lg:grid-cols-[1.15fr_minmax(280px,0.85fr)] lg:p-8">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Scan workspace</p>
+                <p className="text-xs font-medium text-[var(--accent-cyan)]">Evidence intake</p>
                 <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50">{project.name}</h1>
                 <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
                   Upload evidence, let deterministic parsing handle the clean cases, and hand the rest to Gemini multimodal analysis.
@@ -53,7 +53,7 @@ export default async function ScanPage({ params }: { params: Promise<{ id: strin
 function Summary({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-white/10 bg-[#08111f] px-4 py-4">
-      <p className="text-[10px] uppercase tracking-[0.24em] text-slate-500">{label}</p>
+      <p className="text-xs font-medium text-slate-500">{label}</p>
       <p className="mt-2 font-mono text-xl text-slate-50">{value}</p>
     </div>
   );

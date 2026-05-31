@@ -28,13 +28,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
         <section className="aether-panel aether-fade-up rounded-lg overflow-hidden">
           <div className="grid gap-6 p-6 lg:grid-cols-[1.15fr_minmax(300px,0.85fr)] lg:p-8">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Project core</p>
+              <p className="text-xs font-medium text-[var(--accent-cyan)]">Assessment summary</p>
               <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50 lg:text-5xl">{project.name}</h1>
               <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">{project.description ?? "No description provided."}</p>
 
               <div className="mt-5 flex flex-wrap gap-2">
                 <Link href={`/project/${project.id}/scan`} className="aether-button aether-button-primary px-4 py-3 text-sm font-medium">
-                  Open scan <ScanSearch className="h-4 w-4" />
+                  Open evidence intake <ScanSearch className="h-4 w-4" />
                 </Link>
                 <Link href={`/project/${project.id}/remediations`} className="aether-button aether-button-secondary px-4 py-3 text-sm">
                   Review remediation plan <ArrowRight className="h-4 w-4" />
@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
               <div className="rounded-lg border border-white/10 bg-[#08111f] p-4">
                 <div className="flex items-center justify-between text-slate-500">
                   <span className="text-[10px] uppercase tracking-[0.24em]">Risk score</span>
-                  <DatabaseZap className="h-4 w-4 text-[#05ffd1]" />
+                  <DatabaseZap className="h-4 w-4 text-[var(--accent-cyan)]" />
                 </div>
                 <p className="mt-3 font-mono text-4xl text-slate-50">{project.riskScore.toFixed(1)}</p>
                 <p className="mt-2 text-sm leading-6 text-slate-400">Exposure-aware risk blends crypto weakness with network reachability.</p>
@@ -65,8 +65,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
         <section className="aether-panel rounded-lg p-5 lg:p-6">
           <div className="mb-6 flex items-center justify-between gap-4">
             <div>
-              <h2 className="aether-title text-xl font-semibold text-slate-50">Quantum risk topology</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-400">The graph shows the current relationship map and crypto exposure.</p>
+              <h2 className="aether-title text-xl font-semibold text-slate-50">Quantum risk field</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-400">The field shows relationships, exposure, and cryptographic risk across the assessment.</p>
             </div>
           </div>
           <RiskGraph projectId={project.id} graph={graph} artifacts={project.artifacts.map((artifact) => ({ id: artifact.id, name: artifact.name, type: artifact.type, rawPayload: artifact.rawPayload }))} />

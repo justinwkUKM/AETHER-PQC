@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Atom, Plus } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { UserProfileDropdown } from "@/components/user-profile-dropdown";
 import { WorkspaceRail } from "@/components/workspace-rail";
@@ -31,15 +31,15 @@ export function AppShell({
 }: AppShellProps) {
   return (
     <div className="aether-shell min-h-screen">
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#050916]/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-[rgba(12,13,20,0.82)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-4 px-4 py-4 lg:px-6">
           <Link href="/dashboard" className="group flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-[#05ffd1]/35 bg-[#08111f] shadow-[0_0_0_1px_rgba(50,230,255,0.04)]">
-              <span className="font-mono text-xs tracking-[0.28em] text-[#05ffd1]">AX</span>
+            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-[var(--border-strong)] bg-[var(--bg-muted)]">
+              <Atom className="h-4 w-4 text-[var(--accent-cyan)]" />
             </div>
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#05ffd1]">AETHER-PQC</p>
-              <p className="text-sm text-slate-300 transition-colors group-hover:text-slate-100">Post-quantum risk workspace</p>
+              <p className="text-sm font-semibold text-slate-50">AETHER-PQC</p>
+              <p className="text-sm text-slate-400 transition-colors group-hover:text-slate-200">Post-quantum risk observatory</p>
             </div>
           </Link>
 
@@ -52,7 +52,7 @@ export function AppShell({
               <UserProfileDropdown user={user} />
             ) : (
               <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#08111f]">
-                <span className="font-mono text-xs text-slate-500">OP</span>
+                <span className="text-xs text-slate-500">User</span>
               </div>
             )}
           </div>

@@ -36,8 +36,8 @@ export function CryptoInventoryWorkbench({ items }: { items: CryptoInventoryItem
   if (items.length === 0) {
     return (
       <div className="aether-card rounded-lg p-8 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#05ffd1]/20 bg-[#05ffd1]/8">
-          <KeyRound className="h-6 w-6 text-[#05ffd1]" />
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#91a7ff]/20 bg-[#91a7ff]/8">
+          <KeyRound className="h-6 w-6 text-[#91a7ff]" />
         </div>
         <h2 className="mt-4 text-base font-semibold text-slate-100">No crypto inventory yet</h2>
         <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-400">
@@ -53,7 +53,7 @@ export function CryptoInventoryWorkbench({ items }: { items: CryptoInventoryItem
       <section className="aether-card rounded-lg p-4">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#05ffd1]">Crypto inventory controls</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#91a7ff]">Crypto inventory controls</p>
             <p className="mt-2 text-sm text-slate-400">
               {filtered.length} of {items.length} findings shown. {reviewCount} need review before migration planning.
             </p>
@@ -64,7 +64,7 @@ export function CryptoInventoryWorkbench({ items }: { items: CryptoInventoryItem
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search primitive, protocol, artifact"
-              className="w-full rounded-md border border-white/10 bg-[#050a14] py-2 pl-9 pr-3 text-sm text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-[#05ffd1]/40"
+              className="w-full rounded-md border border-white/10 bg-[#050a14] py-2 pl-9 pr-3 text-sm text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-[#91a7ff]/40"
             />
           </div>
         </div>
@@ -137,7 +137,7 @@ function FilterGroup<T extends string>({ label, options, value, onChange }: { la
             onClick={() => onChange(option)}
             className={`rounded-full border px-3 py-1.5 font-mono text-[10px] transition ${
               option === value
-                ? "border-[#05ffd1]/40 bg-[#05ffd1]/12 text-[#05ffd1]"
+                ? "border-[#91a7ff]/40 bg-[#91a7ff]/12 text-[#91a7ff]"
                 : "border-white/10 bg-white/3 text-slate-400 hover:border-white/20 hover:text-slate-200"
             }`}
           >
@@ -162,7 +162,7 @@ function InventorySection({ icon, title, children }: { icon: React.ReactNode; ti
   return (
     <section className="rounded-md border border-white/10 bg-[#050a14] p-4">
       <p className="mb-2 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-        <span className="text-[#05ffd1]">{icon}</span>
+        <span className="text-[#91a7ff]">{icon}</span>
         {title}
       </p>
       <p className="text-sm leading-6 text-slate-400">{children}</p>

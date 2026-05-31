@@ -59,7 +59,7 @@ export function RemediationWorkbench({ remediations, artifacts }: { remediations
     <div className="space-y-4">
       <div className="aether-card rounded-lg p-4">
         <div className="mb-3 flex items-center gap-2 text-slate-300">
-          <Filter className="h-4 w-4 text-[#05ffd1]" />
+          <Filter className="h-4 w-4 text-[#91a7ff]" />
           <p className="font-mono text-[10px] uppercase tracking-[0.24em]">Workbench filters</p>
         </div>
         <div className="grid gap-3 lg:grid-cols-2">
@@ -131,13 +131,13 @@ export function RemediationWorkbench({ remediations, artifacts }: { remediations
               <div className="mt-4 grid gap-3 lg:grid-cols-[1fr_1fr]">
                 <div className="rounded-md border border-white/10 bg-[#050a14] p-4">
                   <p className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-                    <Check className="h-3.5 w-3.5 text-[#05ffd1]" />
+                    <Check className="h-3.5 w-3.5 text-[#91a7ff]" />
                     How to validate
                   </p>
                   <ul className="space-y-2 text-sm leading-6 text-slate-400">
                     {validation.map((step) => (
                       <li key={step} className="flex gap-2">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#05ffd1]" />
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#91a7ff]" />
                         <span>{step}</span>
                       </li>
                     ))}
@@ -146,7 +146,7 @@ export function RemediationWorkbench({ remediations, artifacts }: { remediations
 
                 <div className="rounded-md border border-white/10 bg-[#050a14] p-4">
                   <p className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-                    <HelpCircle className="h-3.5 w-3.5 text-[#05ffd1]" />
+                    <HelpCircle className="h-3.5 w-3.5 text-[#91a7ff]" />
                     Open questions
                   </p>
                   <ul className="space-y-2 text-sm leading-6 text-slate-400">
@@ -162,7 +162,7 @@ export function RemediationWorkbench({ remediations, artifacts }: { remediations
 
               <div className="mt-4 rounded-md border border-white/10 bg-black/20 p-4">
                 <p className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-                  <FileText className="h-3.5 w-3.5 text-[#05ffd1]" />
+                  <FileText className="h-3.5 w-3.5 text-[#91a7ff]" />
                   Evidence and primitive
                 </p>
                 <div className="grid gap-3 text-sm leading-6 text-slate-400 lg:grid-cols-[0.8fr_1.2fr]">
@@ -188,7 +188,7 @@ function WorkbenchSection({ icon, title, children }: { icon: React.ReactNode; ti
   return (
     <section className="rounded-md border border-white/10 bg-[#050a14] p-4">
       <p className="mb-2 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-        <span className="text-[#05ffd1]">{icon}</span>
+        <span className="text-[#91a7ff]">{icon}</span>
         {title}
       </p>
       <p className="text-sm leading-6 text-slate-400">{children}</p>
@@ -218,7 +218,7 @@ function FilterGroup<T extends string>({
             onClick={() => onChange(option)}
             className={`rounded-full border px-3 py-1.5 font-mono text-[10px] transition ${
               option === value
-                ? "border-[#05ffd1]/40 bg-[#05ffd1]/12 text-[#05ffd1]"
+                ? "border-[#91a7ff]/40 bg-[#91a7ff]/12 text-[#91a7ff]"
                 : "border-white/10 bg-white/3 text-slate-400 hover:border-white/20 hover:text-slate-200"
             }`}
           >

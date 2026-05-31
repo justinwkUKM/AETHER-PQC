@@ -22,7 +22,7 @@ export function EvidenceWorkbench({ report }: { report: EvidenceReport }) {
       <section className="aether-panel rounded-lg p-5 lg:p-6">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#05ffd1]">Exportable evidence package</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#91a7ff]">Exportable evidence package</p>
             <h2 className="mt-2 text-xl font-semibold text-slate-50">Audit-ready assessment record</h2>
             <p className="mt-2 text-sm leading-6 text-slate-400">
               Includes project scope, artifact lifecycle, parser modes, scan events, methodology, remediation status, confidence, and source references.
@@ -114,7 +114,7 @@ function SummaryCard({ label, value }: { label: string; value: string }) {
 function SectionHeader({ icon, title }: { icon: React.ReactNode; title: string }) {
   return (
     <div className="mb-4 flex items-center gap-2">
-      <span className="text-[#05ffd1]">{icon}</span>
+      <span className="text-[#91a7ff]">{icon}</span>
       <h2 className="aether-title text-lg font-semibold text-slate-50">{title}</h2>
     </div>
   );

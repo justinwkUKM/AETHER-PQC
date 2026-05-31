@@ -1,4 +1,4 @@
-import { Terminal } from "lucide-react";
+import { Atom } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -19,17 +19,17 @@ export default async function LoginPage() {
       <div className="mx-auto grid min-h-[calc(100vh-3rem)] max-w-[1500px] items-center gap-8 lg:grid-cols-[1.1fr_minmax(380px,0.9fr)]">
         <section className="aether-fade-up space-y-8 py-8 lg:pr-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-[#05ffd1]/35 bg-[#08111f]">
-              <Terminal className="h-5 w-5 text-[#05ffd1]" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-[var(--border-strong)] bg-[var(--bg-muted)]">
+              <Atom className="h-5 w-5 text-[var(--accent-cyan)]" />
             </div>
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">AETHER-PQC</p>
+              <p className="text-xs font-medium text-[var(--accent-cyan)]">AETHER-PQC</p>
               <h1 className="aether-title mt-1 text-xl font-semibold text-slate-50">Post-quantum migration workspace</h1>
             </div>
           </div>
 
           <div className="max-w-3xl space-y-5">
-            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-slate-500">Assess crypto exposure. Track remediation. Keep the surface clean.</p>
+            <p className="text-sm font-medium text-slate-500">Assess crypto exposure, evidence, and remediation with a quiet research workspace.</p>
             <h2 className="aether-title text-5xl font-semibold leading-[1.05] text-slate-50 lg:text-7xl">
               A calm, focused workspace for quantum-risk review.
             </h2>
@@ -56,7 +56,7 @@ export default async function LoginPage() {
 
         <section className="aether-panel aether-fade-up w-full max-w-xl justify-self-end overflow-hidden rounded-lg">
           <div className="border-b border-white/10 px-6 py-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Sign in</p>
+            <p className="text-xs font-medium text-[var(--accent-cyan)]">Sign in</p>
             <h2 className="aether-title mt-2 text-2xl font-semibold text-slate-50">Enter the workspace</h2>
             <p className="mt-2 text-sm leading-6 text-slate-400">Use Google OAuth for real sessions or test auth for local development.</p>
           </div>

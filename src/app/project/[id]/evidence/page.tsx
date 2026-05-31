@@ -23,7 +23,7 @@ export default async function EvidencePage({ params }: { params: Promise<{ id: s
       <section className="aether-panel aether-fade-up rounded-lg overflow-hidden">
         <div className="grid gap-6 p-6 lg:grid-cols-[1.1fr_minmax(260px,0.9fr)] lg:p-8">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Compliance evidence</p>
+            <p className="text-xs font-medium text-[var(--accent-cyan)]">Compliance evidence</p>
             <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50">{project.name}</h1>
             <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
               Review the audit trail behind this assessment: artifacts, parser modes, scan events, methodology, remediation records, and exportable evidence.
@@ -48,7 +48,7 @@ function QuickStat({ label, value, icon }: { label: string; value: string; icon:
   return (
     <div className="rounded-lg border border-white/10 bg-[#08111f] px-4 py-4">
       <div className="flex items-center justify-between text-slate-500">
-        <p className="text-[10px] uppercase tracking-[0.24em]">{label}</p>
+        <p className="text-xs font-medium">{label}</p>
         {icon}
       </div>
       <p className="mt-2 font-mono text-xl text-slate-50">{value}</p>

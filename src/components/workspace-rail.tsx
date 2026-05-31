@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, FileCheck2, Globe2, KeyRound, LayoutDashboard, Plus, ScanSearch, ShieldCheck } from "lucide-react";
+import { ArrowRight, Atom, FileCheck2, Globe2, KeyRound, LayoutDashboard, Plus, ScanSearch } from "lucide-react";
 
 type WorkspaceRailProps = {
   userName?: string | null;
@@ -46,10 +46,10 @@ export function WorkspaceRail({
         <div className="border-b border-white/10 px-5 py-5">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">AETHER-PQC</p>
-              <h2 className="aether-title mt-2 text-lg font-semibold text-slate-50">Quantum risk workspace</h2>
+              <p className="text-xs font-medium text-[var(--accent-cyan)]">AETHER-PQC</p>
+              <h2 className="aether-title mt-2 text-lg font-semibold text-slate-50">Quantum risk observatory</h2>
             </div>
-            <ShieldCheck className="mt-1 h-5 w-5 text-emerald-400" />
+            <Atom className="mt-1 h-5 w-5 text-[var(--accent-cyan)]" />
           </div>
           <p className="mt-3 text-sm leading-6 text-slate-400">
             {userName ?? "Secure session"} is reviewing post-quantum exposure and migration work.
@@ -79,7 +79,7 @@ export function WorkspaceRail({
           {projectId ? (
             <section className="aether-card overflow-hidden rounded-lg">
               <div className="border-b border-white/10 px-4 py-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#05ffd1]">My stuff</p>
+                <p className="text-xs font-medium text-[var(--accent-cyan)]">Current assessment</p>
                 <h3 className="mt-2 text-base font-semibold text-slate-50">{projectName ?? "Untitled assessment"}</h3>
                 <p className="mt-2 text-sm text-slate-400">Live status and navigation for the selected project.</p>
               </div>
@@ -102,7 +102,7 @@ export function WorkspaceRail({
 
           {projectTabs.length > 0 ? (
             <section>
-              <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-slate-500">Project sections</p>
+              <p className="mb-2 text-xs font-medium text-slate-500">Assessment views</p>
               <div className="grid gap-2">
                 {projectTabs.map((item) => {
                   const Icon = item.icon;

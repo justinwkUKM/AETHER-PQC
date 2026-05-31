@@ -144,9 +144,9 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
 
   return (
     <form ref={formRef} onSubmit={handleUploadSubmit} className="aether-panel overflow-hidden rounded-lg">
-      <div className="border-b border-white/10 px-5 py-4 bg-[#0a101f]">
-        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Artifact Intake Queue</p>
-        <h2 className="mt-2 text-lg font-semibold text-slate-50">Bulk Ingestion Portal</h2>
+      <div className="border-b border-white/10 px-5 py-4 bg-[var(--bg-muted)]">
+        <p className="text-xs font-medium text-[var(--accent-cyan)]">Evidence set</p>
+        <h2 className="mt-2 text-lg font-semibold text-slate-50">Upload evidence</h2>
         <p className="mt-1 text-sm leading-6 text-slate-400">
           Select multiple files (SBOMs, system diagrams, specs). Files are parsed sequentially, then completed artifacts are analyzed together in one cross-file pass.
         </p>
@@ -154,9 +154,9 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
 
       <div className="space-y-5 p-5">
         {/* Large Drag-and-Drop Area */}
-        <label className="flex cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-white/12 bg-[#08111f] px-6 py-10 text-center transition-colors hover:border-[#05ffd1]/40 hover:bg-[#0b1324]">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#05ffd1]/20 bg-white/3">
-            <UploadCloud className="h-6 w-6 text-[#05ffd1]" />
+        <label className="flex cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-white/12 bg-[#08111f] px-6 py-10 text-center transition-colors hover:border-[var(--border-strong)] hover:bg-white/5">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--border-strong)] bg-white/3">
+            <UploadCloud className="h-6 w-6 text-[var(--accent-cyan)]" />
           </div>
           <span className="mt-4 text-sm text-slate-200">
             Click to choose SBOM, CBOM, PDF, image, CSV, text, or Markdown
@@ -178,7 +178,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
         {/* Dynamic Queue Stack */}
         {queue.length > 0 && (
           <div className="space-y-2 border border-white/5 bg-[#050a14] rounded-lg p-4 max-h-60 overflow-y-auto">
-            <p className="font-mono text-[9px] uppercase tracking-wider text-slate-500 mb-2">Ingestion Queue ({queue.length} items)</p>
+            <p className="mb-2 text-xs font-medium text-slate-500">Evidence queue ({queue.length} items)</p>
             {queue.map((item, idx) => (
               <div
                 key={`${item.name}-${idx}`}
@@ -197,7 +197,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
                     <span className="text-slate-500 uppercase">Queued</span>
                   )}
                   {item.status === "PROCESSING" && (
-                    <span className="flex items-center gap-1 text-[#05ffd1] uppercase">
+                    <span className="flex items-center gap-1 text-[var(--accent-cyan)] uppercase">
                       <Loader2 className="h-3 w-3 animate-spin" /> Processing
                     </span>
                   )}
@@ -226,7 +226,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
           className="aether-button aether-button-primary w-full px-4 py-4 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50"
         >
           <FileUp className="h-4 w-4" />
-          {isPending ? "Ingesting Sequence..." : "Execute Sequential Scan"}
+          {isPending ? "Analyzing evidence..." : "Analyze evidence"}
         </button>
 
         {/* Global Progress Indicator */}
@@ -239,7 +239,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
                   ? "border-amber-400/25 bg-amber-400/8 text-amber-300"
                   : overallStatus.state === "ERROR"
                     ? "border-rose-400/25 bg-rose-400/8 text-rose-300"
-                    : "border-[#05ffd1]/20 bg-[#05ffd1]/5 text-[#05ffd1]"
+                    : "border-[var(--border-strong)] bg-white/5 text-[var(--accent-cyan)]"
             }`}
           >
             <div className="mb-3 flex items-center gap-2">
@@ -251,7 +251,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
             </div>
             <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-white/10">
               <div
-                className="h-full rounded-full bg-[#05ffd1] transition-all duration-700"
+                className="h-full rounded-full bg-[var(--accent-cyan)] transition-all duration-700"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -264,7 +264,7 @@ export function ArtifactUpload({ projectId }: { projectId: string }) {
                   <span
                     key={stage.id}
                     className={`rounded border px-2 py-1 text-center text-[9px] uppercase tracking-[0.14em] ${
-                      active ? "border-[#05ffd1]/25 bg-[#05ffd1]/10 text-[#05ffd1]" : "border-white/10 bg-white/3 text-slate-500"
+                      active ? "border-[var(--border-strong)] bg-white/8 text-[var(--accent-cyan)]" : "border-white/10 bg-white/3 text-slate-500"
                     }`}
                   >
                     {stage.label}

@@ -20,7 +20,7 @@ export default async function RemediationsPage({ params }: { params: Promise<{ i
       <section className="aether-panel aether-fade-up rounded-lg overflow-hidden">
         <div className="grid gap-6 p-6 lg:grid-cols-[1.1fr_minmax(260px,0.9fr)] lg:p-8">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-[#05ffd1]">Migration work queue</p>
+            <p className="text-xs font-medium text-[var(--accent-cyan)]">Migration work queue</p>
             <h1 className="aether-title mt-3 text-4xl font-semibold text-slate-50">{project.name}</h1>
             <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">
               Convert high-risk cryptography findings into concrete migration tasks with owner questions, validation steps, and residual
@@ -79,7 +79,7 @@ function normalizeActionPlan(value: unknown): RemediationActionItem[] {
 function QuickStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-white/10 bg-[#08111f] px-4 py-4">
-      <p className="text-[10px] uppercase tracking-[0.24em] text-slate-500">{label}</p>
+      <p className="text-xs font-medium text-slate-500">{label}</p>
       <p className="mt-2 font-mono text-xl text-slate-50">{value}</p>
     </div>
   );
