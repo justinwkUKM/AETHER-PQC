@@ -17,6 +17,7 @@ Upload these files together from this folder:
 - `tls-endpoints.csv`
 - `threat-model.txt`
 - `architecture-diagram.png`
+- `process-flow.png`
 - `assessment-brief.pdf`
 
 Recommended upload order for manual review:
@@ -26,7 +27,8 @@ Recommended upload order for manual review:
 3. `tls-endpoints.csv`
 4. `threat-model.txt`
 5. `architecture-diagram.png`
-6. `assessment-brief.pdf`
+6. `process-flow.png`
+7. `assessment-brief.pdf`
 
 ## Expected Parser Behavior
 
@@ -44,6 +46,7 @@ Expected remediation priority shape: **LOW/MEDIUM**
 ## Views To Inspect
 
 - Graph: confirm topology, exposure path, selected-node explanation, and source evidence.
+- Flow: confirm transaction/process stages, trust boundaries, crypto controls, and exposure lanes from `process-flow.png`.
 - Inventory: confirm cryptographic primitives and parser modes.
 - Exposure: confirm edge/partner/internal exposure ranking.
 - Remediations: confirm ticket-ready priority rationale and validation steps.

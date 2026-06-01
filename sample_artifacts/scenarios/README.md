@@ -22,7 +22,7 @@ All content is fictional. Domains use `.example.com`; any IP-like examples use d
 ## How To Use
 
 1. Create one AETHER project per scenario using the suggested project name in that scenario's README.
-2. Upload all six files from the scenario folder together.
+2. Upload all seven core files from the scenario folder together.
 3. Wait for sequential artifact processing and unified batch analysis.
 4. Inspect Graph, Inventory, Exposure, Remediations, and Evidence views.
 5. Compare the observed posture with each scenario README's expected results.
@@ -35,6 +35,7 @@ All content is fictional. Domains use `.example.com`; any IP-like examples use d
 - `tls-endpoints.csv`: endpoint, protocol, cipher, and exposure inventory.
 - `threat-model.txt`: security context and owner questions.
 - `architecture-diagram.png`: visual topology for Gemini image parsing.
+- `process-flow.png`: professional transaction/process flow for OCR and visual reasoning.
 - `assessment-brief.pdf`: text-bearing PDF for PDF extraction and Gemini review.
 
 ## Research Notes
