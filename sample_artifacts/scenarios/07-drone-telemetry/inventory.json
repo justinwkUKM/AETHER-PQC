@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "id": "aerocontrol-ingress",
+      "name": "AeroControl Command Ingress",
+      "label": "Application",
+      "vulnerabilityScore": 9.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "DTLS 1.1 with TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "DTLS 1.3 with ML-KEM-512 key agreement",
+        "interface": "Public Cellular/LTE Internet Edge"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "drone-autopilot-mcu",
+      "name": "Drone PX4 Autopilot MCU",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 9.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "RSA-1024 firmware signature checks",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "State-Based Hash Signatures (LMS or XMSS)",
+        "hosting": "Embedded ARM Cortex-M4 Autopilot"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "flight-telemetry-storage",
+      "name": "Flight Telemetry Storage (S3)",
+      "label": "DataAsset",
+      "vulnerabilityScore": 8.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 with classical RSA-2048 certificates",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with ML-DSA-65 certificate chains",
+        "databaseType": "S3 Encrypted Bucket"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "drone-key-vault",
+      "name": "Drone Cryptographic Key Vault",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 with KMS-managed RSA-2048 envelope wraps",
+        "quantumCompliance": "VULNERABLE",
+        "targetMigration": "ML-KEM-768 KMS wrappers",
+        "databaseType": "KMS Secret Storage"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "faa-airspace-api",
+      "name": "National Airspace Authority (FAA) API",
+      "label": "ExternalService",
+      "vulnerabilityScore": 7.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 and ECDSA-P256 certificates",
+        "quantumCompliance": "PARTIALLY-COMPLIANT",
+        "targetMigration": "Hybrid Kyber TLS 1.3 tunnels",
+        "serviceEndpoint": "FAA UAS Data Ingress"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "aerocontrol-ingress",
+      "target": "drone-autopilot-mcu",
+      "type": "CALLS"
+    },
+    {
+      "source": "drone-autopilot-mcu",
+      "target": "drone-key-vault",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "source": "aerocontrol-ingress",
+      "target": "flight-telemetry-storage",
+      "type": "PROCESSES"
+    },
+    {
+      "source": "aerocontrol-ingress",
+      "target": "faa-airspace-api",
+      "type": "CALLS"
+    }
+  ]
+}

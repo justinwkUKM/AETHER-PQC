@@ -1,7 +1,7 @@
 # Legacy Insecure Network Architecture Specification: Classical Exposures
 
 ## 1. Executive Summary
-This document registers the obsolete and highly exposed cryptographic inventory of the legacy PayNet proxy network. It serves as a benchmark threat model. The current infrastructure relies exclusively on classical, pre-quantum standards, presenting major vulnerabilities to "Harvest Now, Decrypt Later" (HNDL) attacks by quantum adversaries.
+This document registers the obsolete and highly exposed cryptographic inventory of the legacy ApexNet proxy network. It serves as a benchmark threat model. The current infrastructure relies exclusively on classical, pre-quantum standards, presenting major vulnerabilities to "Harvest Now, Decrypt Later" (HNDL) attacks by quantum adversaries.
 
 ---
 

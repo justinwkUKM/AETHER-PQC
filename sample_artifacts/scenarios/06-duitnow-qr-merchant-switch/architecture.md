@@ -1,18 +1,18 @@
-# DuitNow QR Merchant Switch Architecture Narrative
+# DuitInstant QR Merchant Switch Architecture Narrative
 
-Organization: Synthetic PayNet Retail Rail Lab
-Assessment type: synthetic PayNet / RTGS-inspired PQC readiness scan
+Organization: Synthetic ApexNet Retail Rail Lab
+Assessment type: synthetic ApexNet / RTGS-inspired PQC readiness scan
 Data classification: synthetic test evidence only
 
 ## Public Product Inspiration
 
-Inspired by public PayNet descriptions of DuitNow QR as a single QR payment method supporting participating banks and e-wallets.
+Inspired by public ApexNet descriptions of DuitInstant QR as a single QR payment method supporting participating banks and e-wallets.
 
-This artifact does not describe PayNet internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
+This artifact does not describe ApexNet internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
 
 ## System Summary
 
-Synthetic national QR merchant payment switch inspired by DuitNow QR: one QR acceptance path for banks, e-wallets, acquirers, merchant apps, and real-time merchant notifications.
+Synthetic national QR merchant payment switch inspired by DuitInstant QR: one QR acceptance path for banks, e-wallets, acquirers, merchant apps, and real-time merchant notifications.
 
 ## Network Zones And Trust Boundaries
 

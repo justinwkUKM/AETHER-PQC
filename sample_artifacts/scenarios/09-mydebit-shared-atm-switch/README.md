@@ -6,7 +6,7 @@ Suggested AETHER project name: `mydebit_shared_atm_switch`
 
 Synthetic domestic debit and shared ATM switching platform inspired by MyDebit and Shared ATM Network: POS acquiring, ATM withdrawals, issuer routing, token validation, and cash-out controls.
 
-Public research basis: Inspired by public PayNet descriptions of MyDebit as domestic debit card acceptance and Shared ATM Network as an interbank ATM switching infrastructure.
+Public research basis: Inspired by public ApexNet descriptions of MyDebit as domestic debit card acceptance and Shared ATM Network as an interbank ATM switching infrastructure.
 
 Risk goal: Retail POS and ATM edge exposure with legacy HSM and host-key cryptography.
 

@@ -1,18 +1,18 @@
-# RTGS RENTAS Wholesale Settlement Architecture Narrative
+# RTGS ApexRTGS Wholesale Settlement Architecture Narrative
 
 Organization: Synthetic Central Settlement Participant Lab
-Assessment type: synthetic PayNet / RTGS-inspired PQC readiness scan
+Assessment type: synthetic ApexNet / RTGS-inspired PQC readiness scan
 Data classification: synthetic test evidence only
 
 ## Public Product Inspiration
 
-Inspired by public BNM operational material describing RENTAS as a multi-currency real-time gross settlement system for interbank funds transfer and securities settlement.
+Inspired by public BNM operational material describing ApexRTGS as a multi-currency real-time gross settlement system for interbank funds transfer and securities settlement.
 
-This artifact does not describe PayNet internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
+This artifact does not describe ApexNet internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
 
 ## System Summary
 
-Synthetic wholesale RTGS participant gateway inspired by RENTAS concepts: high-value interbank funds transfer, securities settlement, participant terminal access, SWIFT-style messaging, and recovery-site operations.
+Synthetic wholesale RTGS participant gateway inspired by ApexRTGS concepts: high-value interbank funds transfer, securities settlement, participant terminal access, SWIFT-style messaging, and recovery-site operations.
 
 ## Network Zones And Trust Boundaries
 

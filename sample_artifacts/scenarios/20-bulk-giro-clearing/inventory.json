@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "sach-ingest",
+      "name": "GIRO Corporate Ingest Server",
+      "label": "Application",
+      "vulnerabilityScore": 7.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 and SSH SFTP with RSA-2048 keys",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "SFTP with hybrid ML-KEM and ML-DSA-65 keys",
+        "interface": "Corporate File SFTP Hub"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "sach-parser",
+      "name": "GIRO Batch Parser Engine",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P256 token verification",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-65 signatures",
+        "interface": "Batch Parsing Module"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "sach-coordinator",
+      "name": "LionACH Interbank Settlement Coordinator",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Bulk clearing with static DH-2048 ciphers",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Ephemerally negotiated ML-KEM-1024 ciphers",
+        "interface": "Interbank Net Settlement Coordinator"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "sach-archive",
+      "name": "LionACH Corporate Clearing Archive",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.6,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 transparent tables with keywrap RSA-2048",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-KEM-1024 database envelope",
+        "interface": "Historical Database Store"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "clearing-banks",
+      "name": "Participant Commercial Clearing Banks",
+      "label": "ExternalService",
+      "vulnerabilityScore": 6.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Partner billing APIs with RSA-4096 certificates",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Hybrid post-quantum messaging certificates",
+        "interface": "Member Bank SOAP/REST Gateways"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "sach-ingest",
+      "target": "sach-parser",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "sach-parser",
+      "target": "sach-coordinator",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "sach-coordinator",
+      "target": "sach-archive",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "sach-coordinator",
+      "target": "clearing-banks",
+      "type": "CALLS",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    }
+  ]
+}

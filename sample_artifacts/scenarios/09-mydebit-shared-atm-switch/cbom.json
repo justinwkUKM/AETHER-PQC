@@ -9,7 +9,7 @@
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Synthetic PayNet Card and ATM Rail Lab"
+      "name": "Synthetic ApexNet Card and ATM Rail Lab"
     },
     "properties": [
       {
@@ -18,7 +18,7 @@
       },
       {
         "name": "aether.researchBasis",
-        "value": "Inspired by public PayNet descriptions of MyDebit as domestic debit card acceptance and Shared ATM Network as an interbank ATM switching infrastructure."
+        "value": "Inspired by public ApexNet descriptions of MyDebit as domestic debit card acceptance and Shared ATM Network as an interbank ATM switching infrastructure."
       },
       {
         "name": "aether.no-secrets",

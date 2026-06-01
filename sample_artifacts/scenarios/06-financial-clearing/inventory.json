@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "id": "swift-gateway",
+      "name": "SWIFT Bank Gateway",
+      "label": "Application",
+      "vulnerabilityScore": 8.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 with TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "X25519 + ML-KEM-768",
+        "interface": "Partner Network Ingress"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "settlement-validation-engine",
+      "name": "Settlement Validation Engine",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 9.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P256 with SHA-256 for receipt signing",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-65 signatures",
+        "hosting": "Bare Metal HSM Cluster"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "core-transaction-ledger",
+      "name": "Core Transaction Ledger (Oracle DB)",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 with classical RSA-2048 keywrapping",
+        "quantumCompliance": "VULNERABLE",
+        "targetMigration": "ML-KEM-1024 database wrappers",
+        "databaseType": "Oracle Database Enterprise"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "settlement-s3-reporting",
+      "name": "Settlement Reporting S3 Storage",
+      "label": "DataAsset",
+      "vulnerabilityScore": 9.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "HTTPS with classical RSA-4096 certificates",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "mTLS with ML-DSA-85 certificates",
+        "exposureRisk": "Harvest Now Decrypt Later (HNDL)"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "fedwire-service",
+      "name": "Fedwire External Service",
+      "label": "ExternalService",
+      "vulnerabilityScore": 6.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P384 signatures",
+        "quantumCompliance": "PARTIALLY-COMPLIANT",
+        "targetMigration": "Hybrid ML-KEM + ML-DSA envelopes",
+        "serviceEndpoint": "Fedwire Real-Time Settlement Ingress"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "swift-gateway",
+      "target": "settlement-validation-engine",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "source": "settlement-validation-engine",
+      "target": "core-transaction-ledger",
+      "type": "PROCESSES"
+    },
+    {
+      "source": "swift-gateway",
+      "target": "settlement-s3-reporting",
+      "type": "USES"
+    },
+    {
+      "source": "settlement-validation-engine",
+      "target": "fedwire-service",
+      "type": "CALLS"
+    }
+  ]
+}

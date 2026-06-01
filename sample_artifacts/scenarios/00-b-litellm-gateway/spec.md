@@ -1,7 +1,7 @@
 # Secure Post-Quantum Cryptographic Architecture Plan: LiteLLM Ecosystem
 
 ## 1. Executive Summary
-This document outlines the quantum-safe migration roadmap for the PayNet R&D AI inference stack. The goal is to migrate all internal and external communication interfaces from classical elliptic-curve and RSA primitives to Post-Quantum Cryptographic (PQC) standards compliant with the NIST FIPS 203 and FIPS 204 guidelines.
+This document outlines the quantum-safe migration roadmap for the ApexNet R&D AI inference stack. The goal is to migrate all internal and external communication interfaces from classical elliptic-curve and RSA primitives to Post-Quantum Cryptographic (PQC) standards compliant with the NIST FIPS 203 and FIPS 204 guidelines.
 
 ---
 
@@ -15,7 +15,7 @@ We have identified five critical architectural nodes currently processing transa
 * **Cryptographic Primitives**: 
   * Current: `TLS 1.2 using ECDHE-RSA-AES256-GCM-SHA384`
   * Target Migration: `TLS 1.3 hybrid exchange using X25519 + ML-KEM-768`
-* **Purpose**: Serves as the central gateway intercepting PayNet Client API calls (PayNet GPT, PayNet Code) and routing requests down to inference engines.
+* **Purpose**: Serves as the central gateway intercepting ApexNet Client API calls (ApexNet GPT, ApexNet Code) and routing requests down to inference engines.
 
 ### Node 2: vLLM Inference Instance
 * **Label**: `SoftwareComponent`

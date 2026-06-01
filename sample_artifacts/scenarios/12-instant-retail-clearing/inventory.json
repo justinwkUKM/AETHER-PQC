@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "duitnow-ingress",
+      "name": "DuitInstant Mobile Ingress Gateway",
+      "label": "Application",
+      "vulnerabilityScore": 8.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 with ECDSA-P256 client auth",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid X25519 + ML-KEM-768",
+        "interface": "Public Mobile App API Edge"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "duitnow-broker",
+      "name": "DuitInstant Real-Time Instant Broker",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P256 payload signature validation",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-65 signatures",
+        "interface": "Broker High-Speed Core"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "identity-resolver",
+      "name": "National Identity Resolver DB",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 GCM with classical RSA-2048 wrapper",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-KEM-768 keys",
+        "interface": "Proxy Directory Store"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "retail-ledger",
+      "name": "Instant Retail Settlement Ledger",
+      "label": "DataAsset",
+      "vulnerabilityScore": 8.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Plaintext columns, TLS 1.2 database connection",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Field envelope encryption with ML-KEM-768",
+        "interface": "Retail Clearing Database"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "partner-wallets",
+      "name": "Third-Party Partner Wallets",
+      "label": "ExternalService",
+      "vulnerabilityScore": 7.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 REST API with ECDHE-RSA ciphers",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid ML-KEM exchange",
+        "interface": "Partner E-Wallet Integrations"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "duitnow-ingress",
+      "target": "duitnow-broker",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "duitnow-broker",
+      "target": "identity-resolver",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "duitnow-broker",
+      "target": "retail-ledger",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "duitnow-broker",
+      "target": "partner-wallets",
+      "type": "CALLS",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    }
+  ]
+}

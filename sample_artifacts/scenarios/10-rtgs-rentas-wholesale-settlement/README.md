@@ -1,12 +1,12 @@
-# RTGS RENTAS Wholesale Settlement
+# RTGS ApexRTGS Wholesale Settlement
 
 Suggested AETHER project name: `rtgs_rentas_wholesale_settlement`
 
 ## Purpose
 
-Synthetic wholesale RTGS participant gateway inspired by RENTAS concepts: high-value interbank funds transfer, securities settlement, participant terminal access, SWIFT-style messaging, and recovery-site operations.
+Synthetic wholesale RTGS participant gateway inspired by ApexRTGS concepts: high-value interbank funds transfer, securities settlement, participant terminal access, SWIFT-style messaging, and recovery-site operations.
 
-Public research basis: Inspired by public BNM operational material describing RENTAS as a multi-currency real-time gross settlement system for interbank funds transfer and securities settlement.
+Public research basis: Inspired by public BNM operational material describing ApexRTGS as a multi-currency real-time gross settlement system for interbank funds transfer and securities settlement.
 
 Risk goal: Mission-critical wholesale settlement with private network exposure and very high business impact.
 

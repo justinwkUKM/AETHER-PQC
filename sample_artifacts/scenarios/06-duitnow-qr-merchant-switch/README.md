@@ -1,12 +1,12 @@
-# DuitNow QR Merchant Switch
+# DuitInstant QR Merchant Switch
 
 Suggested AETHER project name: `duitnow_qr_merchant_switch`
 
 ## Purpose
 
-Synthetic national QR merchant payment switch inspired by DuitNow QR: one QR acceptance path for banks, e-wallets, acquirers, merchant apps, and real-time merchant notifications.
+Synthetic national QR merchant payment switch inspired by DuitInstant QR: one QR acceptance path for banks, e-wallets, acquirers, merchant apps, and real-time merchant notifications.
 
-Public research basis: Inspired by public PayNet descriptions of DuitNow QR as a single QR payment method supporting participating banks and e-wallets.
+Public research basis: Inspired by public ApexNet descriptions of DuitInstant QR as a single QR payment method supporting participating banks and e-wallets.
 
 Risk goal: High-volume retail edge with mobile wallet and acquiring-bank exposure.
 

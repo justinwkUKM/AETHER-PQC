@@ -9,7 +9,7 @@
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Synthetic PayNet Retail Rail Lab"
+      "name": "Synthetic ApexNet Retail Rail Lab"
     },
     "properties": [
       {
@@ -18,7 +18,7 @@
       },
       {
         "name": "aether.researchBasis",
-        "value": "Inspired by public PayNet descriptions of DuitNow QR as a single QR payment method supporting participating banks and e-wallets."
+        "value": "Inspired by public ApexNet descriptions of DuitInstant QR as a single QR payment method supporting participating banks and e-wallets."
       },
       {
         "name": "aether.no-secrets",

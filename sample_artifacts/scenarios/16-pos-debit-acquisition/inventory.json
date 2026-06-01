@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "eftpos-terminal",
+      "name": "EFTPOS Merchant Terminal",
+      "label": "Application",
+      "vulnerabilityScore": 7.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "3DES PIN blocks (ANSI X9.8), terminal-host RSA-2048 key exchange",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-KEM-768 key exchange, AES-256 for PIN blocks",
+        "interface": "In-Store Point of Sale"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "pos-ingest-hub",
+      "name": "LionNet POS Ingest Hub",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 with TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid X25519 + ML-KEM-1024",
+        "interface": "Acquisition Inbound Gateway"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "terminal-key-registry",
+      "name": "POS Terminal Key Registry",
+      "label": "DataAsset",
+      "vulnerabilityScore": 8.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 transparent tables with keywrap RSA-2048",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "AWS KMS envelope keys with ML-KEM-1024",
+        "interface": "Key Management System Database"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "retail-clearing-db",
+      "name": "EFTPOS Retail Clearing DB",
+      "label": "DataAsset",
+      "vulnerabilityScore": 8.6,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Plaintext transactional columns, TLS 1.2 database connection",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Field envelope encryption with ML-KEM-768",
+        "interface": "POS Settlement Database"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "issuer-host-nodes",
+      "name": "Partner Issuer Host Nodes",
+      "label": "ExternalService",
+      "vulnerabilityScore": 7.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Host mTLS with standard TLS 1.2 RSA-2048",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid ML-DSA-65 client certs",
+        "interface": "Issuer Banking Interfaces"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "eftpos-terminal",
+      "target": "pos-ingest-hub",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "pos-ingest-hub",
+      "target": "terminal-key-registry",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "pos-ingest-hub",
+      "target": "retail-clearing-db",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "pos-ingest-hub",
+      "target": "issuer-host-nodes",
+      "type": "CALLS",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    }
+  ]
+}

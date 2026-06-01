@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "jompay-ingress",
+      "name": "BillPay Biller Ingress Server",
+      "label": "Application",
+      "vulnerabilityScore": 7.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 and SSH SFTP with RSA-2048 keys",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "SFTP with hybrid ML-KEM and ML-DSA-65 keys",
+        "interface": "Corporate Billing SFTP Hub"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "xml-engine",
+      "name": "Invoicing XML Presentment Engine",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P256 token verification",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-65 signatures",
+        "interface": "XML Schema Parser Module"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "giro-dispatcher",
+      "name": "Bulk Giro Payment Dispatcher",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Bulk routing with static DH-2048 ciphers",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Ephemerally negotiated ML-KEM-1024 ciphers",
+        "interface": "GIRO / IBG Settlement Dispatcher"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "biller-archives",
+      "name": "Biller Settlement Archives",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.6,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 GCM tables with keywrap RSA-2048",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-KEM-1024 database envelope wrapping",
+        "interface": "Invoicing & Clearing Database"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "utility-billers",
+      "name": "External Utility Billers",
+      "label": "ExternalService",
+      "vulnerabilityScore": 6.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Partner billing APIs with RSA-4096 certificates",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Hybrid post-quantum messaging certificates",
+        "interface": "Biller External SOAP / REST Endpoints"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "jompay-ingress",
+      "target": "xml-engine",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "xml-engine",
+      "target": "giro-dispatcher",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "giro-dispatcher",
+      "target": "biller-archives",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "giro-dispatcher",
+      "target": "utility-billers",
+      "type": "CALLS",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    }
+  ]
+}

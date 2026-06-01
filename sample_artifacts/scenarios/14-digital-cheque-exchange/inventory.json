@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "cheque-ingestion",
+      "name": "Cheque Image Ingestion Server",
+      "label": "Application",
+      "vulnerabilityScore": 7.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 with RSA-2048 certificates",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid X25519 + ML-KEM-768",
+        "interface": "Extranet Bulk Upload Point"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "cheque-validator",
+      "name": "Cheque Image Signature Validator",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Obsolete DSA and SHA-1 signatures",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "SLH-DSA or ML-DSA-65 signatures",
+        "interface": "Signatures Checking Module"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "cheque-archiver",
+      "name": "Cheque Image Archiver",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 6.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Batch compression with legacy 3DES",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "AES-256 GCM bulk encryption",
+        "interface": "Zip Crypto Compressor"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "cheque-storage",
+      "name": "National Cheque Archive Storage",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 DB tables with keywrap RSA-2048",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "AWS KMS envelope keys with ML-KEM-1024",
+        "interface": "Historical Database Store"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "member-nodes",
+      "name": "Bank Member Clearing Nodes",
+      "label": "ExternalService",
+      "vulnerabilityScore": 7.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "SFTP transfers with static RSA-2048 SSH keys",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Hybrid ML-DSA-65 SSH keys",
+        "interface": "Automated SFTP Channels"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "cheque-ingestion",
+      "target": "cheque-validator",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "cheque-ingestion",
+      "target": "cheque-archiver",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "cheque-archiver",
+      "target": "cheque-storage",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "cheque-ingestion",
+      "target": "member-nodes",
+      "type": "CALLS",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    }
+  ]
+}

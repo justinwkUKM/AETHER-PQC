@@ -1,23 +1,23 @@
-# FPX Online Banking Gateway Architecture Narrative
+# DirectPay Online Banking Gateway Architecture Narrative
 
-Organization: Synthetic PayNet E-Commerce Rail Lab
-Assessment type: synthetic PayNet / RTGS-inspired PQC readiness scan
+Organization: Synthetic ApexNet E-Commerce Rail Lab
+Assessment type: synthetic ApexNet / RTGS-inspired PQC readiness scan
 Data classification: synthetic test evidence only
 
 ## Public Product Inspiration
 
-Inspired by public PayNet descriptions of FPX as a real-time online payment gateway used for e-commerce and bank-account payments.
+Inspired by public ApexNet descriptions of DirectPay as a real-time online payment gateway used for e-commerce and bank-account payments.
 
-This artifact does not describe PayNet internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
+This artifact does not describe ApexNet internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
 
 ## System Summary
 
-Synthetic real-time online banking payment gateway inspired by FPX: merchant checkout, bank selection, bank redirect, authorisation, debit confirmation, and merchant receipt notification.
+Synthetic real-time online banking payment gateway inspired by DirectPay: merchant checkout, bank selection, bank redirect, authorisation, debit confirmation, and merchant receipt notification.
 
 ## Network Zones And Trust Boundaries
 
 - Merchant Checkout
-- FPX Redirect Edge
+- DirectPay Redirect Edge
 - Bank Selection Service
 - Participant Bank Bridge
 - Confirmation Router
@@ -72,8 +72,8 @@ The assessment intentionally includes exposure keywords that AETHER should inter
 
 ## Relationship Map
 
-- Merchant Checkout -> FPX Redirect Edge: TLS 1.2 RSA
-- FPX Redirect Edge -> Bank Selection Service: USES
+- Merchant Checkout -> DirectPay Redirect Edge: TLS 1.2 RSA
+- DirectPay Redirect Edge -> Bank Selection Service: USES
 - Bank Selection Service -> Participant Bank Bridge: ECDH
 - Participant Bank Bridge -> Confirmation Router: CALLS
 - Confirmation Router -> Merchant Receipt API: TLS 1.3 ML-KEM

@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "fast-gateway",
+      "name": "FAST Inbound API Gateway",
+      "label": "Application",
+      "vulnerabilityScore": 8.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 with ECDSA-P256 client certificates",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid X25519 + ML-KEM-768 ciphers",
+        "interface": "Bank Extranet Endpoint"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "paynow-resolver",
+      "name": "PayProxy Proxy Resolver",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P256 and SHA-256 signatures",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-65 signatures",
+        "interface": "Proxy Parser Hub"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "proxy-database",
+      "name": "PayProxy National Proxy DB",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 GCM with classical RSA-2048 key transport wrapper",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-KEM-768 key envelopes",
+        "interface": "Proxy Directory Tables"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "fast-settlement-db",
+      "name": "FAST Real-Time Settlement DB",
+      "label": "DataAsset",
+      "vulnerabilityScore": 8.8,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Plaintext columns, TLS 1.2 database connection",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Field envelope encryption with ML-KEM-768",
+        "interface": "FAST Core Settlement DB"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "non-bank-ingress",
+      "name": "Non-Bank Financial Ingress",
+      "label": "ExternalService",
+      "vulnerabilityScore": 7.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "REST API with TLS 1.2 and ECDHE-RSA ciphers",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid ML-KEM-768",
+        "interface": "NFI API Ingress Point"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "fast-gateway",
+      "target": "paynow-resolver",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "paynow-resolver",
+      "target": "proxy-database",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "paynow-resolver",
+      "target": "fast-settlement-db",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "paynow-resolver",
+      "target": "non-bank-ingress",
+      "type": "CALLS",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    }
+  ]
+}

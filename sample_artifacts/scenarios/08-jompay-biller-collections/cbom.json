@@ -9,7 +9,7 @@
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Synthetic PayNet Biller Rail Lab"
+      "name": "Synthetic ApexNet Biller Rail Lab"
     },
     "properties": [
       {
@@ -18,7 +18,7 @@
       },
       {
         "name": "aether.researchBasis",
-        "value": "Inspired by public PayNet descriptions of JomPAY as a national online bill-payment initiative operated by PayNet across participating banks and billers."
+        "value": "Inspired by public ApexNet descriptions of BillPay as a national online bill-payment initiative operated by ApexNet across participating banks and billers."
       },
       {
         "name": "aether.no-secrets",

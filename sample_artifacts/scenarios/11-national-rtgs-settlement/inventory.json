@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "swift-rtgs-gateway",
+      "name": "SWIFT RTGS Ingress Gateway",
+      "label": "Application",
+      "vulnerabilityScore": 8.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 with TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "X25519 + ML-KEM-1024",
+        "interface": "Partner Network Ingress"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "rentas-core-settlement",
+      "name": "ApexRTGS Settlement Core",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 9.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P256 and SHA-256 for non-repudiation",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-85 signatures",
+        "interface": "Core Settlement Zone"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "securities-depository",
+      "name": "Government Securities Depository",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 with key transport wrapped via classical RSA-2048",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "AWS KMS keys wrapped using ML-KEM-1024",
+        "interface": "Database Encrypted Tablespace"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "reserve-ledger",
+      "name": "ApexRTGS Central Bank Reserve Ledger",
+      "label": "DataAsset",
+      "vulnerabilityScore": 9.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Unencrypted database columns / TLS 1.2 database connections",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Field-level envelope encryption leveraging ML-KEM-768",
+        "interface": "Host Database (Oracle)"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "swift-alliance",
+      "name": "SWIFT Alliance Messaging Network",
+      "label": "ExternalService",
+      "vulnerabilityScore": 6.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "External API integrations using standard RSA-4096",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Hybrid Kyber post-quantum messaging envelopes",
+        "interface": "Global Clearing Access Point"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "swift-rtgs-gateway",
+      "target": "rentas-core-settlement",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "rentas-core-settlement",
+      "target": "securities-depository",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "rentas-core-settlement",
+      "target": "reserve-ledger",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "rentas-core-settlement",
+      "target": "swift-alliance",
+      "type": "CALLS",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    }
+  ]
+}

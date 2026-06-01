@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "enets-portal",
+      "name": "eLionPay Checkout Portal",
+      "label": "Application",
+      "vulnerabilityScore": 8.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 with classical RSA-2048 web server certificates",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid X25519 + ML-KEM-768 certificates",
+        "interface": "eLionPay Checkout Web Page"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "enets-merchant-verifier",
+      "name": "Merchant Signature Verifier",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P256 token verification",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-65 signatures",
+        "interface": "Checkout Parameters Validator"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "enets-redirect-dispatcher",
+      "name": "Session Redirection Dispatcher",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.4,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Secure sessions with static DH-2048 ciphers",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "Ephemerally negotiated ML-KEM-768 key exchanges",
+        "interface": "Browser Redirection Module"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "enets-transaction-registry",
+      "name": "eLionPay Transaction Registry",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 transparent tables with key-wrap RSA-2048",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-KEM-1024 database envelope",
+        "interface": "Clearing DB Schema"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "participant-bank-portals",
+      "name": "Participant Bank Portals",
+      "label": "ExternalService",
+      "vulnerabilityScore": 7.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.1 / 1.2 with ECDHE-RSA ciphers",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid ML-KEM-768",
+        "interface": "Bank Inbound Portals"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "enets-portal",
+      "target": "enets-merchant-verifier",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "enets-portal",
+      "target": "enets-redirect-dispatcher",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "enets-redirect-dispatcher",
+      "target": "enets-transaction-registry",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "enets-redirect-dispatcher",
+      "target": "participant-bank-portals",
+      "type": "CALLS",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    }
+  ]
+}

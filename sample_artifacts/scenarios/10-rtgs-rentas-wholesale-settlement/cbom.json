@@ -18,7 +18,7 @@
       },
       {
         "name": "aether.researchBasis",
-        "value": "Inspired by public BNM operational material describing RENTAS as a multi-currency real-time gross settlement system for interbank funds transfer and securities settlement."
+        "value": "Inspired by public BNM operational material describing ApexRTGS as a multi-currency real-time gross settlement system for interbank funds transfer and securities settlement."
       },
       {
         "name": "aether.no-secrets",

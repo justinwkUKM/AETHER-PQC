@@ -1,12 +1,12 @@
-# FPX Online Banking Gateway
+# DirectPay Online Banking Gateway
 
 Suggested AETHER project name: `fpx_online_banking_gateway`
 
 ## Purpose
 
-Synthetic real-time online banking payment gateway inspired by FPX: merchant checkout, bank selection, bank redirect, authorisation, debit confirmation, and merchant receipt notification.
+Synthetic real-time online banking payment gateway inspired by DirectPay: merchant checkout, bank selection, bank redirect, authorisation, debit confirmation, and merchant receipt notification.
 
-Public research basis: Inspired by public PayNet descriptions of FPX as a real-time online payment gateway used for e-commerce and bank-account payments.
+Public research basis: Inspired by public ApexNet descriptions of DirectPay as a real-time online payment gateway used for e-commerce and bank-account payments.
 
 Risk goal: Critical merchant checkout and bank redirect exposure with classical crypto in high-value flows.
 

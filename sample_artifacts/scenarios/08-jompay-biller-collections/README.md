@@ -1,12 +1,12 @@
-# JomPAY Biller Collections
+# BillPay Biller Collections
 
 Suggested AETHER project name: `jompay_biller_collections`
 
 ## Purpose
 
-Synthetic bill-payment collection platform inspired by JomPAY: biller code lookup, online/mobile banking bill payment, biller-bank settlement files, and real-time notifications.
+Synthetic bill-payment collection platform inspired by BillPay: biller code lookup, online/mobile banking bill payment, biller-bank settlement files, and real-time notifications.
 
-Public research basis: Inspired by public PayNet descriptions of JomPAY as a national online bill-payment initiative operated by PayNet across participating banks and billers.
+Public research basis: Inspired by public ApexNet descriptions of BillPay as a national online bill-payment initiative operated by ApexNet across participating banks and billers.
 
 Risk goal: Mixed partner-facing biller integrations and internal settlement file risks.
 

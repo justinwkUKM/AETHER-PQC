@@ -1,18 +1,18 @@
-# JomPAY Biller Collections Architecture Narrative
+# BillPay Biller Collections Architecture Narrative
 
-Organization: Synthetic PayNet Biller Rail Lab
-Assessment type: synthetic PayNet / RTGS-inspired PQC readiness scan
+Organization: Synthetic ApexNet Biller Rail Lab
+Assessment type: synthetic ApexNet / RTGS-inspired PQC readiness scan
 Data classification: synthetic test evidence only
 
 ## Public Product Inspiration
 
-Inspired by public PayNet descriptions of JomPAY as a national online bill-payment initiative operated by PayNet across participating banks and billers.
+Inspired by public ApexNet descriptions of BillPay as a national online bill-payment initiative operated by ApexNet across participating banks and billers.
 
-This artifact does not describe PayNet internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
+This artifact does not describe ApexNet internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
 
 ## System Summary
 
-Synthetic bill-payment collection platform inspired by JomPAY: biller code lookup, online/mobile banking bill payment, biller-bank settlement files, and real-time notifications.
+Synthetic bill-payment collection platform inspired by BillPay: biller code lookup, online/mobile banking bill payment, biller-bank settlement files, and real-time notifications.
 
 ## Network Zones And Trust Boundaries
 

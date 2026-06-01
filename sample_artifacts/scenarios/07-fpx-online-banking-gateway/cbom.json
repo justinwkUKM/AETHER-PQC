@@ -9,7 +9,7 @@
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Synthetic PayNet E-Commerce Rail Lab"
+      "name": "Synthetic ApexNet E-Commerce Rail Lab"
     },
     "properties": [
       {
@@ -18,7 +18,7 @@
       },
       {
         "name": "aether.researchBasis",
-        "value": "Inspired by public PayNet descriptions of FPX as a real-time online payment gateway used for e-commerce and bank-account payments."
+        "value": "Inspired by public ApexNet descriptions of DirectPay as a real-time online payment gateway used for e-commerce and bank-account payments."
       },
       {
         "name": "aether.no-secrets",

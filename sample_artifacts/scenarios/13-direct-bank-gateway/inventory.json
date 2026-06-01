@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "fpx-portal",
+      "name": "DirectPay Checkout Portal",
+      "label": "Application",
+      "vulnerabilityScore": 8.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.2 with classical RSA-2048 certificates",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid X25519 + ML-KEM-768",
+        "interface": "Public Checkout Web Panel"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "merchant-validator",
+      "name": "Merchant Authorization Validator",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.0,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "ECDSA-P256 token validation",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-DSA-65 signatures",
+        "interface": "Merchant Parameter Verifier"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "redirect-dispatcher",
+      "name": "Bank Redirect Dispatcher",
+      "label": "SoftwareComponent",
+      "vulnerabilityScore": 8.4,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "Secure sessions with static DH-2048",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-KEM-768 key exchanges",
+        "interface": "Browser Redirection Engine"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "transaction-ledger",
+      "name": "DirectPay Transaction History Ledger",
+      "label": "DataAsset",
+      "vulnerabilityScore": 7.2,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "AES-256 transparent tables with key-wrap RSA-2048",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "ML-KEM-1024 database envelope",
+        "interface": "History Audit DB"
+      },
+      "sourceArtifactIds": []
+    },
+    {
+      "id": "partner-bank-portals",
+      "name": "Partner Bank Portals",
+      "label": "ExternalService",
+      "vulnerabilityScore": 7.5,
+      "confidence": 1.0,
+      "attributes": {
+        "encryptionStandard": "TLS 1.1 / 1.2 with ECDHE-RSA ciphers",
+        "quantumCompliance": "NON-COMPLIANT",
+        "targetMigration": "TLS 1.3 with hybrid ML-KEM-768",
+        "interface": "Partner Authentication Portals"
+      },
+      "sourceArtifactIds": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "fpx-portal",
+      "target": "merchant-validator",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "fpx-portal",
+      "target": "redirect-dispatcher",
+      "type": "DEPENDS_ON",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "redirect-dispatcher",
+      "target": "transaction-ledger",
+      "type": "PROCESSES",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    },
+    {
+      "source": "redirect-dispatcher",
+      "target": "partner-bank-portals",
+      "type": "CALLS",
+      "confidence": 1.0,
+      "sourceArtifactIds": []
+    }
+  ]
+}
