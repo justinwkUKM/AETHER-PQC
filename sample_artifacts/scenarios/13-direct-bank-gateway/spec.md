@@ -1,9 +1,9 @@
-# ApexNet DirectPay E-Commerce Gateway Specification
+# Anonymous network operator Direct Bank Gateway E-Commerce Gateway Specification
 
 ## 1. Executive Summary
-This document registers the cryptographic controls and security design of DirectPay (Financial Process Exchange), ApexNet's widely integrated direct-to-bank online payment gateway. DirectPay redirects consumers from merchant e-commerce websites directly to their online banking portal to complete payments via real-time bank account debiting.
+This document registers the cryptographic controls and security design of Direct Bank Gateway (Financial Process Exchange), Anonymous network operator's widely integrated direct-to-bank online payment gateway. Direct Bank Gateway redirects consumers from merchant e-commerce websites directly to their online banking portal to complete payments via real-time bank account debiting.
 
-DirectPay interfaces with thousands of diverse merchant web platforms and all retail bank partners in Malaysia. Because it coordinates bank redirect flows across a complex web browser environment, it is exposed to session hijacking, certificate spoofing, and man-in-the-middle attacks. Migrating to hybrid post-quantum cipher suites is crucial to secure high-value web sessions.
+Direct Bank Gateway interfaces with thousands of diverse merchant web platforms and all retail bank partners in the region. Because it coordinates bank redirect flows across a complex web browser environment, it is exposed to session hijacking, certificate spoofing, and man-in-the-middle attacks. Migrating to hybrid post-quantum cipher suites is crucial to secure high-value web sessions.
 
 ---
 
@@ -11,7 +11,7 @@ DirectPay interfaces with thousands of diverse merchant web platforms and all re
 
 The system boundaries are defined by five high-volume transaction entities:
 
-### Node 1: DirectPay Checkout Portal
+### Node 1: Direct Bank Gateway Checkout Portal
 * **Label**: `Application`
 * **Vulnerability Score**: `8.2` (Public-Facing Web Edge)
 * **Cryptographic Primitives**: 
@@ -35,7 +35,7 @@ The system boundaries are defined by five high-volume transaction entities:
   * Target Migration: `Ephemerally negotiated ML-KEM-768 keys`
 * **Purpose**: Coordinates the generation of redirection tokens and session parameters that route browser sessions to bank verification portals.
 
-### Node 4: DirectPay Transaction History Ledger
+### Node 4: Direct Bank Gateway Transaction History Ledger
 * **Label**: `DataAsset`
 * **Vulnerability Score**: `7.2` (Financial Audit Log)
 * **Cryptographic Primitives**:
@@ -55,7 +55,7 @@ The system boundaries are defined by five high-volume transaction entities:
 
 ## 3. Communication Link Relationships
 
-1. **DirectPay Checkout Portal** (Application) connects to **Merchant Authorization Validator** (SoftwareComponent) via `DEPENDS_ON` link to validate incoming transaction requests.
-2. **DirectPay Checkout Portal** (Application) connects to **Bank Redirect Dispatcher** (SoftwareComponent) via `DEPENDS_ON` link to coordinate bank handshakes.
-3. **Bank Redirect Dispatcher** (SoftwareComponent) connects to **DirectPay Transaction History Ledger** (DataAsset) via `PROCESSES` connection to write session audit trails.
+1. **Direct Bank Gateway Checkout Portal** (Application) connects to **Merchant Authorization Validator** (SoftwareComponent) via `DEPENDS_ON` link to validate incoming transaction requests.
+2. **Direct Bank Gateway Checkout Portal** (Application) connects to **Bank Redirect Dispatcher** (SoftwareComponent) via `DEPENDS_ON` link to coordinate bank handshakes.
+3. **Bank Redirect Dispatcher** (SoftwareComponent) connects to **Direct Bank Gateway Transaction History Ledger** (DataAsset) via `PROCESSES` connection to write session audit trails.
 4. **Bank Redirect Dispatcher** (SoftwareComponent) connects to **Partner Bank Portals** (ExternalService) via `CALLS` connection for authentication redirects.

@@ -11,7 +11,7 @@ Currently, the transit paths and signature schemes are highly dependent on class
 
 We have mapped five critical transaction components with significant classical exposure:
 
-### Node 1: SWIFT Bank Gateway
+### Node 1: Bank Message Gateway
 * **Label**: `Application`
 * **Vulnerability Score**: `8.5` (Critical Extranet Ingress)
 * **Cryptographic Primitives**: 
@@ -56,7 +56,7 @@ We have mapped five critical transaction components with significant classical e
 
 ## 3. Communication Link Relationships
 
-1. **SWIFT Bank Gateway** (Application) connects to **Settlement Validation Engine** (SoftwareComponent) via `DEPENDS_ON` link to validate inbound requests.
+1. **Bank Message Gateway** (Application) connects to **Settlement Validation Engine** (SoftwareComponent) via `DEPENDS_ON` link to validate inbound requests.
 2. **Settlement Validation Engine** (SoftwareComponent) connects to **Core Transaction Ledger** (DataAsset) via `PROCESSES` connection to write ledger rows.
-3. **SWIFT Bank Gateway** (Application) connects to **Settlement Reporting S3 Storage** (DataAsset) via `USES` to write transaction receipt PDFs.
+3. **Bank Message Gateway** (Application) connects to **Settlement Reporting S3 Storage** (DataAsset) via `USES` to write transaction receipt PDFs.
 4. **Settlement Validation Engine** (SoftwareComponent) connects to **Fedwire External Service** (ExternalService) via `CALLS` for downstream real-time settlements.

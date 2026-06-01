@@ -16,7 +16,7 @@
     },
     {
       "id": "pos-ingest-hub",
-      "name": "LionNet POS Ingest Hub",
+      "name": "Clearing Services Operator POS Ingest Hub",
       "label": "SoftwareComponent",
       "vulnerabilityScore": 8.2,
       "confidence": 1.0,

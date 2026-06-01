@@ -30,7 +30,7 @@
     },
     {
       "id": "transit-hsm",
-      "name": "TransitPay HSM Key Store",
+      "name": "Stored Value Transit HSM Key Store",
       "label": "DataAsset",
       "vulnerabilityScore": 9.0,
       "confidence": 1.0,

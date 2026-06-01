@@ -1,9 +1,9 @@
-# ApexNet BillPay Bill Presentment Specification
+# Anonymous network operator Biller Presentment Bill Presentment Specification
 
 ## 1. Executive Summary
-This document specifies the cryptographic design and systems topology of BillPay, Malaysia's national bill payment scheme. BillPay allows billers (such as telecom providers, municipal councils, electricity grids, and insurers) to present bulk electronic invoices that bank customers can pay via mobile and online banking platforms.
+This document specifies the cryptographic design and systems topology of Biller Presentment, a regional bill payment scheme. Biller Presentment allows billers (such as telecom providers, municipal councils, electricity grids, and insurers) to present bulk electronic invoices that bank customers can pay via mobile and online banking platforms.
 
-BillPay relies on massive daily batch processing files (invoicing arrays) transferred via SFTP and processed inside high-throughput clearing houses. Due to the diverse nature of corporate billers (ranging from large telecom hubs to small district utility firms), BillPay represents a vast B2B attack surface. Securing these B2B connections against post-quantum intercept is an absolute priority.
+Biller Presentment relies on massive daily batch processing files (invoicing arrays) transferred via SFTP and processed inside high-throughput clearing houses. Due to the diverse nature of corporate billers (ranging from large telecom hubs to small district utility firms), Biller Presentment represents a vast B2B attack surface. Securing these B2B connections against post-quantum intercept is an absolute priority.
 
 ---
 
@@ -11,7 +11,7 @@ BillPay relies on massive daily batch processing files (invoicing arrays) transf
 
 The system boundaries are defined by five high-volume transaction entities:
 
-### Node 1: BillPay Biller Ingress Server
+### Node 1: Biller Presentment Biller Ingress Server
 * **Label**: `Application`
 * **Vulnerability Score**: `7.2` (Large B2B Surface)
 * **Cryptographic Primitives**: 
@@ -49,13 +49,13 @@ The system boundaries are defined by five high-volume transaction entities:
 * **Cryptographic Primitives**:
   * Current: `Partner billing API integrations utilizing standard RSA-4096 signature certificates`
   * Target Migration: `Hybrid post-quantum messaging certificates`
-* **Purpose**: External utility and corporate biller networks (such as Telekom Malaysia, Tenaga Nasional Berhad, and Astro) receiving daily cleared funds lists.
+* **Purpose**: External utility and corporate biller networks (such as Utility Biller A, Utility Biller B, and Media Biller C) receiving daily cleared funds lists.
 
 ---
 
 ## 3. Communication Link Relationships
 
-1. **BillPay Biller Ingress Server** (Application) connects to **Invoicing XML Presentment Engine** (SoftwareComponent) via `DEPENDS_ON` link to upload billing arrays.
+1. **Biller Presentment Biller Ingress Server** (Application) connects to **Invoicing XML Presentment Engine** (SoftwareComponent) via `DEPENDS_ON` link to upload billing arrays.
 2. **Invoicing XML Presentment Engine** (SoftwareComponent) connects to **Bulk Giro Payment Dispatcher** (SoftwareComponent) via `DEPENDS_ON` link to trigger settlements.
 3. **Bulk Giro Payment Dispatcher** (SoftwareComponent) connects to **Biller Settlement Archives** (DataAsset) via `PROCESSES` connection to write ledger records.
 4. **Bulk Giro Payment Dispatcher** (SoftwareComponent) connects to **External Utility Billers** (ExternalService) via `CALLS` connection to notify partner billing systems.

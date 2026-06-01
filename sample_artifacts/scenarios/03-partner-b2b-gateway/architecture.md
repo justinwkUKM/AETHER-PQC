@@ -1,6 +1,6 @@
 # Partner B2B Gateway Architecture Narrative
 
-Organization: Meridian Logistics Exchange
+Organization: Anonymous Logistics Operator
 Assessment type: synthetic enterprise PQC readiness scan
 Data classification: synthetic test evidence only
 
@@ -17,7 +17,7 @@ Partner-facing vendor file-exchange gateway that accepts shipping manifests thro
 - Manifest Processor
 - Logistics Data Lake
 
-The assessment intentionally includes exposure keywords that AETHER should interpret in context: public, internet, external, gateway, ingress, load balancer, DMZ, partner, vendor, internal, private, batch, and offline where relevant.
+The assessment intentionally includes exposure keywords that the scanner should interpret in context: public, internet, external, gateway, ingress, load balancer, DMZ, partner, vendor, internal, private, batch, and offline where relevant.
 
 ## Components And Cryptographic Controls
 
@@ -73,4 +73,4 @@ Expected scan result: HIGH remediation for partner-facing ECDSA, static DH, weak
 
 ## Source Control And Data Hygiene
 
-This document is fictional and contains no credentials, private keys, tokens, or real customer data. Use it only for AETHER-PQC manual scanner validation.
+This document is fictional and contains no credentials, private keys, tokens, or real customer data. Use it only for scanner validation.

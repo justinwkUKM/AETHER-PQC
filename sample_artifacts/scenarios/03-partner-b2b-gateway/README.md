@@ -1,6 +1,6 @@
 # Partner B2B Gateway
 
-Suggested AETHER project name: `partner_b2b_gateway`
+Suggested scanner project name: `partner_b2b_gateway`
 
 ## Purpose
 
@@ -50,7 +50,7 @@ Expected remediation priority shape: **HIGH**
 - Inventory: confirm cryptographic primitives and parser modes.
 - Exposure: confirm edge/partner/internal exposure ranking.
 - Remediations: confirm ticket-ready priority rationale and validation steps.
-- Evidence: confirm all six artifacts appear in the audit record.
+- Evidence: confirm all seven core artifacts appear in the audit record.
 
 ## Expected Outcome
 

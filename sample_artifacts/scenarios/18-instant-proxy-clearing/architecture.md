@@ -1,6 +1,6 @@
-# LionFAST & PayProxy Core Architecture & Flow Diagram
+# Instant clearing rail Clearing & Proxy Resolver Core Architecture & Flow Diagram
 
-This document registers the network topology, trust boundaries, and transactional flow for **LionFAST & PayProxy Core (Scenario 18)**.
+This document registers the network topology, trust boundaries, and transactional flow for **Instant clearing rail Clearing & Proxy Resolver Core (Scenario 18)**.
 
 ---
 
@@ -8,8 +8,8 @@ This document registers the network topology, trust boundaries, and transactiona
 
 The real-time instant clearing engine is partitioned into five distinct trust domains:
 * **Zone A: Interbank WAN**: Highly secure WAN connecting participant clearing banks.
-* **Zone B: FAST Inbound DMZ**: Security edge gateway terminating bank connections.
-* **Zone C: PayProxy Parsing Subnet**: Internal processing LAN running proxy resolvers.
+* **Zone B: Instant Clearing Inbound DMZ**: Security edge gateway terminating bank connections.
+* **Zone C: Proxy Resolver Parsing Subnet**: Internal processing LAN running proxy resolvers.
 * **Zone D: Restricted Directory & Settlement Database**: Secure Oracle database engines.
 * **Zone E: External Non-Bank Wallets**: REST API integrations connecting e-wallet providers.
 
@@ -21,17 +21,17 @@ The following Mermaid flowchart tracks how instant interbank payments and proxy 
 
 ```mermaid
 graph TD
-  subgraph Zone_B_FAST ["Zone B: FAST Inbound DMZ"]
-    N1["FAST Inbound API Gateway<br/>(TLS 1.2 / ECDSA-P256 Client Certs)"]
+  subgraph Zone_B_Instant Clearing ["Zone B: Instant Clearing Inbound DMZ"]
+    N1["Instant Clearing Inbound API Gateway<br/>(TLS 1.2 / ECDSA-P256 Client Certs)"]
   end
 
-  subgraph Zone_C_Parsing ["Zone C: PayProxy Parsing Subnet"]
-    N2["PayProxy Proxy Resolver<br/>(ECDSA-P256 / SHA-256 Signatures)"]
+  subgraph Zone_C_Parsing ["Zone C: Proxy Resolver Parsing Subnet"]
+    N2["Proxy Resolver Proxy Resolver<br/>(ECDSA-P256 / SHA-256 Signatures)"]
   end
 
   subgraph Zone_D_Data ["Zone D: Directory & Settlement DB"]
-    N3["PayProxy National Proxy DB<br/>(AES-256 / RSA-2048 keywrap)"]
-    N4["FAST Real-Time Settlement DB<br/>(Plaintext DB Columns / TLS 1.2)"]
+    N3["Proxy Resolver National Proxy DB<br/>(AES-256 / RSA-2048 keywrap)"]
+    N4["Instant Clearing Real-Time Settlement DB<br/>(Plaintext DB Columns / TLS 1.2)"]
   end
 
   subgraph Zone_E_Wallets ["Zone E: Non-Bank Wallets"]
@@ -62,8 +62,8 @@ graph TD
 
 ## 3. Cryptographic Data Flow Narrative
 
-1. **Transaction Inbound**: Participant banks transmit real-time ISO 20022 clearing payloads to the **FAST Inbound API Gateway** over the Interbank WAN, terminating via HTTPS secured by **TLS 1.2** with ECDSA-P256 client certificates.
-2. **Payload Parsing**: The gateway routes clearing files to the **PayProxy Proxy Resolver**, which validates payment payload parameters using classical **ECDSA-P256** and SHA-256 signatures to ensure authenticity.
-3. **Proxy Directory Resolution**: The resolver queries the **PayProxy National Proxy DB** to translate mobile numbers or UEN business numbers to bank account numbers. Directory data is encrypted at rest using **AES-256** with database keys wrapped via classical **RSA-2048**.
-4. **Settlement Logging**: Real-time funds debits/credits are committed to the **FAST Real-Time Settlement DB**, which hosts plaintext columns secured only by TLS 1.2 database connection ciphers.
+1. **Transaction Inbound**: Participant banks transmit real-time ISO 20022 clearing payloads to the **Instant Clearing Inbound API Gateway** over the Interbank WAN, terminating via HTTPS secured by **TLS 1.2** with ECDSA-P256 client certificates.
+2. **Payload Parsing**: The gateway routes clearing files to the **Proxy Resolver Proxy Resolver**, which validates payment payload parameters using classical **ECDSA-P256** and SHA-256 signatures to ensure authenticity.
+3. **Proxy Directory Resolution**: The resolver queries the **Proxy Resolver National Proxy DB** to translate mobile numbers or business proxy ID business numbers to bank account numbers. Directory data is encrypted at rest using **AES-256** with database keys wrapped via classical **RSA-2048**.
+4. **Settlement Logging**: Real-time funds debits/credits are committed to the **Instant Clearing Real-Time Settlement DB**, which hosts plaintext columns secured only by TLS 1.2 database connection ciphers.
 5. **Non-Bank Integration**: Instant confirmations are sent to **Non-Bank Financial Ingress** e-wallets (e.g., GrabPay) via REST APIs running TLS 1.2 with ECDHE-RSA ciphers, exposing sensitive transaction details to HNDL threats.

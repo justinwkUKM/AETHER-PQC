@@ -1,7 +1,7 @@
-# LionEFTPOS Point-of-Sale Card Processing Hub Specification
+# Retail POS Network Point-of-Sale Card Processing Hub Specification
 
 ## 1. Executive Summary
-This document specifies the security controls and cryptographic architecture of LionEFTPOS (Electronic Funds Transfer at Point of Sale), Singapore's national debit card payment network. LionEFTPOS connects retail POS terminals across Singapore to clear instant card-present retail transactions using ATM cards.
+This document specifies the security controls and cryptographic architecture of Retail POS Network (Electronic Funds Transfer at Point of Sale), a regional debit card payment network. Retail POS Network connects retail POS terminals across the region to clear instant card-present retail transactions using ATM cards.
 
 Because the system manages highly sensitive card-present transactions and customer PIN verification blocks (PIN blocks), securing host-to-host and terminal-to-host communication channels against decryption is highly critical. The current architecture employs legacy standards (such as 3DES PIN blocks and RSA-2048 terminal key exchanges), which must be modernized to prevent quantum-enabled retail fraud.
 
@@ -19,7 +19,7 @@ The system boundaries are defined by five high-volume transaction entities:
   * Target Migration: `Quantum-safe session key exchange utilizing ML-KEM-768, with AES-256 for PIN block encryption`
 * **Purpose**: physical payment terminal deployed at retail merchant checkout counters to capture card chips, capture consumer PINs, and verify funds.
 
-### Node 2: LionNet POS Ingest Hub
+### Node 2: Clearing Services Operator POS Ingest Hub
 * **Label**: `SoftwareComponent`
 * **Vulnerability Score**: `8.2` (Critical Transaction Gateway)
 * **Cryptographic Primitives**:
@@ -33,7 +33,7 @@ The system boundaries are defined by five high-volume transaction entities:
 * **Cryptographic Primitives**:
   * Current: `Database rows encrypted with AES-256 transparent tables, with key transport wrapped via classical RSA-2048`
   * Target Migration: `AWS KMS envelope keys wrapped using ML-KEM-1024`
-* **Purpose**: Core database repository storing Master Key/Session Key pairs for all active merchant POS terminals in Singapore. High threat of harvesting.
+* **Purpose**: Core database repository storing Master Key/Session Key pairs for all active merchant POS terminals in the region. High threat of harvesting.
 
 ### Node 4: EFTPOS Retail Clearing DB
 * **Label**: `DataAsset`
@@ -49,13 +49,13 @@ The system boundaries are defined by five high-volume transaction entities:
 * **Cryptographic Primitives**:
   * Current: `Host-to-host mTLS channels running standard TLS 1.2 with RSA-2048 authentication`
   * Target Migration: `Enforced TLS 1.3 with hybrid ML-DSA-65 client certificates`
-* **Purpose**: External connection points to participant consumer banks (such as DBS, OCBC, and UOB) that verify PIN blocks and authorize funds.
+* **Purpose**: External connection points to participant consumer banks (such as participating banks) that verify PIN blocks and authorize funds.
 
 ---
 
 ## 3. Communication Link Relationships
 
-1. **EFTPOS Merchant Terminal** (Application) connects to **LionNet POS Ingest Hub** (SoftwareComponent) via `DEPENDS_ON` link to transmit transaction packets.
-2. **LionNet POS Ingest Hub** (SoftwareComponent) connects to **POS Terminal Key Registry** (DataAsset) via `PROCESSES` connection to fetch session keys.
-3. **LionNet POS Ingest Hub** (SoftwareComponent) connects to **EFTPOS Retail Clearing DB** (DataAsset) via `PROCESSES` connection to log transactions.
-4. **LionNet POS Ingest Hub** (SoftwareComponent) connects to **Partner Issuer Host Nodes** (ExternalService) via `CALLS` connection to route bank requests.
+1. **EFTPOS Merchant Terminal** (Application) connects to **Clearing Services Operator POS Ingest Hub** (SoftwareComponent) via `DEPENDS_ON` link to transmit transaction packets.
+2. **Clearing Services Operator POS Ingest Hub** (SoftwareComponent) connects to **POS Terminal Key Registry** (DataAsset) via `PROCESSES` connection to fetch session keys.
+3. **Clearing Services Operator POS Ingest Hub** (SoftwareComponent) connects to **EFTPOS Retail Clearing DB** (DataAsset) via `PROCESSES` connection to log transactions.
+4. **Clearing Services Operator POS Ingest Hub** (SoftwareComponent) connects to **Partner Issuer Host Nodes** (ExternalService) via `CALLS` connection to route bank requests.

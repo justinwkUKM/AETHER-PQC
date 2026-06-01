@@ -1,6 +1,6 @@
 Internal Claims Batch Threat Model Notes
 
-Synthetic organization: Northstar Mutual Insurance
+Synthetic organization: Anonymous Insurance Operator
 Business owner: synthetic-product-owner@example.com
 Security owner: synthetic-security-architect@example.com
 Review date: 2026-06-01

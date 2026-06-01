@@ -1,6 +1,6 @@
-# ApexNet BillPay Bill Presentment Architecture & Flow Diagram
+# Anonymous network operator Biller Presentment Bill Presentment Architecture & Flow Diagram
 
-This document registers the network topology, trust boundaries, and transactional flow for **ApexNet BillPay (Scenario 15)**.
+This document registers the network topology, trust boundaries, and transactional flow for **Anonymous network operator Biller Presentment (Scenario 15)**.
 
 ---
 
@@ -21,7 +21,7 @@ The following Mermaid flowchart tracks how corporate invoice files and GIRO paym
 ```mermaid
 graph TD
   subgraph Zone_A_SFTP ["Zone A: Biller SFTP Edge"]
-    N1["BillPay Biller Ingress Server<br/>(TLS 1.2 / SFTP RSA-2048 keys)"]
+    N1["Biller Presentment Biller Ingress Server<br/>(TLS 1.2 / SFTP RSA-2048 keys)"]
   end
 
   subgraph Zone_B_Invoicing ["Zone B: Core Invoicing LAN"]
@@ -61,8 +61,8 @@ graph TD
 
 ## 3. Cryptographic Data Flow Narrative
 
-1. **Invoicing Upload**: Corporate billers upload daily presentment invoices to the **BillPay Biller Ingress Server** over SFTP connection ciphers secured by static **RSA-2048 SSH** keys.
+1. **Invoicing Upload**: Corporate billers upload daily presentment invoices to the **Biller Presentment Biller Ingress Server** over SFTP connection ciphers secured by static **RSA-2048 SSH** keys.
 2. **Presentment Processing**: The ingress server routes files to the **Invoicing XML Presentment Engine**, which checks invoice records and validates merchant token signatures via classical **ECDSA-P256** signatures.
 3. **GIRO Schedulers**: Validated billing batches are forwarded to the **Bulk Giro Payment Dispatcher**, which initiates Interbank GIRO (IBG) settlements utilizing connection ciphers secured via static **Diffie-Hellman (DH-2048)** keys.
 4. **Archive Preservation**: Invoicing balances and corporate registration tables are saved to the **Biller Settlement Archives**, which encrypts records at rest using **AES-256** with database keys wrapped via classical **RSA-2048**.
-5. **Corporate Discharges**: The dispatcher triggers downstream payouts to **External Utility Billers** (e.g., Telecom Malaysia) via REST APIs running TLS 1.2 utilizing standard **RSA-4096** certificates, leaving clearing databases vulnerable to HNDL.
+5. **Corporate Discharges**: The dispatcher triggers downstream payouts to **External Utility Billers** (e.g., Telecom the region) via REST APIs running TLS 1.2 utilizing standard **RSA-4096** certificates, leaving clearing databases vulnerable to HNDL.

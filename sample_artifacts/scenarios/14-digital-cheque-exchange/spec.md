@@ -1,7 +1,7 @@
-# ApexNet ChequeClear Cheque Clearing System Specification
+# Anonymous network operator ChequeClear Cheque Clearing System Specification
 
 ## 1. Executive Summary
-This document specifies the cryptographic design and operational parameters of ChequeClear, the national automated electronic cheque image clearing and presentment system. ChequeClear coordinates daily clearing of high-resolution digital cheque images and MICR data files submitted by participating financial institutions.
+This document specifies the cryptographic design and operational parameters of ChequeClear, a regional automated electronic cheque image clearing and presentment system. ChequeClear coordinates daily clearing of high-resolution digital cheque images and MICR data files submitted by participating financial institutions.
 
 Because ChequeClear processes and archives millions of critical financial document images that must be retained for at least 7 years, the primary security threat is the long-term decryption of historic batch archives. ChequeClear relies on legacy signature standards (SHA-1/DSA) and older encryption algorithms (3DES) for bulk image compression, presenting a high risk.
 

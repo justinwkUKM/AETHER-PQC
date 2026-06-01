@@ -1,17 +1,17 @@
-# ApexNet ApexRTGS RTGS Architecture & Network Flow Diagram
+# Anonymous network operator Wholesale Settlement Rail RTGS Architecture & Network Flow Diagram
 
-This document registers the network topology, trust boundaries, and transactional flow for **ApexNet ApexRTGS (Scenario 11)**.
+This document registers the network topology, trust boundaries, and transactional flow for **Anonymous network operator Wholesale Settlement Rail (Scenario 11)**.
 
 ---
 
 ## 1. Network Zones & Trust Boundaries
 
 The high-value clearing estate is segmented into five cryptographic trust zones to enforce maximum resilience:
-* **Zone A: Demilitarized Zone (DMZ)**: Highly restricted DMZ terminating partner gateway entries (SWIFT).
+* **Zone A: Demilitarized Zone (DMZ)**: Highly restricted DMZ terminating partner gateway entries (Settlement Messaging).
 * **Zone B: Core RTGS Settlement WAN**: Isolated back-office network coordinating clearing routines.
 * **Zone C: High-Security Securities Enclave**: Dedicated database zone storing national debt papers.
 * **Zone D: Central Bank Reserve Subnet**: Highly secure internal ledger database hosting bank balances.
-* **Zone E: Global Financial Networks**: External connections with international SWIFT clearing services.
+* **Zone E: Global Financial Networks**: External connections with international external settlement messaging services.
 
 ---
 
@@ -21,12 +21,12 @@ The following Mermaid flowchart tracks how interbank high-value payments flow th
 
 ```mermaid
 graph TD
-  subgraph Zone_A_DMZ ["Zone A: DMZ (SWIFT Edge)"]
-    N1["SWIFT RTGS Ingress Gateway<br/>(TLS 1.2 / ECDHE-RSA-256)"]
+  subgraph Zone_A_DMZ ["Zone A: DMZ (Settlement Messaging Edge)"]
+    N1["Settlement Message Ingress Gateway<br/>(TLS 1.2 / ECDHE-RSA-256)"]
   end
 
   subgraph Zone_B_Core ["Zone B: Core RTGS Settlement WAN"]
-    N2["ApexRTGS Settlement Core<br/>(ECDSA-P256 / SHA-256)"]
+    N2["Wholesale Settlement Core<br/>(ECDSA-P256 / SHA-256)"]
   end
 
   subgraph Zone_C_Securities ["Zone C: High-Security Securities Enclave"]
@@ -38,7 +38,7 @@ graph TD
   end
 
   subgraph Zone_E_Global ["Zone E: Global Financial Networks"]
-    N5["SWIFT Alliance Messaging Network<br/>(RSA-4096 API Signatures)"]
+    N5["External Settlement Messaging Network<br/>(RSA-4096 API Signatures)"]
   end
 
   %% Flow Connections %%
@@ -65,8 +65,8 @@ graph TD
 
 ## 3. Cryptographic Data Flow Narrative
 
-1. **Transaction Ingress**: Participating member banks submit payment files to the **SWIFT RTGS Ingress Gateway** over secure networks. Connections terminate at the gateway using **TLS 1.2** with ECDHE-RSA ciphers.
-2. **Irrevocable Validation**: The gateway forwards records to the **ApexRTGS Settlement Core**, which validates instructions and signs entries using **ECDSA-P256** and SHA-256 signatures to achieve non-repudiation.
+1. **Transaction Ingress**: Participating member banks submit payment files to the **Settlement Message Ingress Gateway** over secure networks. Connections terminate at the gateway using **TLS 1.2** with ECDHE-RSA ciphers.
+2. **Irrevocable Validation**: The gateway forwards records to the **Wholesale Settlement Core**, which validates instructions and signs entries using **ECDSA-P256** and SHA-256 signatures to achieve non-repudiation.
 3. **Debt Securities Ledger**: For bond transactions, the core writes updates to the **Government Securities Depository**, which encrypts holdings using **AES-256** with database keys wrapped via classical **RSA-2048**.
 4. **Reserve Clearing**: Cash debits and credits are recorded on the **Central Bank Reserve Ledger**, which hosts plaintext balance columns and relies solely on TLS 1.2 database connection ciphers, leaving critical reserves exposed.
-5. **Cross-Border Remittance**: Downstream foreign currency settlements are routed to the **SWIFT Alliance Messaging Network** via APIs utilizing standard **RSA-4096** signatures, exposing international flows to HNDL.
+5. **Cross-Border Remittance**: Downstream foreign currency settlements are routed to the **External Settlement Messaging Network** via APIs utilizing standard **RSA-4096** signatures, exposing international flows to HNDL.

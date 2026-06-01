@@ -1,6 +1,6 @@
 # PQC-Ready AI Platform Architecture Narrative
 
-Organization: QuantaWorks Research Cloud
+Organization: Anonymous Research Cloud Operator
 Assessment type: synthetic enterprise PQC readiness scan
 Data classification: synthetic test evidence only
 
@@ -17,7 +17,7 @@ AI inference platform with a mostly quantum-safe target architecture and one his
 - Vector Store
 - Model Registry
 
-The assessment intentionally includes exposure keywords that AETHER should interpret in context: public, internet, external, gateway, ingress, load balancer, DMZ, partner, vendor, internal, private, batch, and offline where relevant.
+The assessment intentionally includes exposure keywords that the scanner should interpret in context: public, internet, external, gateway, ingress, load balancer, DMZ, partner, vendor, internal, private, batch, and offline where relevant.
 
 ## Components And Cryptographic Controls
 
@@ -73,4 +73,4 @@ Expected scan result: Low effective risk overall. ML-KEM, ML-DSA, AES-256, SHA-3
 
 ## Source Control And Data Hygiene
 
-This document is fictional and contains no credentials, private keys, tokens, or real customer data. Use it only for AETHER-PQC manual scanner validation.
+This document is fictional and contains no credentials, private keys, tokens, or real customer data. Use it only for scanner validation.

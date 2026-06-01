@@ -1,6 +1,6 @@
 Partner B2B Gateway Threat Model Notes
 
-Synthetic organization: Meridian Logistics Exchange
+Synthetic organization: Anonymous Logistics Operator
 Business owner: synthetic-product-owner@example.com
 Security owner: synthetic-security-architect@example.com
 Review date: 2026-06-01

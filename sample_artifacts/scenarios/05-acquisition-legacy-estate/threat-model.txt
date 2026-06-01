@@ -1,6 +1,6 @@
 Acquisition Legacy Estate Threat Model Notes
 
-Synthetic organization: Aster Retail Acquisition Office
+Synthetic organization: Anonymous Acquisition Program
 Business owner: synthetic-product-owner@example.com
 Security owner: synthetic-security-architect@example.com
 Review date: 2026-06-01

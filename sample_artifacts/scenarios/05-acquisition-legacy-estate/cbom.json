@@ -1,5 +1,5 @@
 {
-  "bomFormat": "CycloneDX",
+  "bomFormat": "Structured BOM",
   "specVersion": "1.6",
   "serialNumber": "urn:uuid:synthetic-05-acquisition-legacy-estate",
   "metadata": {
@@ -9,7 +9,7 @@
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Aster Retail Acquisition Office"
+      "name": "Anonymous Acquisition Program"
     },
     "properties": [
       {

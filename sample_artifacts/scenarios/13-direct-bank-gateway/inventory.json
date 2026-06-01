@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "fpx-portal",
-      "name": "DirectPay Checkout Portal",
+      "name": "Direct Bank Gateway Checkout Portal",
       "label": "Application",
       "vulnerabilityScore": 8.2,
       "confidence": 1.0,
@@ -44,7 +44,7 @@
     },
     {
       "id": "transaction-ledger",
-      "name": "DirectPay Transaction History Ledger",
+      "name": "Direct Bank Gateway Transaction History Ledger",
       "label": "DataAsset",
       "vulnerabilityScore": 7.2,
       "confidence": 1.0,

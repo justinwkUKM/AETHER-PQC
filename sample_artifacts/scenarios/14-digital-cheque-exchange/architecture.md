@@ -1,6 +1,6 @@
-# ApexNet ChequeClear Cheque Clearing Architecture & Flow Diagram
+# Anonymous network operator ChequeClear Cheque Clearing Architecture & Flow Diagram
 
-This document registers the network topology, trust boundaries, and transactional flow for **ApexNet ChequeClear (Scenario 14)**.
+This document registers the network topology, trust boundaries, and transactional flow for **Anonymous network operator ChequeClear (Scenario 14)**.
 
 ---
 

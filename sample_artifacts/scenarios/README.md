@@ -1,46 +1,50 @@
 # Synthetic Enterprise PQC Scan Artifact Pack
 
-This folder contains ten upload-ready synthetic enterprise scenarios for testing AETHER-PQC scans. The pack is designed to exercise deterministic JSON/text parsing, Gemini multimodal image and PDF extraction, unified batch analysis, exposure-aware risk, crypto inventory, remediation generation, and evidence reporting.
+This folder contains anonymous, upload-ready synthetic scenarios for testing scanner behavior across payment, settlement, platform, internal batch, partner, and legacy-estate systems. The pack is designed to exercise deterministic JSON/text parsing, multimodal image and PDF extraction, unified batch analysis, exposure-aware risk, crypto inventory, remediation generation, and evidence reporting.
 
-All content is fictional. Domains use `.example.com`; any IP-like examples use documentation ranges; owners are placeholders; no secrets, credentials, customer data, or live infrastructure references are included.
+All content is fictional. Domains use `.example.com`; any IP-like examples use documentation ranges; owners are placeholders; no organization branding, real product names, credentials, customer data, account numbers, PINs, or live infrastructure references are included.
 
 ## Scenarios
 
-| Folder | Scenario | Test Goal | Expected Priority Shape |
-| --- | --- | --- | --- |
-| `01-public-payments-edge` | Public Payments Edge | Critical exposed findings near public ingress. | CRITICAL |
-| `02-internal-claims-batch` | Internal Claims Batch | Vulnerable but buried/internal findings with lower exposure. | MEDIUM/HIGH |
-| `03-partner-b2b-gateway` | Partner B2B Gateway | Partner exposure and weak TLS 1.2 nuance. | HIGH |
-| `04-pqc-ready-ai-platform` | PQC-Ready AI Platform | Mostly safe/ready behavior with a low-confidence historical finding. | LOW/MEDIUM |
-| `05-acquisition-legacy-estate` | Acquisition Legacy Estate | Ambiguous AI-heavy extraction and conflicting evidence. | CRITICAL |
-| `06-duitnow-qr-merchant-switch` | DuitInstant QR Merchant Switch | High-volume retail edge with mobile wallet and acquiring-bank exposure. | HIGH/CRITICAL |
-| `07-fpx-online-banking-gateway` | DirectPay Online Banking Gateway | Critical merchant checkout and bank redirect exposure with classical crypto in high-value flows. | CRITICAL |
-| `08-jompay-biller-collections` | BillPay Biller Collections | Mixed partner-facing biller integrations and internal settlement file risks. | HIGH |
-| `09-mydebit-shared-atm-switch` | MyDebit Shared ATM Switch | Retail POS and ATM edge exposure with legacy HSM and host-key cryptography. | HIGH/CRITICAL |
-| `10-rtgs-rentas-wholesale-settlement` | RTGS ApexRTGS Wholesale Settlement | Mission-critical wholesale settlement with private network exposure and very high business impact. | HIGH/CRITICAL |
+| Folder | Scenario | Test Goal |
+| --- | --- | --- |
+| `01-public-payments-edge` | Public Payments Edge | Synthetic PQC scan scenario with anonymous system evidence. |
+| `02-internal-claims-batch` | Internal Claims Batch | Synthetic PQC scan scenario with anonymous system evidence. |
+| `03-partner-b2b-gateway` | Partner B2B Gateway | Synthetic PQC scan scenario with anonymous system evidence. |
+| `04-pqc-ready-ai-platform` | PQC-Ready AI Platform | Synthetic PQC scan scenario with anonymous system evidence. |
+| `05-acquisition-legacy-estate` | Acquisition Legacy Estate | Synthetic PQC scan scenario with anonymous system evidence. |
+| `06-qr-merchant-switch` | QR Merchant Switch | Synthetic PQC scan scenario with anonymous system evidence. |
+| `07-direct-bank-gateway` | Direct Bank Gateway | Synthetic PQC scan scenario with anonymous system evidence. |
+| `08-biller-collections` | Biller Collections | Synthetic PQC scan scenario with anonymous system evidence. |
+| `09-card-atm-switch` | Card and Cash Switch | Synthetic PQC scan scenario with anonymous system evidence. |
+| `10-wholesale-settlement` | Wholesale Settlement Rail | Synthetic PQC scan scenario with anonymous system evidence. |
+| `11-national-rtgs-settlement` | Anonymous network operator Wholesale Settlement Rail Rea... | Synthetic PQC scan scenario with anonymous system evidence. |
+| `12-instant-retail-clearing` | Anonymous instant retail rail Instant Retail Cl... | Synthetic PQC scan scenario with anonymous system evidence. |
+| `13-direct-bank-gateway` | Anonymous network operator Direct Bank Gateway E-Commerc... | Synthetic PQC scan scenario with anonymous system evidence. |
+| `14-digital-cheque-exchange` | Anonymous network operator ChequeClear Cheque Clearing S... | Synthetic PQC scan scenario with anonymous system evidence. |
+| `15-bulk-bill-presentment` | Anonymous network operator Biller Presentment Bill Prese... | Synthetic PQC scan scenario with anonymous system evidence. |
+| `16-pos-debit-acquisition` | Retail POS Network Point-of-Sale Card Processing Hub Sp... | Synthetic PQC scan scenario with anonymous system evidence. |
+| `17-online-debit-gateway` | Online Debit Gateway Online Payment Gateway Specification | Synthetic PQC scan scenario with anonymous system evidence. |
+| `18-instant-proxy-clearing` | Instant clearing rail Clearing & Proxy Resolver Core Clearing Spe... | Synthetic PQC scan scenario with anonymous system evidence. |
+| `19-transit-stored-value` | Stored Value Transit & Stored Value Mobility Card Trans... | Synthetic PQC scan scenario with anonymous system evidence. |
+| `20-bulk-giro-clearing` | Regional Automated Clearing House (Bulk Clearing House)... | Synthetic PQC scan scenario with anonymous system evidence. |
 
 ## How To Use
 
-1. Create one AETHER project per scenario using the suggested project name in that scenario's README.
-2. Upload all seven core files from the scenario folder together.
+1. Create one scanner project per scenario using the suggested project name in that scenario's README.
+2. Upload the files in the selected scenario folder together.
 3. Wait for sequential artifact processing and unified batch analysis.
 4. Inspect Graph, Inventory, Exposure, Remediations, and Evidence views.
-5. Compare the observed posture with each scenario README's expected results.
+5. Compare the observed posture with the scenario README or specification.
 
-## Files In Each Scenario
+## Common Visual Artifacts
 
-- `README.md`: manual test guide and expected behavior.
-- `architecture.md`: production-style architecture narrative.
-- `cbom.json`: CycloneDX-style crypto inventory for deterministic parsing.
-- `tls-endpoints.csv`: endpoint, protocol, cipher, and exposure inventory.
-- `threat-model.txt`: security context and owner questions.
-- `architecture-diagram.png`: visual topology for Gemini image parsing.
-- `process-flow.png`: professional transaction/process flow for OCR and visual reasoning.
-- `assessment-brief.pdf`: text-bearing PDF for PDF extraction and Gemini review.
+- `architecture-diagram.png`: anonymized topology, trust boundaries, and crypto labels for image parsing.
+- `process-flow.png`: anonymized transaction/process stages, exposure lanes, and evidence checklist for image parsing.
 
 ## Research Notes
 
-- `paynet-rtgs-research-notes.md` summarizes the public product categories used for scenarios `06` through `10`.
+- `payment-rtgs-research-notes.md` summarizes the public product categories that inspired several scenarios, without naming real operators or products.
 
 ## Safety And Data Hygiene
 

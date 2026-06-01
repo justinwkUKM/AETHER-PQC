@@ -1,6 +1,6 @@
-# LionEFTPOS Retail Card Architecture & Network Flow Diagram
+# Retail POS Network Retail Card Architecture & Network Flow Diagram
 
-This document registers the network topology, trust boundaries, and transactional flow for **LionEFTPOS (Scenario 16)**.
+This document registers the network topology, trust boundaries, and transactional flow for **Retail POS Network (Scenario 16)**.
 
 ---
 
@@ -26,7 +26,7 @@ graph TD
   end
 
   subgraph Zone_B_Acquirer ["Zone B: Acquirer Ingress"]
-    N2["LionNet POS Ingest Hub<br/>(TLS 1.2 / ECDHE-RSA-2048)"]
+    N2["Clearing Services Operator POS Ingest Hub<br/>(TLS 1.2 / ECDHE-RSA-2048)"]
   end
 
   subgraph Zone_C_HSM ["Zone C: HSM Key Enclave"]
@@ -66,7 +66,7 @@ graph TD
 ## 3. Cryptographic Data Flow Narrative
 
 1. **Card Acquisition**: Consumers insert or tap cards, triggering the **EFTPOS Merchant Terminal** to capture credentials, encrypt PIN blocks via legacy **3DES (ANSI X9.8)**, and encrypt session keys using classical **RSA-2048** key transport ciphers.
-2. **Gateway Ingress**: Terminal packets are transmitted to the **LionNet POS Ingest Hub** via HTTPS connections secured by **TLS 1.2** with ECDHE-RSA certificates.
+2. **Gateway Ingress**: Terminal packets are transmitted to the **Clearing Services Operator POS Ingest Hub** via HTTPS connections secured by **TLS 1.2** with ECDHE-RSA certificates.
 3. **Key Retrieval**: The hub retrieves active terminal keys from the **POS Terminal Key Registry** to decrypt ISO 8583 PIN blocks, utilizing **AES-256** transparent table ciphers with keys wrapped via classical **RSA-2048**.
 4. **Clearing Capture**: Captured settlement sequences and card numbers are saved on the **EFTPOS Retail Clearing DB**, which hosts plaintext columns secured only by TLS 1.2 database connections.
-5. **Issuer Verification**: Ingress nodes forward ISO packets to **Partner Issuer Host Nodes** (e.g., DBS Bank) via host-to-host mTLS ciphers secured by standard **TLS 1.2** with RSA-2048 certificates, leaving card PIN blocks exposed to HNDL.
+5. **Issuer Verification**: Ingress nodes forward ISO packets to **Partner Issuer Host Nodes** (e.g., Bank A Bank) via host-to-host mTLS ciphers secured by standard **TLS 1.2** with RSA-2048 certificates, leaving card PIN blocks exposed to HNDL.

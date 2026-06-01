@@ -1,6 +1,6 @@
-# Singapore Automated Clearing House (LionACH) GIRO Architecture & Flow Diagram
+# Regional Automated Clearing House (Bulk Clearing House) GIRO Architecture & Flow Diagram
 
-This document registers the network topology, trust boundaries, and transactional flow for **Singapore Automated Clearing House (LionACH) GIRO Clearing (Scenario 20)**.
+This document registers the network topology, trust boundaries, and transactional flow for **Regional Automated Clearing House (Bulk Clearing House) GIRO Clearing (Scenario 20)**.
 
 ---
 
@@ -9,7 +9,7 @@ This document registers the network topology, trust boundaries, and transactiona
 The bulk interbank clearing engine is partitioned into four distinct trust zones:
 * **Zone A: Corporate SFTP Edge**: Gateway terminating batch uploads from corporate banking clients.
 * **Zone B: Core Parsing & Processing LAN**: Secure back-office network hosting parsing tools.
-* **Zone C: LionACH High-Security Archive**: Enclosed Oracle DB cluster storing financial histories.
+* **Zone C: Bulk Clearing House High-Security Archive**: Enclosed Oracle DB cluster storing financial histories.
 * **Zone D: Commercial Clearing Banks**: Partner interfaces connecting clearing banks.
 
 ---
@@ -26,11 +26,11 @@ graph TD
 
   subgraph Zone_B_Parsing ["Zone B: Core Parsing LAN"]
     N2["GIRO Batch Parser Engine<br/>(ECDSA-P256 Token Validation)"]
-    N3["LionACH Interbank Settlement Coordinator<br/>(Static DH-2048 Ciphers)"]
+    N3["Bulk Clearing House Interbank Settlement Coordinator<br/>(Static DH-2048 Ciphers)"]
   end
 
   subgraph Zone_C_Archive ["Zone C: High-Security Archive"]
-    N4["LionACH Corporate Clearing Archive<br/>(AES-256 / RSA-2048 keywrap)"]
+    N4["Bulk Clearing House Corporate Clearing Archive<br/>(AES-256 / RSA-2048 keywrap)"]
   end
 
   subgraph Zone_D_Banks ["Zone D: Commercial Banks"]
@@ -63,6 +63,6 @@ graph TD
 
 1. **Invoicing Upload**: Corporate clients and government billing portals upload daily payroll/invoice batches to the **GIRO Corporate Ingest Server** over SFTP connection ciphers secured by static **RSA-2048 SSH** keys.
 2. **Presentment Parsing**: The ingress server routes records to the **GIRO Batch Parser Engine**, which verifies batch files and validates invoice tokens via classical **ECDSA-P256** signatures to check integrity.
-3. **GIRO Schedulers**: Validated billing batches are forwarded to the **LionACH Interbank Settlement Coordinator**, which schedules interbank net settlements utilizing connection ciphers secured via static **Diffie-Hellman (DH-2048)** keys.
-4. **Archive Preservation**: Invoicing balances and corporate registration tables are saved to the **LionACH Corporate Clearing Archive**, which encrypts records at rest using **AES-256** with database keys wrapped via classical **RSA-2048**.
-5. **Bank Discharges**: The coordinator triggers daily clearing reports and downstream funds transfers to **Participant Commercial Clearing Banks** (e.g., DBS Bank) via REST APIs running TLS 1.2 utilizing standard **RSA-4096** certificates, leaving clearing transactions exposed to HNDL.
+3. **GIRO Schedulers**: Validated billing batches are forwarded to the **Bulk Clearing House Interbank Settlement Coordinator**, which schedules interbank net settlements utilizing connection ciphers secured via static **Diffie-Hellman (DH-2048)** keys.
+4. **Archive Preservation**: Invoicing balances and corporate registration tables are saved to the **Bulk Clearing House Corporate Clearing Archive**, which encrypts records at rest using **AES-256** with database keys wrapped via classical **RSA-2048**.
+5. **Bank Discharges**: The coordinator triggers daily clearing reports and downstream funds transfers to **Participant Commercial Clearing Banks** (e.g., Bank A Bank) via REST APIs running TLS 1.2 utilizing standard **RSA-4096** certificates, leaving clearing transactions exposed to HNDL.

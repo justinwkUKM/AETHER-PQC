@@ -1,6 +1,6 @@
 # Internal Claims Batch Architecture Narrative
 
-Organization: Northstar Mutual Insurance
+Organization: Anonymous Insurance Operator
 Assessment type: synthetic enterprise PQC readiness scan
 Data classification: synthetic test evidence only
 
@@ -16,7 +16,7 @@ Private claims adjudication batch estate processing nightly policy and claims fi
 - Archive Store
 - Offline Tape Export
 
-The assessment intentionally includes exposure keywords that AETHER should interpret in context: public, internet, external, gateway, ingress, load balancer, DMZ, partner, vendor, internal, private, batch, and offline where relevant.
+The assessment intentionally includes exposure keywords that the scanner should interpret in context: public, internet, external, gateway, ingress, load balancer, DMZ, partner, vendor, internal, private, batch, and offline where relevant.
 
 ## Components And Cryptographic Controls
 
@@ -72,4 +72,4 @@ Expected scan result: Medium or high remediation driven by RSA-3072, 3DES, and S
 
 ## Source Control And Data Hygiene
 
-This document is fictional and contains no credentials, private keys, tokens, or real customer data. Use it only for AETHER-PQC manual scanner validation.
+This document is fictional and contains no credentials, private keys, tokens, or real customer data. Use it only for scanner validation.

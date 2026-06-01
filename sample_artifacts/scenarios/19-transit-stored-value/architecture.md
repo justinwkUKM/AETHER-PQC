@@ -1,6 +1,6 @@
-# TransitPay Contactless Transit Architecture & Flow Diagram
+# Stored Value Transit Contactless Transit Architecture & Flow Diagram
 
-This document registers the network topology, trust boundaries, and transactional flow for **TransitPay & Motoring Card (Scenario 19)**.
+This document registers the network topology, trust boundaries, and transactional flow for **Stored Value Transit & Stored Value Mobility Card (Scenario 19)**.
 
 ---
 
@@ -30,7 +30,7 @@ graph TD
   end
 
   subgraph Zone_C_HSM ["Zone C: HSM Enclave"]
-    N3["TransitPay HSM Key Store<br/>(RSA-2048 HSM Keywrap)"]
+    N3["Stored Value Transit HSM Key Store<br/>(RSA-2048 HSM Keywrap)"]
   end
 
   subgraph Zone_D_Data ["Zone D: Archival Storage"]
@@ -67,6 +67,6 @@ graph TD
 
 1. **Card Presentation**: Cardholders tap smartcards at transit gantries, initiating microsecond chip handshakes utilizing symmetric **3DES keys** to deduct funds. Gantries write logs and upload daily transaction zip files to the **Transit Gate Ingest Terminal** over SFTP connection ciphers secured by static **RSA-2048 SSH** keys.
 2. **Balance Validation**: The terminal routes files to the **Stored Value Validator**, which verifies transaction counts and card signatures using symmetric **3DES and AES-128 MAC** ciphers.
-3. **Key Retrieval**: The validator requests card key derivation indexes from the **TransitPay HSM Key Store**, which hosts terminal master keys wrapped via classical **RSA-2048** key transport ciphers.
+3. **Key Retrieval**: The validator requests card key derivation indexes from the **Stored Value Transit HSM Key Store**, which hosts terminal master keys wrapped via classical **RSA-2048** key transport ciphers.
 4. **Historical Archival**: Cleared travel records and card numbers are saved on the **Transit Transaction Ledger**, which encrypts records at rest using **AES-256** with database keys wrapped via classical **RSA-2048**.
 5. **Transport Reconciliation**: The settlement engine synchronizes revenue distributions with the **Transit Transport Authority (TTA) Host** via REST APIs secured by standard **TLS 1.2** with RSA-4096 web ciphers, exposing transit travel records to HNDL threats.

@@ -30,7 +30,7 @@
     },
     {
       "id": "sach-coordinator",
-      "name": "LionACH Interbank Settlement Coordinator",
+      "name": "Bulk Clearing House Interbank Settlement Coordinator",
       "label": "SoftwareComponent",
       "vulnerabilityScore": 8.5,
       "confidence": 1.0,
@@ -44,7 +44,7 @@
     },
     {
       "id": "sach-archive",
-      "name": "LionACH Corporate Clearing Archive",
+      "name": "Bulk Clearing House Corporate Clearing Archive",
       "label": "DataAsset",
       "vulnerabilityScore": 7.6,
       "confidence": 1.0,

@@ -1,0 +1,145 @@
+{
+  "bomFormat": "Structured BOM",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:synthetic-10-rtgs-rentas-wholesale-settlement",
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "wholesale_settlement_rail",
+      "version": "synthetic-2026.06"
+    },
+    "supplier": {
+      "name": "Anonymous Central Settlement Participant Lab"
+    },
+    "properties": [
+      {
+        "name": "aether.synthetic",
+        "value": "true"
+      },
+      {
+        "name": "aether.researchBasis",
+        "value": "Inspired by public central-bank operational material describing Wholesale Settlement Rail as a multi-currency real-time gross settlement system for interbank funds transfer and securities settlement."
+      },
+      {
+        "name": "aether.no-secrets",
+        "value": "All content is fictional and safe for test scans."
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "application",
+      "name": "participant-bank-gateway",
+      "version": "10.6.2",
+      "cryptoProperties": {
+        "algorithm": "TLS 1.2 with RSA-2048",
+        "purpose": "Participant access channel for high-value settlement messages"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "service",
+      "name": "settlement-message-signer",
+      "version": "4.8.0",
+      "cryptoProperties": {
+        "algorithm": "ECDSA-P256",
+        "purpose": "Signs wholesale payment and securities settlement messages"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "swift-format-adapter",
+      "version": "3.4.1",
+      "cryptoProperties": {
+        "algorithm": "SHA-256",
+        "purpose": "Message integrity checks for settlement-message payloads"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "liquidity-queue-manager",
+      "version": "7.9.1",
+      "cryptoProperties": {
+        "algorithm": "AES-256",
+        "purpose": "Encrypted liquidity queue and pending settlement store"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "service",
+      "name": "recovery-site-token-service",
+      "version": "2.5.0",
+      "cryptoProperties": {
+        "algorithm": "RSA-3072",
+        "purpose": "Recovery-site certificate and token activation"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "service",
+      "name": "pqc-settlement-authority-pilot",
+      "version": "0.8.0",
+      "cryptoProperties": {
+        "algorithm": "ML-DSA",
+        "purpose": "Pilot signature authority for future settlement authorisation"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    }
+  ]
+}

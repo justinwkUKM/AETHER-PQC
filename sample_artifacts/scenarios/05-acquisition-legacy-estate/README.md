@@ -1,6 +1,6 @@
 # Acquisition Legacy Estate
 
-Suggested AETHER project name: `acquisition_legacy_estate`
+Suggested scanner project name: `acquisition_legacy_estate`
 
 ## Purpose
 
@@ -50,7 +50,7 @@ Expected remediation priority shape: **CRITICAL**
 - Inventory: confirm cryptographic primitives and parser modes.
 - Exposure: confirm edge/partner/internal exposure ranking.
 - Remediations: confirm ticket-ready priority rationale and validation steps.
-- Evidence: confirm all six artifacts appear in the audit record.
+- Evidence: confirm all seven core artifacts appear in the audit record.
 
 ## Expected Outcome
 

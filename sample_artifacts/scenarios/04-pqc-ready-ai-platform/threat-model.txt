@@ -1,6 +1,6 @@
 PQC-Ready AI Platform Threat Model Notes
 
-Synthetic organization: QuantaWorks Research Cloud
+Synthetic organization: Anonymous Research Cloud Operator
 Business owner: synthetic-product-owner@example.com
 Security owner: synthetic-security-architect@example.com
 Review date: 2026-06-01

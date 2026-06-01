@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "enets-portal",
-      "name": "eLionPay Checkout Portal",
+      "name": "Online Debit Gateway Checkout Portal",
       "label": "Application",
       "vulnerabilityScore": 8.2,
       "confidence": 1.0,
@@ -10,7 +10,7 @@
         "encryptionStandard": "TLS 1.2 with classical RSA-2048 web server certificates",
         "quantumCompliance": "NON-COMPLIANT",
         "targetMigration": "TLS 1.3 with hybrid X25519 + ML-KEM-768 certificates",
-        "interface": "eLionPay Checkout Web Page"
+        "interface": "Online Debit Gateway Checkout Web Page"
       },
       "sourceArtifactIds": []
     },
@@ -44,7 +44,7 @@
     },
     {
       "id": "enets-transaction-registry",
-      "name": "eLionPay Transaction Registry",
+      "name": "Online Debit Gateway Transaction Registry",
       "label": "DataAsset",
       "vulnerabilityScore": 7.2,
       "confidence": 1.0,

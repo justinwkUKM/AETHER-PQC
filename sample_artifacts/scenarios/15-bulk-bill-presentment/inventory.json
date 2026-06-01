@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "jompay-ingress",
-      "name": "BillPay Biller Ingress Server",
+      "name": "Biller Presentment Biller Ingress Server",
       "label": "Application",
       "vulnerabilityScore": 7.2,
       "confidence": 1.0,

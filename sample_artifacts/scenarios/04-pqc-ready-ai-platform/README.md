@@ -1,6 +1,6 @@
 # PQC-Ready AI Platform
 
-Suggested AETHER project name: `pqc_ready_ai_platform`
+Suggested scanner project name: `pqc_ready_ai_platform`
 
 ## Purpose
 
@@ -50,7 +50,7 @@ Expected remediation priority shape: **LOW/MEDIUM**
 - Inventory: confirm cryptographic primitives and parser modes.
 - Exposure: confirm edge/partner/internal exposure ranking.
 - Remediations: confirm ticket-ready priority rationale and validation steps.
-- Evidence: confirm all six artifacts appear in the audit record.
+- Evidence: confirm all seven core artifacts appear in the audit record.
 
 ## Expected Outcome
 

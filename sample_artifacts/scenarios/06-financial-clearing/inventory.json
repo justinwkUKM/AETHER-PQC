@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "swift-gateway",
-      "name": "SWIFT Bank Gateway",
+      "name": "Bank Message Gateway",
       "label": "Application",
       "vulnerabilityScore": 8.5,
       "confidence": 1.0,

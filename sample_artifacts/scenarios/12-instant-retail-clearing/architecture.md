@@ -1,6 +1,6 @@
-# ApexNet DuitInstant Retail Instant Architecture & Flow Diagram
+# Anonymous instant retail rail Retail Instant Architecture & Flow Diagram
 
-This document registers the network topology, trust boundaries, and transactional flow for **ApexNet DuitInstant (Scenario 12)**.
+This document registers the network topology, trust boundaries, and transactional flow for **Anonymous instant retail rail (Scenario 12)**.
 
 ---
 
@@ -22,11 +22,11 @@ The following Mermaid flowchart tracks how instant retail payment requests flow 
 ```mermaid
 graph TD
   subgraph Zone_B_API ["Zone B: Dynamic API Edge"]
-    N1["DuitInstant Mobile Ingress Gateway<br/>(TLS 1.2 / ECDSA-P256 client auth)"]
+    N1["Instant retail rail Mobile Ingress Gateway<br/>(TLS 1.2 / ECDSA-P256 client auth)"]
   end
 
   subgraph Zone_C_Broker ["Zone C: High-Speed Broker LAN"]
-    N2["DuitInstant Real-Time Instant Broker<br/>(ECDSA-P256 Signature Verification)"]
+    N2["Instant retail rail Real-Time Instant Broker<br/>(ECDSA-P256 Signature Verification)"]
   end
 
   subgraph Zone_D_Data ["Zone D: Directory & Ledger Database"]
@@ -62,8 +62,8 @@ graph TD
 
 ## 3. Cryptographic Data Flow Narrative
 
-1. **Mobile Request**: Consumers scan dynamic QR codes or submit mobile transfers, terminating at the **DuitInstant Mobile Ingress Gateway** via HTTPS with **TLS 1.2** and ECDSA-P256 client authentication.
-2. **Transaction Routing**: The gateway forwards payloads to the **DuitInstant Real-Time Instant Broker**, which validates transaction packets via **ECDSA-P256** and SHA-256 signatures to ensure authenticity.
-3. **Proxy Translation**: The broker queries the **National Identity Resolver DB** to map mobile numbers or NRICs to deposit bank routing. Directory data is encrypted at rest using **AES-256** with database keys wrapped via classical **RSA-2048**.
+1. **Mobile Request**: Consumers scan dynamic QR codes or submit mobile transfers, terminating at the **Instant retail rail Mobile Ingress Gateway** via HTTPS with **TLS 1.2** and ECDSA-P256 client authentication.
+2. **Transaction Routing**: The gateway forwards payloads to the **Instant retail rail Real-Time Instant Broker**, which validates transaction packets via **ECDSA-P256** and SHA-256 signatures to ensure authenticity.
+3. **Proxy Translation**: The broker queries the **National Identity Resolver DB** to map mobile numbers or customer proxy IDs to deposit bank routing. Directory data is encrypted at rest using **AES-256** with database keys wrapped via classical **RSA-2048**.
 4. **Ledger Balancing**: Instant interbank net balances are updated on the **Instant Retail Settlement Ledger**, which contains plaintext database fields secured only by TLS 1.2 database connection ciphers.
 5. **E-Wallet Release**: Downstream confirmations are routed to **Third-Party Partner Wallets** (e.g., GrabPay) via REST APIs running TLS 1.2 with ECDHE-RSA ciphers, exposing transaction parameters to HNDL threats.

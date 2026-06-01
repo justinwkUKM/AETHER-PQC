@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "swift-rtgs-gateway",
-      "name": "SWIFT RTGS Ingress Gateway",
+      "name": "Settlement Message Ingress Gateway",
       "label": "Application",
       "vulnerabilityScore": 8.5,
       "confidence": 1.0,
@@ -16,7 +16,7 @@
     },
     {
       "id": "rentas-core-settlement",
-      "name": "ApexRTGS Settlement Core",
+      "name": "Wholesale Settlement Core",
       "label": "SoftwareComponent",
       "vulnerabilityScore": 9.0,
       "confidence": 1.0,
@@ -44,7 +44,7 @@
     },
     {
       "id": "reserve-ledger",
-      "name": "ApexRTGS Central Bank Reserve Ledger",
+      "name": "Central Reserve Ledger",
       "label": "DataAsset",
       "vulnerabilityScore": 9.2,
       "confidence": 1.0,
@@ -58,7 +58,7 @@
     },
     {
       "id": "swift-alliance",
-      "name": "SWIFT Alliance Messaging Network",
+      "name": "External Settlement Messaging Network",
       "label": "ExternalService",
       "vulnerabilityScore": 6.5,
       "confidence": 1.0,

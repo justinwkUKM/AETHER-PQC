@@ -1,6 +1,6 @@
 # Public Payments Edge Architecture Narrative
 
-Organization: HelioPay Retail Group
+Organization: Anonymous Retail Operator
 Assessment type: synthetic enterprise PQC readiness scan
 Data classification: synthetic test evidence only
 
@@ -17,7 +17,7 @@ Internet-facing checkout and card-payment API that terminates public traffic at 
 - Private Payment Services
 - Card Data Store
 
-The assessment intentionally includes exposure keywords that AETHER should interpret in context: public, internet, external, gateway, ingress, load balancer, DMZ, partner, vendor, internal, private, batch, and offline where relevant.
+The assessment intentionally includes exposure keywords that the scanner should interpret in context: public, internet, external, gateway, ingress, load balancer, DMZ, partner, vendor, internal, private, batch, and offline where relevant.
 
 ## Components And Cryptographic Controls
 
@@ -73,4 +73,4 @@ Expected scan result: High exposure, CRITICAL remediation for TLS 1.0, TLS 1.2 R
 
 ## Source Control And Data Hygiene
 
-This document is fictional and contains no credentials, private keys, tokens, or real customer data. Use it only for AETHER-PQC manual scanner validation.
+This document is fictional and contains no credentials, private keys, tokens, or real customer data. Use it only for scanner validation.

@@ -1,9 +1,9 @@
-# eLionPay Online Payment Gateway Specification
+# Online Debit Gateway Online Payment Gateway Specification
 
 ## 1. Executive Summary
-This document specifies the cryptographic design and deployment topology of eLionPay, the primary online payment gateway in Singapore that enables e-commerce websites to collect direct-to-bank payments. eLionPay orchestrates real-time checkout redirect flows, transferring transaction parameters securely to participating local bank portals (such as DBS, OCBC, and UOB).
+This document specifies the cryptographic design and deployment topology of Online Debit Gateway, the primary online payment gateway in the region that enables e-commerce websites to collect direct-to-bank payments. Online Debit Gateway orchestrates real-time checkout redirect flows, transferring transaction parameters securely to participating local bank portals (such as participating banks).
 
-Since eLionPay handles public web checkout redirections, it is heavily exposed to active network session intercepts and certificate spoofing. High-assurance cryptographic protection is required for browser redirection sequences to safeguard financial session integrity.
+Since Online Debit Gateway handles public web checkout redirections, it is heavily exposed to active network session intercepts and certificate spoofing. High-assurance cryptographic protection is required for browser redirection sequences to safeguard financial session integrity.
 
 ---
 
@@ -11,7 +11,7 @@ Since eLionPay handles public web checkout redirections, it is heavily exposed t
 
 The system boundaries are defined by five high-volume transaction entities:
 
-### Node 1: eLionPay Checkout Portal
+### Node 1: Online Debit Gateway Checkout Portal
 * **Label**: `Application`
 * **Vulnerability Score**: `8.2` (Public Web Edge)
 * **Cryptographic Primitives**: 
@@ -35,7 +35,7 @@ The system boundaries are defined by five high-volume transaction entities:
   * Target Migration: `Ephemerally negotiated ML-KEM-768 key exchanges`
 * **Purpose**: Generates redirection parameters and session parameters that route browser sessions to bank verification portals.
 
-### Node 4: eLionPay Transaction Registry
+### Node 4: Online Debit Gateway Transaction Registry
 * **Label**: `DataAsset`
 * **Vulnerability Score**: `7.2` (Financial Audit Log)
 * **Cryptographic Primitives**:
@@ -55,7 +55,7 @@ The system boundaries are defined by five high-volume transaction entities:
 
 ## 3. Communication Link Relationships
 
-1. **eLionPay Checkout Portal** (Application) connects to **Merchant Signature Verifier** (SoftwareComponent) via `DEPENDS_ON` link to validate incoming transaction requests.
-2. **eLionPay Checkout Portal** (Application) connects to **Session Redirection Dispatcher** (SoftwareComponent) via `DEPENDS_ON` link to coordinate bank handshakes.
-3. **Session Redirection Dispatcher** (SoftwareComponent) connects to **eLionPay Transaction Registry** (DataAsset) via `PROCESSES` connection to write session audit trails.
+1. **Online Debit Gateway Checkout Portal** (Application) connects to **Merchant Signature Verifier** (SoftwareComponent) via `DEPENDS_ON` link to validate incoming transaction requests.
+2. **Online Debit Gateway Checkout Portal** (Application) connects to **Session Redirection Dispatcher** (SoftwareComponent) via `DEPENDS_ON` link to coordinate bank handshakes.
+3. **Session Redirection Dispatcher** (SoftwareComponent) connects to **Online Debit Gateway Transaction Registry** (DataAsset) via `PROCESSES` connection to write session audit trails.
 4. **Session Redirection Dispatcher** (SoftwareComponent) connects to **Participant Bank Portals** (ExternalService) via `CALLS` connection for authentication redirects.
