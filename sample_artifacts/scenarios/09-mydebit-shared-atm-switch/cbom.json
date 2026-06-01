@@ -1,0 +1,145 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:synthetic-09-mydebit-shared-atm-switch",
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "mydebit_shared_atm_switch",
+      "version": "synthetic-2026.06"
+    },
+    "supplier": {
+      "name": "Synthetic PayNet Card and ATM Rail Lab"
+    },
+    "properties": [
+      {
+        "name": "aether.synthetic",
+        "value": "true"
+      },
+      {
+        "name": "aether.researchBasis",
+        "value": "Inspired by public PayNet descriptions of MyDebit as domestic debit card acceptance and Shared ATM Network as an interbank ATM switching infrastructure."
+      },
+      {
+        "name": "aether.no-secrets",
+        "value": "All content is fictional and safe for test scans."
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "application",
+      "name": "pos-acquirer-edge",
+      "version": "6.0.7",
+      "cryptoProperties": {
+        "algorithm": "ECDH P-256",
+        "purpose": "Merchant POS terminal session setup"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "atm-gateway",
+      "version": "5.4.9",
+      "cryptoProperties": {
+        "algorithm": "TLS 1.1",
+        "purpose": "Shared ATM withdrawal gateway compatibility listener"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "service",
+      "name": "issuer-switch-router",
+      "version": "8.2.0",
+      "cryptoProperties": {
+        "algorithm": "RSA-2048",
+        "purpose": "Issuer routing host-key validation"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "service",
+      "name": "legacy-hsm-signing-profile",
+      "version": "2.2.5",
+      "cryptoProperties": {
+        "algorithm": "DSA",
+        "purpose": "Legacy transaction authorisation signature profile"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "database",
+      "name": "card-token-vault",
+      "version": "12.7",
+      "cryptoProperties": {
+        "algorithm": "AES-256",
+        "purpose": "Encrypted PAN token vault"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "tap-on-phone-pilot",
+      "version": "1.0.3",
+      "cryptoProperties": {
+        "algorithm": "TLS 1.3 with ML-KEM hybrid exchange",
+        "purpose": "Pilot mobile acceptance endpoint"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "paynet-rtgs-inspired-test-fixture"
+        }
+      ]
+    }
+  ]
+}

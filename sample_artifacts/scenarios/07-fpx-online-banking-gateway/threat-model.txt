@@ -1,0 +1,32 @@
+FPX Online Banking Gateway Threat Model Notes
+
+Synthetic organization: Synthetic PayNet E-Commerce Rail Lab
+Business owner: synthetic-payments-product-owner@example.com
+Security owner: synthetic-crypto-architect@example.com
+Review date: 2026-06-01
+
+Public research basis:
+Inspired by public PayNet descriptions of FPX as a real-time online payment gateway used for e-commerce and bank-account payments.
+
+Business impact:
+Synthetic real-time online banking payment gateway inspired by FPX: merchant checkout, bank selection, bank redirect, authorisation, debit confirmation, and merchant receipt notification.
+
+Risk objective:
+Critical merchant checkout and bank redirect exposure with classical crypto in high-value flows.
+
+Endpoint and control observations:
+- checkout-fpx.synthetic-paynet.example.com in internet edge reachability=public protocol=TLS 1.2 crypto=RSA key exchange notes=merchant checkout redirect
+- bank-bridge.synthetic-paynet.example.com in participant edge reachability=partner protocol=TLS 1.2 crypto=ECDH P-256 notes=participant bank session bridge
+- merchant-confirm.synthetic-paynet.example.com in internet edge reachability=public protocol=TLS 1.3 crypto=ML-KEM hybrid exchange notes=merchant confirmation callback
+- ledger.private.synthetic-paynet.example.com in internal reachability=private protocol=TLS 1.3 crypto=AES-256 transaction ledger notes=private payment ledger
+
+Expected analyst interpretation:
+Public merchant checkout endpoints and bank redirect endpoints should elevate TLS 1.2 RSA/ECDH findings; internal AES-256 and SHA-384 controls should remain low risk.
+
+Owner questions for remediation planning:
+- Which team owns certificate, HSM, TLS policy, and signing-profile changes for this payment rail?
+- Are the listed protocols active runtime controls, participant compatibility paths, or historical references?
+- Is the endpoint public, participant-facing, partner-facing, managed-private-network, private, batch-only, or recovery-only?
+- What validation evidence should be uploaded after remediation?
+
+No secret values are present. Any names, domains, owners, and addresses are synthetic placeholders for scanner testing.
