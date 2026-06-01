@@ -1,7 +1,11 @@
-# Anonymous instant retail rail Instant Retail Clearing Engine Specification
+# FlashLedger Retail Architecture And Security Specification
+
+Fictional product: **FlashLedger Retail**
+Deployment model: **cloud retail clearing**
+Scenario purpose: instant retail account-to-account clearing engine
 
 ## 1. Executive Summary
-This document specifies the cryptographic design and deployment topology of Anonymous instant retail rail, a regional retail real-time account-to-account payments system. Instant retail rail handles hundreds of thousands of retail transactions per second, utilizing mobile numbers, customer proxy identifiers, and business entities to resolve bank routing and settle funds instantly.
+This document specifies the cryptographic design and deployment topology of Fictional instant retail rail, a regional retail real-time account-to-account payments system. Instant retail rail handles hundreds of thousands of retail transactions per second, utilizing mobile numbers, customer proxy identifiers, and business entities to resolve bank routing and settle funds instantly.
 
 Due to the extreme transaction volume and high visibility of retail e-wallets, the Instant retail rail platform is heavily exposed to mobile security threats and active intercept of consumer credential lookups. High-performance, low-latency cryptographic agility is mandatory here; replacing classical key mechanisms cannot trigger any latency bottlenecks.
 
@@ -49,7 +53,7 @@ The system boundaries are defined by five high-volume transaction entities:
 * **Cryptographic Primitives**:
   * Current: `External REST API channels secured using standard TLS 1.2 with ECDHE-RSA ciphers`
   * Target Migration: `Enforced TLS 1.3 with hybrid ML-KEM key exchange`
-* **Purpose**: Connects Anonymous network operator clearing rails to popular non-bank e-wallet operators (such as GrabPay, Touch 'n Go eWallet, and Boost).
+* **Purpose**: Connects FlashLedger Retail clearing rails to popular non-bank e-wallet operators (such as GrabPay, Touch 'n Go eWallet, and Boost).
 
 ---
 

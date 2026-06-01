@@ -1,6 +1,12 @@
-# Partner B2B Gateway
+# TradeLink B2B Gateway
 
 Suggested scanner project name: `partner_b2b_gateway`
+
+## Product Profile
+
+- Fictional product: **TradeLink B2B Gateway**
+- Deployment model: **hybrid partner extranet**
+- Scenario purpose: partner-facing file and API gateway
 
 ## Purpose
 

@@ -1,6 +1,10 @@
-# Anonymous network operator ChequeClear Cheque Clearing Architecture & Flow Diagram
+# ChequeGrid Exchange Architecture And Security Specification
 
-This document registers the network topology, trust boundaries, and transactional flow for **Anonymous network operator ChequeClear (Scenario 14)**.
+Fictional product: **ChequeGrid Exchange**
+Deployment model: **on-prem document clearing**
+Scenario purpose: digital cheque exchange and archive
+
+This document registers the network topology, trust boundaries, and transactional flow for **ChequeGrid Exchange ChequeClear (Scenario 14)**.
 
 ---
 

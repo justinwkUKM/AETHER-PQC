@@ -1,6 +1,10 @@
-# Anonymous network operator Biller Presentment Bill Presentment Architecture & Flow Diagram
+# InvoiceNet Presentment Architecture And Security Specification
 
-This document registers the network topology, trust boundaries, and transactional flow for **Anonymous network operator Biller Presentment (Scenario 15)**.
+Fictional product: **InvoiceNet Presentment**
+Deployment model: **hybrid bill presentment**
+Scenario purpose: bulk bill presentment and settlement scheduler
+
+This document registers the network topology, trust boundaries, and transactional flow for **InvoiceNet Presentment Biller Presentment (Scenario 15)**.
 
 ---
 

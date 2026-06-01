@@ -1,7 +1,11 @@
-# Legacy Insecure Network Architecture Specification: Classical Exposures
+# Obsidian Proxy Estate Architecture And Security Specification
+
+Fictional product: **Obsidian Proxy Estate**
+Deployment model: **on-prem legacy DMZ**
+Scenario purpose: critical exposed legacy proxy estate
 
 ## 1. Executive Summary
-This document registers the obsolete and highly exposed cryptographic inventory of the legacy Anonymous network operator proxy network. It serves as a benchmark threat model. The current infrastructure relies exclusively on classical, pre-quantum standards, presenting major vulnerabilities to "Harvest Now, Decrypt Later" (HNDL) attacks by quantum adversaries.
+This document registers the obsolete and highly exposed cryptographic inventory of the legacy Obsidian Proxy Estate proxy network. It serves as a benchmark threat model. The current infrastructure relies exclusively on classical, pre-quantum standards, presenting major vulnerabilities to "Harvest Now, Decrypt Later" (HNDL) attacks by quantum adversaries.
 
 ---
 

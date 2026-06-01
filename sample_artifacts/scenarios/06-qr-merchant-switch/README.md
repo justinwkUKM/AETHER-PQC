@@ -1,12 +1,18 @@
-# QR Merchant Switch
+# PrismQR Switch
 
 Suggested scanner project name: `qr_merchant_switch`
+
+## Product Profile
+
+- Fictional product: **PrismQR Switch**
+- Deployment model: **cloud edge payment rail**
+- Scenario purpose: regional QR merchant switching platform
 
 ## Purpose
 
 Synthetic regional QR merchant payment switch inspired by QR payment rail: one QR acceptance path for banks, e-wallets, acquirers, merchant apps, and real-time merchant notifications.
 
-Public research basis: Inspired by public Anonymous network operator descriptions of QR payment rail as a single QR payment method supporting participating banks and e-wallets.
+Public research basis: Inspired by public PrismQR Switch descriptions of QR payment rail as a single QR payment method supporting participating banks and e-wallets.
 
 Risk goal: High-volume retail edge with mobile wallet and acquiring-bank exposure.
 

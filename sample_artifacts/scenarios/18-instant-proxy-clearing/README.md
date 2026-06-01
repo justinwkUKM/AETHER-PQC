@@ -1,6 +1,12 @@
-# Instant clearing rail Clearing & Proxy Resolver Core Clearing Specification
+# ProxyPulse Clearing
 
 Suggested scanner project name: `instant_proxy_clearing`
+
+## Product Profile
+
+- Fictional product: **ProxyPulse Clearing**
+- Deployment model: **cloud instant clearing**
+- Scenario purpose: instant payment and proxy lookup clearing core
 
 ## Purpose
 
@@ -30,4 +36,4 @@ The JSON inventory and Markdown documents should provide deterministic crypto fi
 
 ## Safety Note
 
-This scenario is anonymous and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.
+This scenario is fictional and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.

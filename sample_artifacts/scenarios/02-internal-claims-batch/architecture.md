@@ -1,6 +1,10 @@
-# Internal Claims Batch Architecture Narrative
+# ClaimForge Batch Architecture And Security Specification
 
-Organization: Anonymous Insurance Operator
+Fictional product: **ClaimForge Batch**
+Deployment model: **on-prem private network**
+Scenario purpose: internal insurance claims batch platform
+
+Organization: Fictional Insurance Operator
 Assessment type: synthetic enterprise PQC readiness scan
 Data classification: synthetic test evidence only
 

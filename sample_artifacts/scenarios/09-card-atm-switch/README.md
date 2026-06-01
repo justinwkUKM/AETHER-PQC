@@ -1,12 +1,18 @@
-# Card and Cash Switch
+# CardNexus Switch
 
-Suggested scanner project name: `card_cash_switch`
+Suggested scanner project name: `card_atm_switch`
+
+## Product Profile
+
+- Fictional product: **CardNexus Switch**
+- Deployment model: **hybrid card and ATM rail**
+- Scenario purpose: domestic debit and shared cash switching platform
 
 ## Purpose
 
 Synthetic domestic debit and shared ATM switching platform inspired by Domestic Debit and Shared Cash Network: POS acquiring, ATM withdrawals, issuer routing, token validation, and cash-out controls.
 
-Public research basis: Inspired by public Anonymous network operator descriptions of Domestic Debit as domestic debit card acceptance and Shared Cash Network as an interbank ATM switching infrastructure.
+Public research basis: Inspired by public CardNexus Switch descriptions of Domestic Debit as domestic debit card acceptance and Shared Cash Network as an interbank ATM switching infrastructure.
 
 Risk goal: Retail POS and ATM edge exposure with legacy HSM and host-key cryptography.
 

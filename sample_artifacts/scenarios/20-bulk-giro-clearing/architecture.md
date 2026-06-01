@@ -1,4 +1,8 @@
-# Regional Automated Clearing House (Bulk Clearing House) GIRO Architecture & Flow Diagram
+# GiroFlow Bulk Architecture And Security Specification
+
+Fictional product: **GiroFlow Bulk**
+Deployment model: **on-prem batch clearing**
+Scenario purpose: bulk giro and payroll clearing scheduler
 
 This document registers the network topology, trust boundaries, and transactional flow for **Regional Automated Clearing House (Bulk Clearing House) GIRO Clearing (Scenario 20)**.
 

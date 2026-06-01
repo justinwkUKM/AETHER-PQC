@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "wholesale_settlement_rail",
+      "name": "OrionSettle Core",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Central Settlement Participant Lab"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {

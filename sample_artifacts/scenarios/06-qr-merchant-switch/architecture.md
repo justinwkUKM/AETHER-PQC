@@ -1,14 +1,18 @@
-# QR Merchant Switch Architecture Narrative
+# PrismQR Switch Architecture And Security Specification
 
-Organization: Anonymous Anonymous network operator Retail Rail Lab
+Fictional product: **PrismQR Switch**
+Deployment model: **cloud edge payment rail**
+Scenario purpose: regional QR merchant switching platform
+
+Organization: Fictional PrismQR Switch Retail Rail Lab
 Assessment type: synthetic payment-network-inspired PQC readiness scan
 Data classification: synthetic test evidence only
 
 ## Public Product Inspiration
 
-Inspired by public Anonymous network operator descriptions of QR payment rail as a single QR payment method supporting participating banks and e-wallets.
+Inspired by public PrismQR Switch descriptions of QR payment rail as a single QR payment method supporting participating banks and e-wallets.
 
-This artifact does not describe Anonymous network operator internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
+This artifact does not describe PrismQR Switch internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
 
 ## System Summary
 

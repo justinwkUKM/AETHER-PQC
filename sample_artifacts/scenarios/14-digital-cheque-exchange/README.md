@@ -1,6 +1,12 @@
-# Anonymous network operator ChequeClear Cheque Clearing System Specification
+# ChequeGrid Exchange
 
 Suggested scanner project name: `digital_cheque_exchange`
+
+## Product Profile
+
+- Fictional product: **ChequeGrid Exchange**
+- Deployment model: **on-prem document clearing**
+- Scenario purpose: digital cheque exchange and archive
 
 ## Purpose
 
@@ -30,4 +36,4 @@ The JSON inventory and Markdown documents should provide deterministic crypto fi
 
 ## Safety Note
 
-This scenario is anonymous and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.
+This scenario is fictional and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.

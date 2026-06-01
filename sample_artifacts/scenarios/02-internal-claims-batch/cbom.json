@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "internal_claims_batch",
+      "name": "ClaimForge Batch",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Insurance Operator"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {

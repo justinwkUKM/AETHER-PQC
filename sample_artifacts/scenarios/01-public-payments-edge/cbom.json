@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "public_payments_edge",
+      "name": "VeloraPay Edge",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Retail Operator"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {

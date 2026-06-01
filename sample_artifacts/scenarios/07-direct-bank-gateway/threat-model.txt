@@ -1,12 +1,16 @@
-Direct Bank Payment Online Banking Gateway Threat Model Notes
+BankBridge Direct Threat Model Notes
 
-Synthetic organization: Anonymous Anonymous network operator E-Commerce Rail Lab
+Fictional product: BankBridge Direct
+Deployment model: hybrid bank redirect rail
+Scenario purpose: direct online banking payment gateway
+
+Synthetic organization: Fictional BankBridge Direct E-Commerce Rail Lab
 Business owner: synthetic-payments-product-owner@example.com
 Security owner: synthetic-crypto-architect@example.com
 Review date: 2026-06-01
 
 Public research basis:
-Inspired by public Anonymous network operator descriptions of Direct Bank Payment as a real-time online payment gateway used for e-commerce and bank-account payments.
+Inspired by public BankBridge Direct descriptions of Direct Bank Payment as a real-time online payment gateway used for e-commerce and bank-account payments.
 
 Business impact:
 Synthetic real-time online banking payment gateway inspired by Direct Bank Payment: merchant checkout, bank selection, bank redirect, authorisation, debit confirmation, and merchant receipt notification.

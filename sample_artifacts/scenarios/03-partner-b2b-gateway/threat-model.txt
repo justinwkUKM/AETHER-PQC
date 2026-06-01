@@ -1,6 +1,10 @@
-Partner B2B Gateway Threat Model Notes
+TradeLink B2B Gateway Threat Model Notes
 
-Synthetic organization: Anonymous Logistics Operator
+Fictional product: TradeLink B2B Gateway
+Deployment model: hybrid partner extranet
+Scenario purpose: partner-facing file and API gateway
+
+Synthetic organization: Fictional Logistics Operator
 Business owner: synthetic-product-owner@example.com
 Security owner: synthetic-security-architect@example.com
 Review date: 2026-06-01

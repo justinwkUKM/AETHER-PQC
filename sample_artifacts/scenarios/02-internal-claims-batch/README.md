@@ -1,6 +1,12 @@
-# Internal Claims Batch
+# ClaimForge Batch
 
 Suggested scanner project name: `internal_claims_batch`
+
+## Product Profile
+
+- Fictional product: **ClaimForge Batch**
+- Deployment model: **on-prem private network**
+- Scenario purpose: internal insurance claims batch platform
 
 ## Purpose
 

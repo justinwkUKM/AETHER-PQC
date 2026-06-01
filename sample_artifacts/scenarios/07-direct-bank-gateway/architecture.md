@@ -1,14 +1,18 @@
-# Direct Bank Gateway Architecture Narrative
+# BankBridge Direct Architecture And Security Specification
 
-Organization: Anonymous Anonymous network operator E-Commerce Rail Lab
+Fictional product: **BankBridge Direct**
+Deployment model: **hybrid bank redirect rail**
+Scenario purpose: direct online banking payment gateway
+
+Organization: Fictional BankBridge Direct E-Commerce Rail Lab
 Assessment type: synthetic payment-network-inspired PQC readiness scan
 Data classification: synthetic test evidence only
 
 ## Public Product Inspiration
 
-Inspired by public Anonymous network operator descriptions of Direct Bank Gateway as a real-time online payment gateway used for e-commerce and bank-account payments.
+Inspired by public BankBridge Direct descriptions of Direct Bank Gateway as a real-time online payment gateway used for e-commerce and bank-account payments.
 
-This artifact does not describe Anonymous network operator internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
+This artifact does not describe BankBridge Direct internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
 
 ## System Summary
 

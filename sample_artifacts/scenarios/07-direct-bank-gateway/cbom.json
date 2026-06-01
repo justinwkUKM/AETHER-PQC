@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "direct_bank_gateway",
+      "name": "BankBridge Direct",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Anonymous network operator E-Commerce Rail Lab"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {
@@ -18,7 +18,7 @@
       },
       {
         "name": "aether.researchBasis",
-        "value": "Inspired by public Anonymous network operator descriptions of Direct Bank Gateway as a real-time online payment gateway used for e-commerce and bank-account payments."
+        "value": "Inspired by public BankBridge Direct descriptions of Direct Bank Gateway as a real-time online payment gateway used for e-commerce and bank-account payments."
       },
       {
         "name": "aether.no-secrets",

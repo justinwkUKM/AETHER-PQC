@@ -1,6 +1,10 @@
-# Partner B2B Gateway Architecture Narrative
+# TradeLink B2B Gateway Architecture And Security Specification
 
-Organization: Anonymous Logistics Operator
+Fictional product: **TradeLink B2B Gateway**
+Deployment model: **hybrid partner extranet**
+Scenario purpose: partner-facing file and API gateway
+
+Organization: Fictional Logistics Operator
 Assessment type: synthetic enterprise PQC readiness scan
 Data classification: synthetic test evidence only
 

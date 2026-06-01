@@ -1,6 +1,10 @@
-Public Payments Edge Threat Model Notes
+VeloraPay Edge Threat Model Notes
 
-Synthetic organization: Anonymous Retail Operator
+Fictional product: VeloraPay Edge
+Deployment model: hybrid cloud edge
+Scenario purpose: internet-facing checkout and card payment edge
+
+Synthetic organization: Fictional Retail Operator
 Business owner: synthetic-product-owner@example.com
 Security owner: synthetic-security-architect@example.com
 Review date: 2026-06-01

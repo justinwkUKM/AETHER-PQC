@@ -1,4 +1,8 @@
-# HealthSync MD Architecture & Network Flow Diagram
+# CareLink Exchange Architecture And Security Specification
+
+Fictional product: **CareLink Exchange**
+Deployment model: **hybrid healthcare portal**
+Scenario purpose: patient record and provider exchange portal
 
 This document registers the network topology, trust boundaries, and transactional flow for **HealthSync MD (Scenario 10)**.
 

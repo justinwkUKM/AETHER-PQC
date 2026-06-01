@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "pqc_ready_ai_platform",
+      "name": "NovaInference Grid",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Research Cloud Operator"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {

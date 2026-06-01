@@ -1,6 +1,10 @@
-# Public Payments Edge Architecture Narrative
+# VeloraPay Edge Architecture And Security Specification
 
-Organization: Anonymous Retail Operator
+Fictional product: **VeloraPay Edge**
+Deployment model: **hybrid cloud edge**
+Scenario purpose: internet-facing checkout and card payment edge
+
+Organization: Fictional Retail Operator
 Assessment type: synthetic enterprise PQC readiness scan
 Data classification: synthetic test evidence only
 

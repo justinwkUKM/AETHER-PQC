@@ -1,4 +1,8 @@
-# Distributed Smart Grid SCADA System Specification: GridPower
+# GridPulse SCADA Architecture And Security Specification
+
+Fictional product: **GridPulse SCADA**
+Deployment model: **on-prem OT network**
+Scenario purpose: smart grid control and telemetry system
 
 ## 1. Executive Summary
 This document specifies the cryptographic threat posture of the GridPower Operational Technology (OT) network. GridPower is responsible for real-time telemetry, breaker commands, and substation control across our smart grid networks.

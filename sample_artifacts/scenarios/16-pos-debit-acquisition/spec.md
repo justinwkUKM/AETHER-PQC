@@ -1,4 +1,8 @@
-# Retail POS Network Point-of-Sale Card Processing Hub Specification
+# POSLink Acquire Architecture And Security Specification
+
+Fictional product: **POSLink Acquire**
+Deployment model: **hybrid acquiring network**
+Scenario purpose: point-of-sale debit acquiring hub
 
 ## 1. Executive Summary
 This document specifies the security controls and cryptographic architecture of Retail POS Network (Electronic Funds Transfer at Point of Sale), a regional debit card payment network. Retail POS Network connects retail POS terminals across the region to clear instant card-present retail transactions using ATM cards.

@@ -1,14 +1,18 @@
-# Card and Cash Switch Architecture Narrative
+# CardNexus Switch Architecture And Security Specification
 
-Organization: Anonymous Anonymous network operator Card and ATM Rail Lab
+Fictional product: **CardNexus Switch**
+Deployment model: **hybrid card and ATM rail**
+Scenario purpose: domestic debit and shared cash switching platform
+
+Organization: Fictional CardNexus Switch Card and ATM Rail Lab
 Assessment type: synthetic payment-network-inspired PQC readiness scan
 Data classification: synthetic test evidence only
 
 ## Public Product Inspiration
 
-Inspired by public Anonymous network operator descriptions of Domestic Debit as domestic debit card acceptance and Shared Cash Network as an interbank ATM switching infrastructure.
+Inspired by public CardNexus Switch descriptions of Domestic Debit as domestic debit card acceptance and Shared Cash Network as an interbank ATM switching infrastructure.
 
-This artifact does not describe Anonymous network operator internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
+This artifact does not describe CardNexus Switch internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
 
 ## System Summary
 

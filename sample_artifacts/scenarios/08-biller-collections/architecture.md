@@ -1,14 +1,18 @@
-# Biller Collections Architecture Narrative
+# BillStream Hub Architecture And Security Specification
 
-Organization: Anonymous Anonymous network operator Biller Rail Lab
+Fictional product: **BillStream Hub**
+Deployment model: **hybrid biller network**
+Scenario purpose: biller collections and settlement platform
+
+Organization: Fictional BillStream Hub Biller Rail Lab
 Assessment type: synthetic payment-network-inspired PQC readiness scan
 Data classification: synthetic test evidence only
 
 ## Public Product Inspiration
 
-Inspired by public Anonymous network operator descriptions of Biller Presentment as a national online bill-payment initiative operated by Anonymous network operator across participating banks and billers.
+Inspired by public BillStream Hub descriptions of Biller Presentment as a national online bill-payment initiative operated by BillStream Hub across participating banks and billers.
 
-This artifact does not describe Anonymous network operator internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
+This artifact does not describe BillStream Hub internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
 
 ## System Summary
 

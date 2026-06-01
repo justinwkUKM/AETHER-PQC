@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "qr_merchant_switch",
+      "name": "PrismQR Switch",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Anonymous network operator Retail Rail Lab"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {
@@ -18,7 +18,7 @@
       },
       {
         "name": "aether.researchBasis",
-        "value": "Inspired by public Anonymous network operator descriptions of QR payment rail as a single QR payment method supporting participating banks and e-wallets."
+        "value": "Inspired by public PrismQR Switch descriptions of QR payment rail as a single QR payment method supporting participating banks and e-wallets."
       },
       {
         "name": "aether.no-secrets",

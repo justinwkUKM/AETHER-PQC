@@ -1,4 +1,8 @@
-# Anonymous network operator ChequeClear Cheque Clearing System Specification
+# ChequeGrid Exchange Architecture And Security Specification
+
+Fictional product: **ChequeGrid Exchange**
+Deployment model: **on-prem document clearing**
+Scenario purpose: digital cheque exchange and archive
 
 ## 1. Executive Summary
 This document specifies the cryptographic design and operational parameters of ChequeClear, a regional automated electronic cheque image clearing and presentment system. ChequeClear coordinates daily clearing of high-resolution digital cheque images and MICR data files submitted by participating financial institutions.

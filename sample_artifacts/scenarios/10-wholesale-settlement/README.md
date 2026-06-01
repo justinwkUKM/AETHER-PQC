@@ -1,6 +1,12 @@
-# Wholesale Settlement Rail
+# OrionSettle Core
 
-Suggested scanner project name: `wholesale_settlement_rail`
+Suggested scanner project name: `wholesale_settlement`
+
+## Product Profile
+
+- Fictional product: **OrionSettle Core**
+- Deployment model: **on-prem high-value settlement**
+- Scenario purpose: wholesale settlement participant gateway
 
 ## Purpose
 

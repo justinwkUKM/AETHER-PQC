@@ -1,4 +1,8 @@
-# Anonymous network operator Wholesale Settlement Rail Real-Time Gross Settlement System Specification
+# TitanRTGS Core Architecture And Security Specification
+
+Fictional product: **TitanRTGS Core**
+Deployment model: **on-prem settlement network**
+Scenario purpose: real-time gross settlement core
 
 ## 1. Executive Summary
 This document registers the cryptographic infrastructure and security controls of Wholesale Settlement Rail (Real-Time Electronic Transfer of Funds and Securities System), a regional high-value Real-Time Gross Settlement (RTGS) system. Wholesale Settlement Rail handles irrevocable settlements of interbank funds transfers, government bond sales, and debt securities trades.

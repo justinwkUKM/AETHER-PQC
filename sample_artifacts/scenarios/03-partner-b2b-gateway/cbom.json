@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "partner_b2b_gateway",
+      "name": "TradeLink B2B Gateway",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Logistics Operator"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {

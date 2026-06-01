@@ -1,6 +1,10 @@
-Wholesale Settlement Rail Threat Model Notes
+OrionSettle Core Threat Model Notes
 
-Synthetic organization: Anonymous Central Settlement Participant Lab
+Fictional product: OrionSettle Core
+Deployment model: on-prem high-value settlement
+Scenario purpose: wholesale settlement participant gateway
+
+Synthetic organization: Fictional Central Settlement Participant Lab
 Business owner: synthetic-payments-product-owner@example.com
 Security owner: synthetic-crypto-architect@example.com
 Review date: 2026-06-01

@@ -1,6 +1,10 @@
-Internal Claims Batch Threat Model Notes
+ClaimForge Batch Threat Model Notes
 
-Synthetic organization: Anonymous Insurance Operator
+Fictional product: ClaimForge Batch
+Deployment model: on-prem private network
+Scenario purpose: internal insurance claims batch platform
+
+Synthetic organization: Fictional Insurance Operator
 Business owner: synthetic-product-owner@example.com
 Security owner: synthetic-security-architect@example.com
 Review date: 2026-06-01

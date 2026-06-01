@@ -1,4 +1,8 @@
-# AeroControl Telemetry Architecture & Network Flow Diagram
+# AeroMesh Command Architecture And Security Specification
+
+Fictional product: **AeroMesh Command**
+Deployment model: **hybrid fleet telemetry**
+Scenario purpose: autonomous fleet command and telemetry system
 
 This document registers the network topology, trust boundaries, and transactional flow for **AeroControl (Scenario 07)**.
 

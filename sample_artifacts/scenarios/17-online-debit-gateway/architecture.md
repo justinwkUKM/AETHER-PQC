@@ -1,4 +1,8 @@
-# Online Debit Gateway E-Commerce Web Architecture & Flow Diagram
+# DebitWeb Gateway Architecture And Security Specification
+
+Fictional product: **DebitWeb Gateway**
+Deployment model: **cloud ecommerce gateway**
+Scenario purpose: online debit payment collection gateway
 
 This document registers the network topology, trust boundaries, and transactional flow for **Online Debit Gateway Online Payment Gateway (Scenario 17)**.
 

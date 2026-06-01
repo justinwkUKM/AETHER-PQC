@@ -1,12 +1,16 @@
-QR Payment Rail Merchant Switch Threat Model Notes
+PrismQR Switch Threat Model Notes
 
-Synthetic organization: Anonymous Anonymous network operator Retail Rail Lab
+Fictional product: PrismQR Switch
+Deployment model: cloud edge payment rail
+Scenario purpose: regional QR merchant switching platform
+
+Synthetic organization: Fictional PrismQR Switch Retail Rail Lab
 Business owner: synthetic-payments-product-owner@example.com
 Security owner: synthetic-crypto-architect@example.com
 Review date: 2026-06-01
 
 Public research basis:
-Inspired by public Anonymous network operator descriptions of QR Payment Rail as a single QR payment method supporting participating banks and e-wallets.
+Inspired by public PrismQR Switch descriptions of QR Payment Rail as a single QR payment method supporting participating banks and e-wallets.
 
 Business impact:
 Synthetic regional QR merchant payment switch inspired by QR Payment Rail: one QR acceptance path for banks, e-wallets, acquirers, merchant apps, and real-time merchant notifications.

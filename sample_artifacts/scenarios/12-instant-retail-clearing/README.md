@@ -1,10 +1,16 @@
-# Anonymous instant retail rail Instant Retail Clearing Engine Specification
+# FlashLedger Retail
 
 Suggested scanner project name: `instant_retail_clearing`
 
+## Product Profile
+
+- Fictional product: **FlashLedger Retail**
+- Deployment model: **cloud retail clearing**
+- Scenario purpose: instant retail account-to-account clearing engine
+
 ## Purpose
 
-This document specifies the cryptographic design and deployment topology of Anonymous instant retail rail, a regional retail real-time account-to-account payments system. Instant retail rail handles hundreds of thousands of retail transactions per second, utilizing mobile numbers, customer proxy identifiers, and business entities to resolve bank routing and settle funds instantly.
+This document specifies the cryptographic design and deployment topology of Fictional instant retail rail, a regional retail real-time account-to-account payments system. Instant retail rail handles hundreds of thousands of retail transactions per second, utilizing mobile numbers, customer proxy identifiers, and business entities to resolve bank routing and settle funds instantly.
 
 ## Upload Set
 
@@ -30,4 +36,4 @@ The JSON inventory and Markdown documents should provide deterministic crypto fi
 
 ## Safety Note
 
-This scenario is anonymous and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.
+This scenario is fictional and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.

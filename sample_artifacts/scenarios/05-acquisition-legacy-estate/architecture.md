@@ -1,6 +1,10 @@
-# Acquisition Legacy Estate Architecture Narrative
+# HarborView Legacy Estate Architecture And Security Specification
 
-Organization: Anonymous Acquisition Program
+Fictional product: **HarborView Legacy Estate**
+Deployment model: **acquired on-prem estate**
+Scenario purpose: incomplete acquired infrastructure estate
+
+Organization: Fictional Acquisition Program
 Assessment type: synthetic enterprise PQC readiness scan
 Data classification: synthetic test evidence only
 

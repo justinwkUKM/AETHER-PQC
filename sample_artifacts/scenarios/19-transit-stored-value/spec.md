@@ -1,4 +1,8 @@
-# Stored Value Transit & Stored Value Mobility Card Transit Specification
+# TransitVault Stored Value Architecture And Security Specification
+
+Fictional product: **TransitVault Stored Value**
+Deployment model: **hybrid transit payments**
+Scenario purpose: stored-value transit and mobility card platform
 
 ## 1. Executive Summary
 This document registers the cryptographic controls and systems design of Stored Value Transit and Stored Value Mobility Card, the region's multipurpose contactless stored-value card platform. Stored Value Transit cards are used across the region's public transport network (MRT trains, transit buses), retail merchants, and Electronic Toll Pricing (ETP) motoring toll systems.

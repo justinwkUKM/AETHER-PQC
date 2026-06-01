@@ -1,6 +1,10 @@
-# Anonymous instant retail rail Retail Instant Architecture & Flow Diagram
+# FlashLedger Retail Architecture And Security Specification
 
-This document registers the network topology, trust boundaries, and transactional flow for **Anonymous instant retail rail (Scenario 12)**.
+Fictional product: **FlashLedger Retail**
+Deployment model: **cloud retail clearing**
+Scenario purpose: instant retail account-to-account clearing engine
+
+This document registers the network topology, trust boundaries, and transactional flow for **Fictional instant retail rail (Scenario 12)**.
 
 ---
 

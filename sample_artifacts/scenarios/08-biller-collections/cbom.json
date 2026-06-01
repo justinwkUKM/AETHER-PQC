@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "biller_collections",
+      "name": "BillStream Hub",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Anonymous network operator Biller Rail Lab"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {
@@ -18,7 +18,7 @@
       },
       {
         "name": "aether.researchBasis",
-        "value": "Inspired by public Anonymous network operator descriptions of Biller Presentment as a national online bill-payment initiative operated by Anonymous network operator across participating banks and billers."
+        "value": "Inspired by public BillStream Hub descriptions of Biller Presentment as a national online bill-payment initiative operated by BillStream Hub across participating banks and billers."
       },
       {
         "name": "aether.no-secrets",

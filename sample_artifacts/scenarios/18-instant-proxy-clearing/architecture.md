@@ -1,4 +1,8 @@
-# Instant clearing rail Clearing & Proxy Resolver Core Architecture & Flow Diagram
+# ProxyPulse Clearing Architecture And Security Specification
+
+Fictional product: **ProxyPulse Clearing**
+Deployment model: **cloud instant clearing**
+Scenario purpose: instant payment and proxy lookup clearing core
 
 This document registers the network topology, trust boundaries, and transactional flow for **Instant clearing rail Clearing & Proxy Resolver Core (Scenario 18)**.
 

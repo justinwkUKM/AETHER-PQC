@@ -1,4 +1,8 @@
-# Zero-Trust Enterprise Workspace Specification: SecureDesk
+# ShieldDesk Access Architecture And Security Specification
+
+Fictional product: **ShieldDesk Access**
+Deployment model: **cloud identity workspace**
+Scenario purpose: zero-trust enterprise remote workspace
 
 ## 1. Executive Summary
 This document registers the current cryptographic and network-exposure threat model of SecureDesk, our Zero-Trust remote virtual workspace gateway. SecureDesk serves as the identity broker and virtualization portal for employees, contractors, and partners worldwide.

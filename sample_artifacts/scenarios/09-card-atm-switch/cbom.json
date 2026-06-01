@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "card_cash_switch",
+      "name": "CardNexus Switch",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Anonymous network operator Card and ATM Rail Lab"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {
@@ -18,7 +18,7 @@
       },
       {
         "name": "aether.researchBasis",
-        "value": "Inspired by public Anonymous network operator descriptions of Domestic Debit as domestic debit card acceptance and Shared Cash Network as an interbank ATM switching infrastructure."
+        "value": "Inspired by public CardNexus Switch descriptions of Domestic Debit as domestic debit card acceptance and Shared Cash Network as an interbank ATM switching infrastructure."
       },
       {
         "name": "aether.no-secrets",

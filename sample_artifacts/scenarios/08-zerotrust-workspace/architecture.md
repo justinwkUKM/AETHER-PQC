@@ -1,4 +1,8 @@
-# SecureDesk Workspace Architecture & Network Flow Diagram
+# ShieldDesk Access Architecture And Security Specification
+
+Fictional product: **ShieldDesk Access**
+Deployment model: **cloud identity workspace**
+Scenario purpose: zero-trust enterprise remote workspace
 
 This document registers the network topology, trust boundaries, and transactional flow for **SecureDesk (Scenario 08)**.
 

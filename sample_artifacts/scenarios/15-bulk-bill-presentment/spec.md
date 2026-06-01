@@ -1,4 +1,8 @@
-# Anonymous network operator Biller Presentment Bill Presentment Specification
+# InvoiceNet Presentment Architecture And Security Specification
+
+Fictional product: **InvoiceNet Presentment**
+Deployment model: **hybrid bill presentment**
+Scenario purpose: bulk bill presentment and settlement scheduler
 
 ## 1. Executive Summary
 This document specifies the cryptographic design and systems topology of Biller Presentment, a regional bill payment scheme. Biller Presentment allows billers (such as telecom providers, municipal councils, electricity grids, and insurers) to present bulk electronic invoices that bank customers can pay via mobile and online banking platforms.

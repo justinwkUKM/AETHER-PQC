@@ -1,4 +1,8 @@
-# Autonomous Logistics Drone Fleet Control Specification: AeroControl
+# AeroMesh Command Architecture And Security Specification
+
+Fictional product: **AeroMesh Command**
+Deployment model: **hybrid fleet telemetry**
+Scenario purpose: autonomous fleet command and telemetry system
 
 ## 1. Executive Summary
 This specification documents the network architecture and cryptographic configurations of AeroControl, the central fleet command and control system managing our autonomous cargo drones. AeroControl exchanges highly sensitive real-time telemetry coordinates, control commands, and OTA firmware updates.

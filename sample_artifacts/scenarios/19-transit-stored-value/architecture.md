@@ -1,4 +1,8 @@
-# Stored Value Transit Contactless Transit Architecture & Flow Diagram
+# TransitVault Stored Value Architecture And Security Specification
+
+Fictional product: **TransitVault Stored Value**
+Deployment model: **hybrid transit payments**
+Scenario purpose: stored-value transit and mobility card platform
 
 This document registers the network topology, trust boundaries, and transactional flow for **Stored Value Transit & Stored Value Mobility Card (Scenario 19)**.
 

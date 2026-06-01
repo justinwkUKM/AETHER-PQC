@@ -1,6 +1,12 @@
-# Retail POS Network Point-of-Sale Card Processing Hub Specification
+# POSLink Acquire
 
 Suggested scanner project name: `pos_debit_acquisition`
+
+## Product Profile
+
+- Fictional product: **POSLink Acquire**
+- Deployment model: **hybrid acquiring network**
+- Scenario purpose: point-of-sale debit acquiring hub
 
 ## Purpose
 
@@ -30,4 +36,4 @@ The JSON inventory and Markdown documents should provide deterministic crypto fi
 
 ## Safety Note
 
-This scenario is anonymous and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.
+This scenario is fictional and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.

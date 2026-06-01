@@ -1,6 +1,12 @@
-# PQC-Ready AI Platform
+# NovaInference Grid
 
 Suggested scanner project name: `pqc_ready_ai_platform`
+
+## Product Profile
+
+- Fictional product: **NovaInference Grid**
+- Deployment model: **cloud-native AI platform**
+- Scenario purpose: mostly PQC-ready inference platform
 
 ## Purpose
 

@@ -1,4 +1,8 @@
-# Online Debit Gateway Online Payment Gateway Specification
+# DebitWeb Gateway Architecture And Security Specification
+
+Fictional product: **DebitWeb Gateway**
+Deployment model: **cloud ecommerce gateway**
+Scenario purpose: online debit payment collection gateway
 
 ## 1. Executive Summary
 This document specifies the cryptographic design and deployment topology of Online Debit Gateway, the primary online payment gateway in the region that enables e-commerce websites to collect direct-to-bank payments. Online Debit Gateway orchestrates real-time checkout redirect flows, transferring transaction parameters securely to participating local bank portals (such as participating banks).

@@ -1,6 +1,10 @@
-# Anonymous network operator Wholesale Settlement Rail RTGS Architecture & Network Flow Diagram
+# TitanRTGS Core Architecture And Security Specification
 
-This document registers the network topology, trust boundaries, and transactional flow for **Anonymous network operator Wholesale Settlement Rail (Scenario 11)**.
+Fictional product: **TitanRTGS Core**
+Deployment model: **on-prem settlement network**
+Scenario purpose: real-time gross settlement core
+
+This document registers the network topology, trust boundaries, and transactional flow for **TitanRTGS Core Wholesale Settlement Rail (Scenario 11)**.
 
 ---
 

@@ -5,11 +5,11 @@
   "metadata": {
     "component": {
       "type": "application",
-      "name": "acquisition_legacy_estate",
+      "name": "HarborView Legacy Estate",
       "version": "synthetic-2026.06"
     },
     "supplier": {
-      "name": "Anonymous Acquisition Program"
+      "name": "Fictional Test Organization"
     },
     "properties": [
       {

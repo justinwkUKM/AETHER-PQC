@@ -1,12 +1,18 @@
-# Direct Bank Gateway
+# BankBridge Direct
 
 Suggested scanner project name: `direct_bank_gateway`
+
+## Product Profile
+
+- Fictional product: **BankBridge Direct**
+- Deployment model: **hybrid bank redirect rail**
+- Scenario purpose: direct online banking payment gateway
 
 ## Purpose
 
 Synthetic real-time online banking payment gateway inspired by Direct Bank Gateway: merchant checkout, bank selection, bank redirect, authorisation, debit confirmation, and merchant receipt notification.
 
-Public research basis: Inspired by public Anonymous network operator descriptions of Direct Bank Gateway as a real-time online payment gateway used for e-commerce and bank-account payments.
+Public research basis: Inspired by public BankBridge Direct descriptions of Direct Bank Gateway as a real-time online payment gateway used for e-commerce and bank-account payments.
 
 Risk goal: Critical merchant checkout and bank redirect exposure with classical crypto in high-value flows.
 

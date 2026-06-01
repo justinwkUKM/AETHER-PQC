@@ -1,6 +1,10 @@
-Acquisition Legacy Estate Threat Model Notes
+HarborView Legacy Estate Threat Model Notes
 
-Synthetic organization: Anonymous Acquisition Program
+Fictional product: HarborView Legacy Estate
+Deployment model: acquired on-prem estate
+Scenario purpose: incomplete acquired infrastructure estate
+
+Synthetic organization: Fictional Acquisition Program
 Business owner: synthetic-product-owner@example.com
 Security owner: synthetic-security-architect@example.com
 Review date: 2026-06-01

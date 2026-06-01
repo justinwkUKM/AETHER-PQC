@@ -1,6 +1,10 @@
-PQC-Ready AI Platform Threat Model Notes
+NovaInference Grid Threat Model Notes
 
-Synthetic organization: Anonymous Research Cloud Operator
+Fictional product: NovaInference Grid
+Deployment model: cloud-native AI platform
+Scenario purpose: mostly PQC-ready inference platform
+
+Synthetic organization: Fictional Research Cloud Operator
 Business owner: synthetic-product-owner@example.com
 Security owner: synthetic-security-architect@example.com
 Review date: 2026-06-01

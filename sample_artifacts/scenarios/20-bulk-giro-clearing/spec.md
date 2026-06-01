@@ -1,4 +1,8 @@
-# Regional Automated Clearing House (Bulk Clearing House) GIRO Specification
+# GiroFlow Bulk Architecture And Security Specification
+
+Fictional product: **GiroFlow Bulk**
+Deployment model: **on-prem batch clearing**
+Scenario purpose: bulk giro and payroll clearing scheduler
 
 ## 1. Executive Summary
 This document specifies the cryptographic design and deployment parameters of the Regional Automated Clearing House (Bulk Clearing House) bulk Interbank GIRO (GIRO) payment clearing scheduler, operated by Clearing Services Operator. Bulk Clearing House handles bulk commercial transactions, corporate payroll batches, and municipal bill payments in SGD.

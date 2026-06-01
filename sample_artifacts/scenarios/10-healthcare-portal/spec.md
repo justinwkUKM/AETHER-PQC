@@ -1,4 +1,8 @@
-# Multi-Tenant Healthcare Data Exchange Specification: HealthSync MD
+# CareLink Exchange Architecture And Security Specification
+
+Fictional product: **CareLink Exchange**
+Deployment model: **hybrid healthcare portal**
+Scenario purpose: patient record and provider exchange portal
 
 ## 1. Executive Summary
 This document registers the cryptographic inventory and post-quantum vulnerability status of HealthSync MD, our multi-tenant Electronic Health Record (EHR) and patient record exchange portal. HealthSync MD is responsible for orchestrating HL7/FHIR compliant transactions among clinical labs, hospitals, and medical insurers.

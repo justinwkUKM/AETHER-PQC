@@ -1,12 +1,16 @@
-Card and Cash Switch Threat Model Notes
+CardNexus Switch Threat Model Notes
 
-Synthetic organization: Anonymous Anonymous network operator Card and ATM Rail Lab
+Fictional product: CardNexus Switch
+Deployment model: hybrid card and ATM rail
+Scenario purpose: domestic debit and shared cash switching platform
+
+Synthetic organization: Fictional CardNexus Switch Card and ATM Rail Lab
 Business owner: synthetic-payments-product-owner@example.com
 Security owner: synthetic-crypto-architect@example.com
 Review date: 2026-06-01
 
 Public research basis:
-Inspired by public Anonymous network operator descriptions of Domestic Debit as domestic debit card acceptance and Shared Cash Network as an interbank ATM switching infrastructure.
+Inspired by public CardNexus Switch descriptions of Domestic Debit as domestic debit card acceptance and Shared Cash Network as an interbank ATM switching infrastructure.
 
 Business impact:
 Synthetic domestic debit and shared ATM switching platform inspired by Domestic Debit and Shared Cash Network: POS acquiring, ATM withdrawals, issuer routing, token validation, and cash-out controls.

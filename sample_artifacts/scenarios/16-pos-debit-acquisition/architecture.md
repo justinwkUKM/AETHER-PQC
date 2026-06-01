@@ -1,4 +1,8 @@
-# Retail POS Network Retail Card Architecture & Network Flow Diagram
+# POSLink Acquire Architecture And Security Specification
+
+Fictional product: **POSLink Acquire**
+Deployment model: **hybrid acquiring network**
+Scenario purpose: point-of-sale debit acquiring hub
 
 This document registers the network topology, trust boundaries, and transactional flow for **Retail POS Network (Scenario 16)**.
 

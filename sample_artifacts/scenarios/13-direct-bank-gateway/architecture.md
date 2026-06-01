@@ -1,6 +1,10 @@
-# Anonymous network operator Direct Bank Gateway E-Commerce Architecture & Flow Diagram
+# CheckoutBridge Direct Architecture And Security Specification
 
-This document registers the network topology, trust boundaries, and transactional flow for **Anonymous network operator Direct Bank Gateway (Scenario 13)**.
+Fictional product: **CheckoutBridge Direct**
+Deployment model: **hybrid ecommerce gateway**
+Scenario purpose: merchant checkout and direct-bank gateway
+
+This document registers the network topology, trust boundaries, and transactional flow for **CheckoutBridge Direct Direct Bank Gateway (Scenario 13)**.
 
 ---
 

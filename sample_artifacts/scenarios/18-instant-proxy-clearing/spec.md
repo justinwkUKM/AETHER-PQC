@@ -1,4 +1,8 @@
-# Instant clearing rail Clearing & Proxy Resolver Core Clearing Specification
+# ProxyPulse Clearing Architecture And Security Specification
+
+Fictional product: **ProxyPulse Clearing**
+Deployment model: **cloud instant clearing**
+Scenario purpose: instant payment and proxy lookup clearing core
 
 ## 1. Executive Summary
 This document registers the cryptographic properties and operational layout of the Instant Clearing (Fast and Secure Transfers) and Proxy Resolver core clearing engine, operated by Clearing Services Operator in the region. Instant Clearing enables 24/7 high-speed interbank retail payments, while Proxy Resolver acts as a regional proxy lookup layer, mapping mobile numbers, customer proxy IDs, and business entities (business proxy ID) to bank account numbers.

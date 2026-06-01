@@ -1,10 +1,16 @@
-# Anonymous network operator Direct Bank Gateway E-Commerce Gateway Specification
+# CheckoutBridge Direct
 
 Suggested scanner project name: `direct_bank_gateway`
 
+## Product Profile
+
+- Fictional product: **CheckoutBridge Direct**
+- Deployment model: **hybrid ecommerce gateway**
+- Scenario purpose: merchant checkout and direct-bank gateway
+
 ## Purpose
 
-This document registers the cryptographic controls and security design of Direct Bank Gateway (Financial Process Exchange), Anonymous network operator's widely integrated direct-to-bank online payment gateway. Direct Bank Gateway redirects consumers from merchant e-commerce websites directly to their online banking portal to complete payments via real-time bank account debiting.
+This document registers the cryptographic controls and security design of Direct Bank Gateway (Financial Process Exchange), CheckoutBridge Direct's widely integrated direct-to-bank online payment gateway. Direct Bank Gateway redirects consumers from merchant e-commerce websites directly to their online banking portal to complete payments via real-time bank account debiting.
 
 ## Upload Set
 
@@ -30,4 +36,4 @@ The JSON inventory and Markdown documents should provide deterministic crypto fi
 
 ## Safety Note
 
-This scenario is anonymous and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.
+This scenario is fictional and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.

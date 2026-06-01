@@ -1,6 +1,12 @@
-# Online Debit Gateway Online Payment Gateway Specification
+# DebitWeb Gateway
 
 Suggested scanner project name: `online_debit_gateway`
+
+## Product Profile
+
+- Fictional product: **DebitWeb Gateway**
+- Deployment model: **cloud ecommerce gateway**
+- Scenario purpose: online debit payment collection gateway
 
 ## Purpose
 
@@ -30,4 +36,4 @@ The JSON inventory and Markdown documents should provide deterministic crypto fi
 
 ## Safety Note
 
-This scenario is anonymous and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.
+This scenario is fictional and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.

@@ -1,4 +1,8 @@
-# ApexTransact Core Architecture & Network Flow Diagram
+# ClearWave Settlement Architecture And Security Specification
+
+Fictional product: **ClearWave Settlement**
+Deployment model: **hybrid clearing platform**
+Scenario purpose: financial clearing and settlement reporting platform
 
 This document registers the network topology, trust boundaries, and transactional flow for **ApexTransact (Scenario 06)**.
 

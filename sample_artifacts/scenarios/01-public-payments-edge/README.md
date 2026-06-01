@@ -1,6 +1,12 @@
-# Public Payments Edge
+# VeloraPay Edge
 
 Suggested scanner project name: `public_payments_edge`
+
+## Product Profile
+
+- Fictional product: **VeloraPay Edge**
+- Deployment model: **hybrid cloud edge**
+- Scenario purpose: internet-facing checkout and card payment edge
 
 ## Purpose
 

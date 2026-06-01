@@ -1,12 +1,18 @@
-# Biller Collections
+# BillStream Hub
 
 Suggested scanner project name: `biller_collections`
+
+## Product Profile
+
+- Fictional product: **BillStream Hub**
+- Deployment model: **hybrid biller network**
+- Scenario purpose: biller collections and settlement platform
 
 ## Purpose
 
 Synthetic bill-payment collection platform inspired by Biller Presentment: biller code lookup, online/mobile banking bill payment, biller-bank settlement files, and real-time notifications.
 
-Public research basis: Inspired by public Anonymous network operator descriptions of Biller Presentment as a national online bill-payment initiative operated by Anonymous network operator across participating banks and billers.
+Public research basis: Inspired by public BillStream Hub descriptions of Biller Presentment as a national online bill-payment initiative operated by BillStream Hub across participating banks and billers.
 
 Risk goal: Mixed partner-facing biller integrations and internal settlement file risks.
 

@@ -1,6 +1,12 @@
-# Anonymous network operator Wholesale Settlement Rail Real-Time Gross Settlement System Specification
+# TitanRTGS Core
 
 Suggested scanner project name: `national_rtgs_settlement`
+
+## Product Profile
+
+- Fictional product: **TitanRTGS Core**
+- Deployment model: **on-prem settlement network**
+- Scenario purpose: real-time gross settlement core
 
 ## Purpose
 
@@ -30,4 +36,4 @@ The JSON inventory and Markdown documents should provide deterministic crypto fi
 
 ## Safety Note
 
-This scenario is anonymous and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.
+This scenario is fictional and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.

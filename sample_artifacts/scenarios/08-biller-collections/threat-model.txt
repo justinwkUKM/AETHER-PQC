@@ -1,12 +1,16 @@
-Biller Payment Biller Collections Threat Model Notes
+BillStream Hub Threat Model Notes
 
-Synthetic organization: Anonymous Anonymous network operator Biller Rail Lab
+Fictional product: BillStream Hub
+Deployment model: hybrid biller network
+Scenario purpose: biller collections and settlement platform
+
+Synthetic organization: Fictional BillStream Hub Biller Rail Lab
 Business owner: synthetic-payments-product-owner@example.com
 Security owner: synthetic-crypto-architect@example.com
 Review date: 2026-06-01
 
 Public research basis:
-Inspired by public Anonymous network operator descriptions of Biller Payment as a national online bill-payment initiative operated by Anonymous network operator across participating banks and billers.
+Inspired by public BillStream Hub descriptions of Biller Payment as a national online bill-payment initiative operated by BillStream Hub across participating banks and billers.
 
 Business impact:
 Synthetic bill-payment collection platform inspired by Biller Payment: biller code lookup, online/mobile banking bill payment, biller-bank settlement files, and real-time notifications.

@@ -1,6 +1,12 @@
-# Regional Automated Clearing House (Bulk Clearing House) GIRO Specification
+# GiroFlow Bulk
 
 Suggested scanner project name: `bulk_giro_clearing`
+
+## Product Profile
+
+- Fictional product: **GiroFlow Bulk**
+- Deployment model: **on-prem batch clearing**
+- Scenario purpose: bulk giro and payroll clearing scheduler
 
 ## Purpose
 
@@ -30,4 +36,4 @@ The JSON inventory and Markdown documents should provide deterministic crypto fi
 
 ## Safety Note
 
-This scenario is anonymous and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.
+This scenario is fictional and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.

@@ -1,6 +1,10 @@
-# Wholesale Settlement Rail Architecture Narrative
+# OrionSettle Core Architecture And Security Specification
 
-Organization: Anonymous Central Settlement Participant Lab
+Fictional product: **OrionSettle Core**
+Deployment model: **on-prem high-value settlement**
+Scenario purpose: wholesale settlement participant gateway
+
+Organization: Fictional Central Settlement Participant Lab
 Assessment type: synthetic payment-network-inspired PQC readiness scan
 Data classification: synthetic test evidence only
 
@@ -8,7 +12,7 @@ Data classification: synthetic test evidence only
 
 Inspired by public central-bank operational material describing Wholesale Settlement Rail as a multi-currency real-time gross settlement system for interbank funds transfer and securities settlement.
 
-This artifact does not describe Anonymous network operator internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
+This artifact does not describe OrionSettle Core internal architecture. It is a fictional production-grade scenario based on publicly described payment product categories and RTGS concepts.
 
 ## System Summary
 

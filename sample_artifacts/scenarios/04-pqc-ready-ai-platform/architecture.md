@@ -1,6 +1,10 @@
-# PQC-Ready AI Platform Architecture Narrative
+# NovaInference Grid Architecture And Security Specification
 
-Organization: Anonymous Research Cloud Operator
+Fictional product: **NovaInference Grid**
+Deployment model: **cloud-native AI platform**
+Scenario purpose: mostly PQC-ready inference platform
+
+Organization: Fictional Research Cloud Operator
 Assessment type: synthetic enterprise PQC readiness scan
 Data classification: synthetic test evidence only
 

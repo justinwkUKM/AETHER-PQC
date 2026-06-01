@@ -1,6 +1,12 @@
-# Anonymous network operator Biller Presentment Bill Presentment Specification
+# InvoiceNet Presentment
 
 Suggested scanner project name: `bulk_bill_presentment`
+
+## Product Profile
+
+- Fictional product: **InvoiceNet Presentment**
+- Deployment model: **hybrid bill presentment**
+- Scenario purpose: bulk bill presentment and settlement scheduler
 
 ## Purpose
 
@@ -30,4 +36,4 @@ The JSON inventory and Markdown documents should provide deterministic crypto fi
 
 ## Safety Note
 
-This scenario is anonymous and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.
+This scenario is fictional and synthetic. It contains no organization branding, real product names, production endpoints, account data, credentials, or private keys.

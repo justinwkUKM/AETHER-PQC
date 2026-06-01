@@ -1,6 +1,12 @@
-# Acquisition Legacy Estate
+# HarborView Legacy Estate
 
 Suggested scanner project name: `acquisition_legacy_estate`
+
+## Product Profile
+
+- Fictional product: **HarborView Legacy Estate**
+- Deployment model: **acquired on-prem estate**
+- Scenario purpose: incomplete acquired infrastructure estate
 
 ## Purpose
 

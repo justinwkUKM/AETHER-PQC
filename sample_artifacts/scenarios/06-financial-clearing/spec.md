@@ -1,4 +1,8 @@
-# High-Throughput Financial Clearinghouse Specification: ApexTransact
+# ClearWave Settlement Architecture And Security Specification
+
+Fictional product: **ClearWave Settlement**
+Deployment model: **hybrid clearing platform**
+Scenario purpose: financial clearing and settlement reporting platform
 
 ## 1. Executive Summary
 This document specifies the cryptographic architecture of ApexTransact, our core high-throughput transaction clearing and settlement engine. ApexTransact coordinates ledger balances, clearing house settlements, and bank-to-bank wire receipts. 

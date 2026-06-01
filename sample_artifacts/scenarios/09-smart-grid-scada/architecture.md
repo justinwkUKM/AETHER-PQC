@@ -1,4 +1,8 @@
-# GridPower SCADA Architecture & Network Flow Diagram
+# GridPulse SCADA Architecture And Security Specification
+
+Fictional product: **GridPulse SCADA**
+Deployment model: **on-prem OT network**
+Scenario purpose: smart grid control and telemetry system
 
 This document registers the network topology, trust boundaries, and transactional flow for **GridPower (Scenario 09)**.
 
