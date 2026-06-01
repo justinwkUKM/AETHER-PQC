@@ -1,0 +1,31 @@
+Public Payments Edge Threat Model Notes
+
+Synthetic organization: HelioPay Retail Group
+Business owner: synthetic-product-owner@example.com
+Security owner: synthetic-security-architect@example.com
+Review date: 2026-06-01
+
+Business impact:
+Internet-facing checkout and card-payment API that terminates public traffic at a load
+balancer and routes into payment authorization services.
+
+Risk objective:
+Critical exposed findings near public ingress.
+
+Endpoint and control observations:
+- checkout.heliopay.example.com in internet edge reachability=public protocol=TLS 1.0 crypto=RSA key exchange, RC4 compatibility profile notes=critical legacy fallback for older mobile clients
+- api.payments.heliopay.example.com in internet edge reachability=public protocol=TLS 1.2 crypto=TLS_RSA_WITH_AES_256_CBC_SHA notes=public payment authorization API
+- ledger-adapter.private.heliopay.example.com in internal reachability=private protocol=TLS 1.2 crypto=ECDH P-256 service handshake notes=east-west payment ledger link
+- vault.private.heliopay.example.com in internal reachability=private protocol=TLS 1.3 crypto=AES-256 storage control notes=private data asset
+
+Expected analyst interpretation:
+High exposure, CRITICAL remediation for TLS 1.0, TLS 1.2 RSA key exchange, RSA-2048 JWT
+validation, and ECDH service-to-service handshakes.
+
+Owner questions for remediation planning:
+- Which team owns certificate and TLS policy changes for the named gateway or service?
+- Are the listed protocols active runtime controls or historical compatibility references?
+- Is the endpoint public, partner-facing, private, batch-only, or offline according to current firewall policy?
+- What validation evidence should be uploaded after remediation?
+
+No secret values are present. Any names, domains, owners, and addresses are synthetic placeholders for scanner testing.

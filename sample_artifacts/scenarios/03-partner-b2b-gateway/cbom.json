@@ -1,0 +1,126 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:synthetic-03-partner-b2b-gateway",
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "partner_b2b_gateway",
+      "version": "synthetic-2026.06"
+    },
+    "supplier": {
+      "name": "Meridian Logistics Exchange"
+    },
+    "properties": [
+      {
+        "name": "aether.synthetic",
+        "value": "true"
+      },
+      {
+        "name": "aether.scenario",
+        "value": "Partner B2B Gateway"
+      },
+      {
+        "name": "aether.no-secrets",
+        "value": "All content is fictional and safe for test scans."
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "application",
+      "name": "b2b-api-gateway",
+      "version": "6.6.0",
+      "cryptoProperties": {
+        "algorithm": "TLS 1.2 static DH and ECDSA-P256",
+        "purpose": "Partner API ingress with mTLS"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "vendor-certificate-validator",
+      "version": "2.5.3",
+      "cryptoProperties": {
+        "algorithm": "ECDSA",
+        "purpose": "Validates partner client certificates"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "sftp-bridge",
+      "version": "8.1.4",
+      "cryptoProperties": {
+        "algorithm": "RSA-2048",
+        "purpose": "Partner SFTP manifest upload"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "worker",
+      "name": "manifest-processor",
+      "version": "5.9.0",
+      "cryptoProperties": {
+        "algorithm": "SHA-256",
+        "purpose": "Shipping manifest integrity checks"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "worker",
+      "name": "data-lake-loader",
+      "version": "3.3.2",
+      "cryptoProperties": {
+        "algorithm": "AES-256",
+        "purpose": "Encrypted logistics archive load"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    }
+  ]
+}

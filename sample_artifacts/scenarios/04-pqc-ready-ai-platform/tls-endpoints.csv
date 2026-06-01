@@ -1,0 +1,5 @@
+endpoint,reachability,zone,port,protocol,cipher_or_crypto,component,notes
+ai.quanta.example.com,authenticated,controlled edge,443,TLS 1.3,"ML-KEM hybrid exchange, ML-DSA identity",inference-gateway,authenticated research access
+router.private.quanta.example.com,private,internal,8443,TLS 1.3,ML-DSA service certificate,service-identity-plane,internal service mesh
+registry.private.quanta.example.com,private,internal,443,TLS 1.3,AES-256 model storage,model-registry,private model registry
+legacy-note.archive.quanta.example.com,private,offline,0,archived document,RSA historical reference only,historical-rsa-migration-note,not current endpoint

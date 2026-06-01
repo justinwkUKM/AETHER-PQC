@@ -1,0 +1,5 @@
+endpoint,reachability,zone,port,protocol,cipher_or_crypto,component,notes
+claims-batch.private.northstar.example.com,private,internal,9443,TLS 1.2,RSA-3072 service certificate,claims-batch-scheduler,private subnet only
+archive.private.northstar.example.com,private,offline,2049,NFS private,3DES archive process,legacy-archive-encryptor,offline batch archive
+recon.private.northstar.example.com,private,internal,8080,HTTP private,SHA-1 report checksum,reconciliation-checksum,internal reconciliation worker
+claims-db.private.northstar.example.com,private,internal,5432,TLS 1.3,AES-256 database encryption,claims-data-store,private database

@@ -1,0 +1,31 @@
+Acquisition Legacy Estate Threat Model Notes
+
+Synthetic organization: Aster Retail Acquisition Office
+Business owner: synthetic-product-owner@example.com
+Security owner: synthetic-security-architect@example.com
+Review date: 2026-06-01
+
+Business impact:
+Incomplete newly acquired estate with conflicting proxy and VPN naming, scanned architecture
+notes, and unknown ownership.
+
+Risk objective:
+Ambiguous AI-heavy extraction and conflicting evidence.
+
+Endpoint and control observations:
+- vpn.aster-acquired.example.com in internet edge reachability=public protocol=SSL crypto=RC4 compatibility enabled notes=owner unknown
+- gw01.acquired.example.com in dmz reachability=public protocol=TLS 1.1 crypto=RSA-1024 appliance certificate notes=may be same as old-proxy
+- inventory.acquired.example.com in internal reachability=private protocol=TLS 1.1 crypto=RSA certificate chain notes=ownership unknown
+- fileshare.acquired.example.com in internal reachability=private protocol=SMB private crypto=3DES encrypted archive notes=legacy file drop
+
+Expected analyst interpretation:
+Critical review-needed findings. Gemini/batch analysis should connect old proxy, internet
+VPN, SSL, RC4, RSA-1024, and owner-unknown nodes with confidence below perfect certainty.
+
+Owner questions for remediation planning:
+- Which team owns certificate and TLS policy changes for the named gateway or service?
+- Are the listed protocols active runtime controls or historical compatibility references?
+- Is the endpoint public, partner-facing, private, batch-only, or offline according to current firewall policy?
+- What validation evidence should be uploaded after remediation?
+
+No secret values are present. Any names, domains, owners, and addresses are synthetic placeholders for scanner testing.

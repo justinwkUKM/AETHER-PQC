@@ -1,0 +1,126 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:synthetic-01-public-payments-edge",
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "public_payments_edge",
+      "version": "synthetic-2026.06"
+    },
+    "supplier": {
+      "name": "HelioPay Retail Group"
+    },
+    "properties": [
+      {
+        "name": "aether.synthetic",
+        "value": "true"
+      },
+      {
+        "name": "aether.scenario",
+        "value": "Public Payments Edge"
+      },
+      {
+        "name": "aether.no-secrets",
+        "value": "All content is fictional and safe for test scans."
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "service",
+      "name": "checkout-edge-lb",
+      "version": "2026.05",
+      "cryptoProperties": {
+        "algorithm": "TLS 1.0 fallback and TLS 1.2 RSA key exchange",
+        "purpose": "Public HTTPS listener on 203.0.113.20:443"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "payment-api-gateway",
+      "version": "7.4.2",
+      "cryptoProperties": {
+        "algorithm": "ECDH and RSA-2048",
+        "purpose": "JWT validation and request routing from internet ingress"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ledger-adapter",
+      "version": "3.8.1",
+      "cryptoProperties": {
+        "algorithm": "ECDH P-256",
+        "purpose": "Connection setup to settlement ledger"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "database",
+      "name": "card-token-vault",
+      "version": "14.9",
+      "cryptoProperties": {
+        "algorithm": "AES-256",
+        "purpose": "Tokenized card data encryption at rest"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "worker",
+      "name": "receipt-hash-worker",
+      "version": "2.1.0",
+      "cryptoProperties": {
+        "algorithm": "SHA-384",
+        "purpose": "Receipt integrity hashing"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    }
+  ]
+}

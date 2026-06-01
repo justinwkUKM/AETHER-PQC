@@ -1,0 +1,31 @@
+Partner B2B Gateway Threat Model Notes
+
+Synthetic organization: Meridian Logistics Exchange
+Business owner: synthetic-product-owner@example.com
+Security owner: synthetic-security-architect@example.com
+Review date: 2026-06-01
+
+Business impact:
+Partner-facing vendor file-exchange gateway that accepts shipping manifests through API and
+SFTP paths.
+
+Risk objective:
+Partner exposure and weak TLS 1.2 nuance.
+
+Endpoint and control observations:
+- b2b-api.meridian.example.com in partner edge reachability=partner protocol=TLS 1.2 crypto=ECDSA-P256 client auth, static DH fallback notes=partner allowlist only
+- sftp.meridian.example.com in partner edge reachability=partner protocol=SSHv2 crypto=RSA-2048 host key notes=vendor file upload path
+- processor.private.meridian.example.com in internal reachability=private protocol=TLS 1.3 crypto=SHA-256 manifest validation notes=private worker
+- lake.private.meridian.example.com in internal reachability=private protocol=TLS 1.3 crypto=AES-256 storage encryption notes=private archive
+
+Expected analyst interpretation:
+HIGH remediation for partner-facing ECDSA, static DH, weak TLS 1.2, and SFTP RSA key
+exchange, with exposure level PARTNER rather than fully public.
+
+Owner questions for remediation planning:
+- Which team owns certificate and TLS policy changes for the named gateway or service?
+- Are the listed protocols active runtime controls or historical compatibility references?
+- Is the endpoint public, partner-facing, private, batch-only, or offline according to current firewall policy?
+- What validation evidence should be uploaded after remediation?
+
+No secret values are present. Any names, domains, owners, and addresses are synthetic placeholders for scanner testing.

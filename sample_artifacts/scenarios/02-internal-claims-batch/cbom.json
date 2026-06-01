@@ -1,0 +1,126 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:synthetic-02-internal-claims-batch",
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "internal_claims_batch",
+      "version": "synthetic-2026.06"
+    },
+    "supplier": {
+      "name": "Northstar Mutual Insurance"
+    },
+    "properties": [
+      {
+        "name": "aether.synthetic",
+        "value": "true"
+      },
+      {
+        "name": "aether.scenario",
+        "value": "Internal Claims Batch"
+      },
+      {
+        "name": "aether.no-secrets",
+        "value": "All content is fictional and safe for test scans."
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "application",
+      "name": "claims-batch-scheduler",
+      "version": "11.2.0",
+      "cryptoProperties": {
+        "algorithm": "RSA-3072",
+        "purpose": "Signs nightly claim manifest files"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "legacy-archive-encryptor",
+      "version": "4.0.8",
+      "cryptoProperties": {
+        "algorithm": "3DES",
+        "purpose": "Encrypts historical claim bundles before offline export"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "reconciliation-checksum",
+      "version": "1.7.5",
+      "cryptoProperties": {
+        "algorithm": "SHA-1",
+        "purpose": "Legacy checksum for nightly reconciliation reports"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "database",
+      "name": "claims-data-store",
+      "version": "15.4",
+      "cryptoProperties": {
+        "algorithm": "AES-256",
+        "purpose": "Private claims data at rest"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "future-signing-pilot",
+      "version": "0.9.0",
+      "cryptoProperties": {
+        "algorithm": "ML-DSA",
+        "purpose": "Pilot signature workflow for future claim manifests"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    }
+  ]
+}

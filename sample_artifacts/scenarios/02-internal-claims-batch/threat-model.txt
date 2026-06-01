@@ -1,0 +1,31 @@
+Internal Claims Batch Threat Model Notes
+
+Synthetic organization: Northstar Mutual Insurance
+Business owner: synthetic-product-owner@example.com
+Security owner: synthetic-security-architect@example.com
+Review date: 2026-06-01
+
+Business impact:
+Private claims adjudication batch estate processing nightly policy and claims files inside
+isolated back-office networks.
+
+Risk objective:
+Vulnerable but buried/internal findings with lower exposure.
+
+Endpoint and control observations:
+- claims-batch.private.northstar.example.com in internal reachability=private protocol=TLS 1.2 crypto=RSA-3072 service certificate notes=private subnet only
+- archive.private.northstar.example.com in offline reachability=private protocol=NFS private crypto=3DES archive process notes=offline batch archive
+- recon.private.northstar.example.com in internal reachability=private protocol=HTTP private crypto=SHA-1 report checksum notes=internal reconciliation worker
+- claims-db.private.northstar.example.com in internal reachability=private protocol=TLS 1.3 crypto=AES-256 database encryption notes=private database
+
+Expected analyst interpretation:
+Medium or high remediation driven by RSA-3072, 3DES, and SHA-1, but not internet-edge
+critical because artifacts repeatedly state private, internal, offline, and batch.
+
+Owner questions for remediation planning:
+- Which team owns certificate and TLS policy changes for the named gateway or service?
+- Are the listed protocols active runtime controls or historical compatibility references?
+- Is the endpoint public, partner-facing, private, batch-only, or offline according to current firewall policy?
+- What validation evidence should be uploaded after remediation?
+
+No secret values are present. Any names, domains, owners, and addresses are synthetic placeholders for scanner testing.

@@ -1,0 +1,126 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:synthetic-05-acquisition-legacy-estate",
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "acquisition_legacy_estate",
+      "version": "synthetic-2026.06"
+    },
+    "supplier": {
+      "name": "Aster Retail Acquisition Office"
+    },
+    "properties": [
+      {
+        "name": "aether.synthetic",
+        "value": "true"
+      },
+      {
+        "name": "aether.scenario",
+        "value": "Acquisition Legacy Estate"
+      },
+      {
+        "name": "aether.no-secrets",
+        "value": "All content is fictional and safe for test scans."
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "application",
+      "name": "legacy-vpn-appliance",
+      "version": "unknown",
+      "cryptoProperties": {
+        "algorithm": "SSL with RC4",
+        "purpose": "Internet-facing remote access VPN from acquired company"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "old-proxy-or-gw01",
+      "version": "unknown",
+      "cryptoProperties": {
+        "algorithm": "RSA-1024",
+        "purpose": "Possibly same as Gateway-01 in scanned diagram"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "server",
+      "name": "inventory-server",
+      "version": "2008R2",
+      "cryptoProperties": {
+        "algorithm": "TLS 1.1",
+        "purpose": "Acquired inventory management system"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "data",
+      "name": "file-drop-share",
+      "version": "unknown",
+      "cryptoProperties": {
+        "algorithm": "3DES",
+        "purpose": "Legacy encrypted file drop"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    },
+    {
+      "type": "document",
+      "name": "future-transition-plan",
+      "version": "draft",
+      "cryptoProperties": {
+        "algorithm": "ML-KEM",
+        "purpose": "Planned migration target not yet implemented"
+      },
+      "properties": [
+        {
+          "name": "owner",
+          "value": "synthetic-owner@example.com"
+        },
+        {
+          "name": "environment",
+          "value": "test-fixture"
+        }
+      ]
+    }
+  ]
+}

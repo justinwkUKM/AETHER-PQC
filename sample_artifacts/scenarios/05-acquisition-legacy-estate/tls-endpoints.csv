@@ -1,0 +1,5 @@
+endpoint,reachability,zone,port,protocol,cipher_or_crypto,component,notes
+vpn.aster-acquired.example.com,public,internet edge,443,SSL,RC4 compatibility enabled,legacy-vpn-appliance,owner unknown
+gw01.acquired.example.com,public,dmz,8443,TLS 1.1,RSA-1024 appliance certificate,old-proxy-or-gw01,may be same as old-proxy
+inventory.acquired.example.com,private,internal,443,TLS 1.1,RSA certificate chain,inventory-server,ownership unknown
+fileshare.acquired.example.com,private,internal,445,SMB private,3DES encrypted archive,file-drop-share,legacy file drop
